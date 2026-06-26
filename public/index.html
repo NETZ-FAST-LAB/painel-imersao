@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NETZ Labz — Mintzie (protótipo)</title>
+    <style>
+      :root { color-scheme: dark; }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0; min-height: 100vh;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        color: #e8f0f7;
+        background:
+          radial-gradient(circle at 50% 8%, rgba(150, 230, 90, 0.12), transparent 42%),
+          linear-gradient(180deg, #071018, #091723 60%, #060d15);
+      }
+      main { width: min(880px, 100%); margin: 0 auto; padding: 80px 24px; }
+      .tag { display:inline-block; font-size:12px; letter-spacing:.12em; text-transform:uppercase;
+        color:#9be65a; border:1px solid rgba(150,230,90,.3); padding:5px 12px; border-radius:999px; }
+      h1 { font-size: clamp(34px, 6vw, 56px); margin: 18px 0 12px; line-height: 1.05; }
+      h1 span { color:#9be65a; }
+      p.lead { font-size: 18px; color:#9eb2c5; max-width: 60ch; line-height:1.6; }
+      .hint { margin-top:48px; padding:18px 20px; border-radius:16px; background:rgba(255,255,255,.04);
+        border:1px solid rgba(255,255,255,.07); color:#b8c7d6; line-height:1.6; max-width:62ch; }
+      code { background:rgba(150,230,90,.12); color:#dff3c8; padding:2px 6px; border-radius:6px; font-size:13px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <span class="tag">NETZ Labz · protótipo</span>
+      <h1>O laboratório agora tem um <span>guardião</span>.</h1>
+      <p class="lead">
+        Esta é uma página de teste para o Mintzie no site. Ele te recebe no canto da tela,
+        conversa de verdade e usa os vídeos pré-definidos para reagir enquanto pensa e responde.
+      </p>
+      <div class="hint">
+        Clique no Mintzie (canto inferior direito) e mande uma mensagem.<br />
+        Estados de vídeo: <code>idle</code> quando parado, <code>thinking</code> enquanto pensa,
+        <code>talking</code> enquanto responde.
+      </div>
+    </main>
+
+    <!-- Widget do Mintzie -->
+    <script>
+      window.MINTZIE_CONFIG = {
+        apiUrl: "/api/chat",
+        startOpen: true,
+      };
+    </script>
+    <script src="mintzie-widget.js"></script>
+  </body>
+</html>

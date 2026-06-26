@@ -1,0 +1,13 @@
+{
+  "name": "mintzie-site-assistant",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Assistente felino da NETZ para o site — vídeos pré-definidos + chat (protótipo).",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
