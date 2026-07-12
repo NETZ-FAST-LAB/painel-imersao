@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mintzie · Laboratório de Sons</title>
+    <style>
+      :root{color-scheme:dark;--bg:#070f17;--card:#0c1722;--line:rgba(255,255,255,.08);--ink:#e8f0f7;--mut:#8ea2b8;--green:#9be65a;}
+      *{box-sizing:border-box;}
+      body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);
+        background:radial-gradient(circle at 50% -8%,rgba(150,230,90,.1),transparent 45%),linear-gradient(180deg,#070f17,#0a131c);min-height:100vh;}
+      .wrap{max-width:760px;margin:0 auto;padding:28px 20px 80px;}
+      .tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);border:1px solid rgba(150,230,90,.3);padding:4px 10px;border-radius:999px;}
+      h1{font-size:28px;margin:12px 0 6px;} p.lead{color:var(--mut);margin:0 0 8px;line-height:1.6;}
+      .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin-top:16px;}
+      .card h2{margin:0 0 4px;font-size:17px;} .card .sub{color:var(--mut);font-size:12.5px;margin:0 0 14px;}
+      .row{display:flex;align-items:center;gap:12px;margin:10px 0;}
+      .row label{width:130px;font-size:13px;color:#cdd;}
+      .row input[type=range]{flex:1;accent-color:var(--green);}
+      .row output{width:64px;text-align:right;color:var(--green);font-variant-numeric:tabular-nums;font-size:13px;}
+      .btn{border:none;border-radius:11px;cursor:pointer;font-size:14px;font-weight:700;padding:10px 16px;background:var(--green);color:#0a1a06;}
+      .btn.ghost{background:rgba(255,255,255,.07);color:#e8f0f7;}
+      .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;}
+      .master{position:sticky;top:0;background:rgba(7,15,23,.9);backdrop-filter:blur(8px);padding:12px 0;z-index:2;border-bottom:1px solid var(--line);}
+      pre{background:#0a131c;border:1px solid var(--line);border-radius:10px;padding:12px;font-size:12px;color:#bff39a;overflow:auto;}
+      .hint{color:var(--mut);font-size:12px;margin-top:6px;}
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <span class="tag">Netz Labz · sons</span>
+      <h1>Laboratório de Sons do Mintzie</h1>
+      <p class="lead">Todos os sons são sintetizados no navegador (Web Audio), sem arquivos. Ajuste, ouça, e me diga os valores que você curtir — eu aplico no widget. Clique em qualquer botão uma vez para o navegador liberar o áudio.</p>
+
+      <div class="master card">
+        <div class="row"><label>Volume mestre</label><input id="master" type="range" min="0" max="1" step="0.01" value="0.5"/><output id="masterO">0.50</output></div>
+      </div>
+
+      <div class="card">
+        <h2>🐈 Ronronado (loop)</h2>
+        <p class="sub">Ruído grave modulado — o "rolo" do ronronar.</p>
+        <div class="row"><label>Rolo (Hz)</label><input id="purrRate" type="range" min="12" max="40" step="1" value="26"/><output id="purrRateO">26</output></div>
+        <div class="row"><label>Volume</label><input id="purrVol" type="range" min="0" max="0.15" step="0.005" value="0.05"/><output id="purrVolO">0.050</output></div>
+        <div class="row"><label>Grave (Hz)</label><input id="purrLp" type="range" min="80" max="400" step="10" value="190"/><output id="purrLpO">190</output></div>
+        <div class="btns"><button class="btn" id="purrToggle">▶ Tocar ronronado</button></div>
+      </div>
+
+      <div class="card">
+        <h2>🔊 Miado (atenção)</h2>
+        <p class="sub">Usado ao abrir o chat.</p>
+        <div class="row"><label>Pitch início</label><input id="mStart" type="range" min="150" max="600" step="10" value="300"/><output id="mStartO">300</output></div>
+        <div class="row"><label>Pitch pico</label><input id="mPeak" type="range" min="300" max="900" step="10" value="560"/><output id="mPeakO">560</output></div>
+        <div class="row"><label>Pitch fim</label><input id="mEnd" type="range" min="200" max="700" step="10" value="360"/><output id="mEndO">360</output></div>
+        <div class="row"><label>Duração (s)</label><input id="mDur" type="range" min="0.2" max="0.9" step="0.02" value="0.5"/><output id="mDurO">0.50</output></div>
+        <div class="row"><label>Formante (Hz)</label><input id="mBp" type="range" min="500" max="1600" step="20" value="900"/><output id="mBpO">900</output></div>
+        <div class="btns"><button class="btn" id="playMeow">▶ Miar</button></div>
+      </div>
+
+      <div class="card">
+        <h2>🐾 Chirp (respondendo)</h2>
+        <p class="sub">Miado curto ao começar a responder.</p>
+        <div class="btns"><button class="btn" id="playChirp">▶ Chirp</button></div>
+      </div>
+
+      <div class="card">
+        <h2>⚡ Glitch</h2>
+        <p class="sub">Zap curto quando o cursor sai do quadro.</p>
+        <div class="btns"><button class="btn" id="playGlitch">▶ Glitch</button></div>
+      </div>
+
+      <div class="card">
+        <h2>Configuração atual</h2>
+        <p class="sub">Copie e me mande, ou só diga "gostei" que eu aplico esses valores no widget.</p>
+        <pre id="cfg">—</pre>
+      </div>
+    </div>
+
+    <script>
+      const $ = (s) => document.querySelector(s);
+      let AC = null, master = null, purrNode = null;
+      function ensure(){ if(!AC){ AC=new (window.AudioContext||window.webkitAudioContext)(); master=AC.createGain(); master.gain.value=parseFloat($('#master').value); master.connect(AC.destination);} if(AC.state==='suspended')AC.resume(); return AC; }
+      function noiseBuffer(){ const n=AC.sampleRate*2,b=AC.createBuffer(1,n,AC.sampleRate),d=b.getChannelData(0); let last=0; for(let i=0;i<n;i++){const w=Math.random()*2-1;last=(last+0.02*w)/1.02;d[i]=last*3.5;} return b; }
+      function startPurr(){ ensure(); if(purrNode)return; const src=AC.createBufferSource();src.buffer=noiseBuffer();src.loop=true;
+        const lp=AC.createBiquadFilter();lp.type='lowpass';lp.frequency.value=+$('#purrLp').value;
+        const g=AC.createGain();g.gain.value=1;
+        const lfo=AC.createOscillator();lfo.frequency.value=+$('#purrRate').value;const lfoG=AC.createGain();lfoG.gain.value=0.6;lfo.connect(lfoG);lfoG.connect(g.gain);
+        const base=AC.createGain();base.gain.value=0.0001;
+        src.connect(lp);lp.connect(g);g.connect(base);base.connect(master);src.start();lfo.start();
+        base.gain.exponentialRampToValueAtTime(+$('#purrVol').value||0.05,AC.currentTime+0.9);
+        purrNode={src,lfo,base,lp}; }
+      function stopPurr(){ if(!purrNode)return; const p=purrNode;purrNode=null; try{p.base.gain.exponentialRampToValueAtTime(0.0001,AC.currentTime+0.3);}catch(e){} setTimeout(()=>{try{p.src.stop();p.lfo.stop();}catch(e){}},400); }
+      function meow(kind){ ensure(); const t=AC.currentTime;
+        const o=AC.createOscillator();o.type='sawtooth';
+        const bp=AC.createBiquadFilter();bp.type='bandpass';bp.frequency.value=kind==='chirp'?1100:+$('#mBp').value;bp.Q.value=6;
+        const g=AC.createGain();g.gain.value=0.0001;
+        const vib=AC.createOscillator();vib.frequency.value=15;const vibG=AC.createGain();vibG.gain.value=kind==='chirp'?18:12;vib.connect(vibG);vibG.connect(o.frequency);vib.start(t);vib.stop(t+0.6);
+        if(kind==='chirp'){o.frequency.setValueAtTime(620,t);o.frequency.exponentialRampToValueAtTime(980,t+0.14);o.frequency.exponentialRampToValueAtTime(720,t+0.28);}
+        else{const s=+$('#mStart').value,p=+$('#mPeak').value,e=+$('#mEnd').value;o.frequency.setValueAtTime(s,t);o.frequency.exponentialRampToValueAtTime(p,t+0.06);o.frequency.setValueAtTime(p,t+0.15);o.frequency.exponentialRampToValueAtTime(e,t+0.42);}
+        const dur=kind==='chirp'?0.32:+$('#mDur').value;
+        g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.22,t+0.03);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+        o.connect(bp);bp.connect(g);g.connect(master);o.start(t);o.stop(t+dur+0.05); }
+      function glitch(){ ensure(); const t=AC.currentTime;const n=Math.floor(AC.sampleRate*0.2),b=AC.createBuffer(1,n,AC.sampleRate),d=b.getChannelData(0);for(let i=0;i<n;i++)d[i]=(Math.random()*2-1)*(1-i/n);
+        const src=AC.createBufferSource();src.buffer=b;src.playbackRate.setValueAtTime(1.5,t);src.playbackRate.exponentialRampToValueAtTime(0.6,t+0.18);
+        const bp=AC.createBiquadFilter();bp.type='bandpass';bp.frequency.value=1500;bp.Q.value=0.7;
+        const g=AC.createGain();g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.16,t+0.01);g.gain.exponentialRampToValueAtTime(0.0001,t+0.18);
+        src.connect(bp);bp.connect(g);g.connect(master);src.start(t);src.stop(t+0.2); }
+
+      // bindings
+      const bind=(id)=>{const el=$('#'+id),o=$('#'+id+'O');if(o){const upd=()=>o.value=(+el.value).toFixed(el.step&&el.step.includes('.')?(el.step.split('.')[1].length):0);el.addEventListener('input',()=>{upd();refresh();});upd();}};
+      ['master','purrRate','purrVol','purrLp','mStart','mPeak','mEnd','mDur','mBp'].forEach(bind);
+      $('#master').addEventListener('input',()=>{if(master)master.gain.value=+$('#master').value;});
+      $('#purrRate').addEventListener('input',()=>{if(purrNode)purrNode.lfo.frequency.value=+$('#purrRate').value;});
+      $('#purrLp').addEventListener('input',()=>{if(purrNode)purrNode.lp.frequency.value=+$('#purrLp').value;});
+      $('#purrVol').addEventListener('input',()=>{if(purrNode)purrNode.base.gain.value=+$('#purrVol').value;});
+      $('#purrToggle').addEventListener('click',function(){ if(purrNode){stopPurr();this.textContent='▶ Tocar ronronado';}else{startPurr();this.textContent='⏸ Parar ronronado';} });
+      $('#playMeow').addEventListener('click',()=>meow('meow'));
+      $('#playChirp').addEventListener('click',()=>meow('chirp'));
+      $('#playGlitch').addEventListener('click',glitch);
+      function refresh(){ $('#cfg').textContent = JSON.stringify({
+        soundVolume:+$('#master').value,
+        purr:{rateHz:+$('#purrRate').value,volume:+$('#purrVol').value,lowpassHz:+$('#purrLp').value},
+        meow:{startHz:+$('#mStart').value,peakHz:+$('#mPeak').value,endHz:+$('#mEnd').value,durationS:+$('#mDur').value,formantHz:+$('#mBp').value}
+      },null,2); }
+      refresh();
+    </script>
+  </body>
+</html>

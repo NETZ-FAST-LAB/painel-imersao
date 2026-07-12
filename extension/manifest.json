@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Mintzie — copiloto felino da Netz",
+  "version": "0.1.0",
+  "description": "O assistente felino Mintzie em qualquer página. Requer o servidor local (node server.js) rodando em localhost:3000.",
+  "permissions": ["storage", "tabs"],
+  "host_permissions": ["<all_urls>"],
+  "background": { "service_worker": "background.js" },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["config.js", "mintzie-widget.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

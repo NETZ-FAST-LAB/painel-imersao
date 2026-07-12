@@ -2,6 +2,28 @@
 
 Assistente felino da NETZ para o site: o **Mintzie** em vídeos pré-definidos (em vez de render 3D em tempo real) + chat de verdade com LLM. Ele recebe o visitante, responde sobre a NETZ e guia a jornada de compra.
 
+## Segurança e modos (v0.4)
+
+O servidor tem **dois modos** (`MINTZIE_MODE`):
+
+| | `public` (padrão) | `internal` (equipe, local) |
+|---|---|---|
+| Cérebros | só `netz` (site) — o acervo interno **nem é carregado** | `netz` + `imersao` |
+| Painel imersão / governança / hub / sons | **404** | liberados |
+| `/api/governance` (expõe persona+base) | exige `GOVERNANCE_TOKEN` (Bearer ou `?token=`) | aberto |
+| `testAdjustment` (override de prompt) | **sempre desligado** (nem env liga) | ligado (banca de testes) |
+| CORS | só `ALLOWED_ORIGINS` (padrão: netz.now) | `*` |
+| Rate limit | `RATE_PER_MIN` (8) / `RATE_PER_DAY` (150) por IP | sem limite |
+| Corpo da requisição | máx. 300 KB, mensagens sanitizadas, sem imagem | máx. 8 MB (prints da extensão) |
+
+- O `start-mintzie.command` já sobe em **internal** — o fluxo da equipe não muda.
+- `node server.js` puro sobe em **public** — seguro por padrão para qualquer deploy.
+- **Teste adversarial** (critério de pronto da v0.4): com o servidor em modo public, rode
+  `node tests/adversarial.js` (17 verificações HTTP; `--llm` adiciona testes com o modelo).
+- ⚠️ **Antes de qualquer deploy público:** rotacionar a chave do Gemini e remover o `.env.shared`
+  do repositório (ele existe só para conveniência do time no repo privado).
+- ⚠️ **Nunca** exponha uma instância `internal` à internet — ela carrega o acervo da imersão.
+
 ## O que tem aqui
 
 ```
@@ -20,24 +42,33 @@ mintzie-site-assistant/
 └── package.json
 ```
 
-## Como rodar
+## Como rodar (time Netz)
 
-1. **Configure a chave do modelo.** O cérebro padrão é o **Google Gemini** (`LLM_PROVIDER=gemini`).
-   O `.env` já está criado com a chave do Google e `GEMINI_MODEL=gemini-2.0-flash`.
-   (Também dá pra usar um endpoint compatível com OpenAI: `LLM_PROVIDER=openai` — veja `.env.example`.)
+> 🔒 **Interno / repositório privado.** A chave do Gemini do time já vem no arquivo
+> `.env.shared` (commitado) só pra facilitar a cópia. **Mantenha o repo privado.**
+> Se ele virar público ou um clone vazar, rotacione a chave em
+> https://aistudio.google.com/apikey e atualize o `.env.shared`.
 
-   ```bash
-   # se precisar recriar:
-   cp .env.example .env   # e preencha GEMINI_API_KEY
-   ```
-
-2. **Suba o servidor** (precisa de Node 18+; sem `npm install`):
+1. **Clonar e rodar — sem configuração** (precisa de Node 18+; sem `npm install`):
 
    ```bash
+   git clone https://github.com/NETZ-FAST-LAB/mintzie-site-assistant.git
+   cd mintzie-site-assistant
    node server.js
    ```
 
-3. Abra **http://localhost:3000** e clique no Mintzie no canto inferior direito.
+   O servidor carrega o `.env.shared` automaticamente, então já sobe com o Gemini configurado.
+
+2. Abra **http://localhost:3000** (assistente) e **http://localhost:3000/governanca.html** (portal de governança).
+
+### Override local (opcional)
+Quer usar sua própria chave/modelo ou um endpoint OpenAI-compatível? Crie um `.env` (fica **fora** do git) — ele sobrepõe o `.env.shared`:
+
+```bash
+cp .env.example .env   # edite à vontade; tem prioridade sobre o .env.shared
+```
+
+Prioridade de configuração: variáveis do shell › `.env` (local) › `.env.shared` (do time).
 
 ## Como o vídeo reage (máquina de estados)
 

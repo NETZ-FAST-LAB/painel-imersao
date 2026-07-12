@@ -1,0 +1,21 @@
+# segredos — nunca na imagem (use variáveis de ambiente no Coolify)
+.env
+.env.shared
+.env.local
+
+# git e lixo
+.git
+.gitignore
+*.log
+.DS_Store
+node_modules
+
+# artefatos de desenvolvimento e backups (não precisam no deploy)
+_diag
+_downloads
+uploads
+public/videos/_pre-rekey
+public/videos/_white-originals
+
+# a extensão do Chrome não faz parte do servidor
+extension

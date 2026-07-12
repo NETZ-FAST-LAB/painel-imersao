@@ -5,47 +5,108 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NETZ Labz — Mintzie (protótipo)</title>
     <style>
-      :root { color-scheme: dark; }
+      :root { color-scheme: dark; --green:#9be65a; }
       * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
       body {
-        margin: 0; min-height: 100vh;
+        margin: 0; color: #e8f0f7;
         font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-        color: #e8f0f7;
         background:
-          radial-gradient(circle at 50% 8%, rgba(150, 230, 90, 0.12), transparent 42%),
+          radial-gradient(circle at 50% 6%, rgba(150, 230, 90, 0.1), transparent 40%),
           linear-gradient(180deg, #071018, #091723 60%, #060d15);
       }
-      main { width: min(880px, 100%); margin: 0 auto; padding: 80px 24px; }
+      section { max-width: 920px; margin: 0 auto; padding: 70px 24px; }
       .tag { display:inline-block; font-size:12px; letter-spacing:.12em; text-transform:uppercase;
-        color:#9be65a; border:1px solid rgba(150,230,90,.3); padding:5px 12px; border-radius:999px; }
-      h1 { font-size: clamp(34px, 6vw, 56px); margin: 18px 0 12px; line-height: 1.05; }
-      h1 span { color:#9be65a; }
-      p.lead { font-size: 18px; color:#9eb2c5; max-width: 60ch; line-height:1.6; }
-      .hint { margin-top:48px; padding:18px 20px; border-radius:16px; background:rgba(255,255,255,.04);
-        border:1px solid rgba(255,255,255,.07); color:#b8c7d6; line-height:1.6; max-width:62ch; }
-      code { background:rgba(150,230,90,.12); color:#dff3c8; padding:2px 6px; border-radius:6px; font-size:13px; }
+        color:var(--green); border:1px solid rgba(150,230,90,.3); padding:5px 12px; border-radius:999px; }
+      h1 { font-size: clamp(32px, 6vw, 52px); margin: 18px 0 12px; line-height: 1.05; }
+      h1 span { color:var(--green); }
+      h2 { font-size: clamp(24px,4vw,34px); margin:0 0 10px; }
+      p.lead { font-size: 18px; color:#9eb2c5; max-width: 62ch; line-height:1.6; }
+      .cta { display:inline-flex; gap:10px; margin-top:26px; }
+      .btn { border:none; border-radius:12px; padding:12px 20px; font-weight:700; font-size:15px; cursor:pointer; text-decoration:none; }
+      .btn.green { background:var(--green); color:#0a1a06; }
+      .btn.ghost { background:rgba(255,255,255,.06); color:#cfe0f0; }
+      .cases { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px; margin-top:26px; }
+      .case { background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:20px; transition:box-shadow .3s, border-color .3s; }
+      .case h3 { margin:0 0 6px; font-size:18px; }
+      .case .k { font-size:12px; color:var(--green); text-transform:uppercase; letter-spacing:.05em; }
+      .case p { color:#9eb2c5; font-size:14px; line-height:1.5; margin:8px 0 0; }
+      .mz-flash { animation: mzflash 1.6s ease; }
+      @keyframes mzflash { 0%,100%{ box-shadow:0 0 0 0 rgba(150,230,90,0);} 30%{ box-shadow:0 0 0 3px rgba(150,230,90,.6); border-color:var(--green);} }
+      form { display:grid; gap:14px; max-width:520px; margin-top:24px; }
+      label { display:grid; gap:6px; font-size:13px; color:#b8c7d6; }
+      input, textarea { background:#0e1b26; border:1px solid rgba(150,230,90,.2); border-radius:12px; color:#eaf2f8; padding:12px 14px; font-size:15px; font-family:inherit; }
+      input:focus, textarea:focus { outline:none; border-color:var(--green); }
+      .field-lit input, .field-lit textarea { border-color:var(--green); box-shadow:0 0 0 3px rgba(150,230,90,.15); }
+      footer { text-align:center; color:#5f7488; font-size:13px; padding:40px; }
+      .muted { color:#5f7488; font-size:13px; }
     </style>
   </head>
   <body>
-    <main>
+    <section id="hero">
       <span class="tag">NETZ Labz · protótipo</span>
-      <h1>O laboratório agora tem um <span>guardião</span>.</h1>
-      <p class="lead">
-        Esta é uma página de teste para o Mintzie no site. Ele te recebe no canto da tela,
-        conversa de verdade e usa os vídeos pré-definidos para reagir enquanto pensa e responde.
-      </p>
-      <div class="hint">
-        Clique no Mintzie (canto inferior direito) e mande uma mensagem.<br />
-        Estados de vídeo: <code>idle</code> quando parado, <code>thinking</code> enquanto pensa,
-        <code>talking</code> enquanto responde.
+      <h1>Tecnologia para operações <span>complexas</span>.</h1>
+      <p class="lead">Esta é uma página de teste do Mintzie. Ele conversa de verdade e agora também <b>age na página</b>: rola até um case ou pré-preenche o formulário de contato a partir da conversa. Fale com ele no canto — ou peça "me mostra um case" / "quero falar com o time".</p>
+      <div class="cta">
+        <a class="btn green" href="#contato">Fale com a Netz</a>
+        <a class="btn ghost" href="#cases">Ver cases</a>
       </div>
-    </main>
+    </section>
 
-    <!-- Widget do Mintzie -->
+    <section id="cases">
+      <span class="tag">Cases</span>
+      <h2>Soluções validadas em contextos reais</h2>
+      <div class="cases">
+        <article class="case" id="case-corsan">
+          <div class="k">Enterprise · IA</div>
+          <h3>Corsan</h3>
+          <p>IA aplicada para reduzir tempo e custo em análises jurídicas, com rastreabilidade e governança.</p>
+        </article>
+        <article class="case" id="case-cris">
+          <div class="k">Presença digital</div>
+          <h3>Cris Casagrande</h3>
+          <p>Uma "Casa Digital" com blog e captura de leads — seguidores viram clientes e melhora o SEO.</p>
+        </article>
+        <article class="case" id="case-bss">
+          <div class="k">Growth · Agro</div>
+          <h3>BSS</h3>
+          <p>Site de credibilidade para editais e inovação, com infraestrutura e Core Web Vitals.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contato">
+      <span class="tag">Contato</span>
+      <h2>Vamos entender o seu desafio?</h2>
+      <p class="lead">Conte o contexto da sua empresa e o que espera da Netz. A conversa segue por WhatsApp ou e-mail.</p>
+      <form id="contact-form" onsubmit="event.preventDefault(); alert('(protótipo) Formulário enviado — no site real iria para o time da Netz.');">
+        <label>Nome
+          <input type="text" id="f-nome" name="nome" placeholder="Seu nome" />
+        </label>
+        <label>Empresa
+          <input type="text" id="f-empresa" name="empresa" placeholder="Sua empresa" />
+        </label>
+        <label>Desafio
+          <textarea id="f-desafio" name="desafio" rows="3" placeholder="Qual é o desafio?"></textarea>
+        </label>
+        <div class="cta" style="margin-top:4px">
+          <button class="btn green" type="submit">Enviar</button>
+          <a class="btn ghost" id="wa-btn" href="https://api.whatsapp.com/send/?phone=5551997313914" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+        <p class="muted">O Mintzie preenche pra você, mas quem envia é você.</p>
+      </form>
+    </section>
+
+    <footer>NETZ Labz · protótipo interno do Mintzie</footer>
+
     <script>
       window.MINTZIE_CONFIG = {
         apiUrl: "/api/chat",
         startOpen: true,
+        routes: {
+          hero: "/#hero", cases: "/#cases", contato: "/#contato",
+          "case-corsan": "/#case-corsan", "case-cris": "/#case-cris", "case-bss": "/#case-bss"
+        }
       };
     </script>
     <script src="mintzie-widget.js"></script>

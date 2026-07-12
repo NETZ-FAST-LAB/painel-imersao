@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Mintzie · Início</title>
+<style>
+  :root{ --bg:#15181d; --card:#1b1f27; --line:#2a2f3a; --ink:#e7ecf2; --dim:#9aa4b2; --green:#BFFF80; --warn:#ff9f7f; }
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;background:radial-gradient(1200px 600px at 70% -10%,#1c2230,transparent),var(--bg);color:var(--ink);
+    font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;display:flex;align-items:center;justify-content:center;padding:40px 20px}
+  .wrap{width:100%;max-width:860px}
+  .head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+  .head h1{font-size:30px;margin:0;letter-spacing:-.5px}
+  .head h1 span{color:var(--green)}
+  .kick{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
+  .lead{color:var(--dim);margin:0 0 26px;font-size:14px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+  a.card{display:block;text-decoration:none;color:inherit;background:linear-gradient(180deg,var(--card),#161a21);
+    border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;transition:transform .12s ease,border-color .12s ease,box-shadow .12s ease}
+  a.card:hover{transform:translateY(-2px);border-color:#3a4150;box-shadow:0 10px 30px -12px #000}
+  .card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+  .ico{font-size:24px}
+  .badge{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;border-radius:20px;padding:3px 9px;white-space:nowrap}
+  .badge.pub{color:var(--green);border:1px solid #BFFF8055}
+  .badge.int{color:var(--warn);border:1px solid #ff9f7f55}
+  .card h2{font-size:17px;margin:2px 0 4px}
+  .card p{margin:0;color:var(--dim);font-size:12.5px;min-height:34px}
+  .card .url{margin-top:10px;font-size:11.5px;color:#6f7a89;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .foot{margin-top:26px;color:#6f7a89;font-size:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .foot .lock{color:var(--warn)}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <span class="kick">Netz Labz</span>
+      <h1>Mintzie<span>.</span> Início</h1>
+    </div>
+    <p class="lead">Porta de entrada das páginas do Mintzie. As marcadas com 🔒 são internas — só para a equipe, não compartilhe fora.</p>
+
+    <div class="grid">
+      <a class="card" href="/painel">
+        <div class="card-top"><span class="ico">🧭</span><span class="badge int">🔒 Interno</span></div>
+        <h2>Painel da Imersão</h2>
+        <p>Decisões, cemitério de ideias, benchmarking, Sebrae — com o Mintzie-guia embutido.</p>
+        <div class="url">/painel</div>
+      </a>
+
+      <a class="card" href="/governanca">
+        <div class="card-top"><span class="ico">🛡️</span><span class="badge int">🔒 Interno</span></div>
+        <h2>Governança</h2>
+        <p>Persona, guardrails, índice de FAQs e banca de testes do Mintzie.</p>
+        <div class="url">/governanca</div>
+      </a>
+
+      <a class="card" href="/site">
+        <div class="card-top"><span class="ico">🌐</span><span class="badge pub">Público</span></div>
+        <h2>Site (demo)</h2>
+        <p>A página pública com o Mintzie do site — o que um visitante vê.</p>
+        <div class="url">/site</div>
+      </a>
+
+      <a class="card" href="/sons">
+        <div class="card-top"><span class="ico">🔊</span><span class="badge pub">Utilitário</span></div>
+        <h2>Sons</h2>
+        <p>Banco de efeitos sonoros do Mintzie (ronronado, miados, glitch).</p>
+        <div class="url">/sons</div>
+      </a>
+    </div>
+
+    <div class="foot"><span class="lock">🔒</span> Esta página é interna. O site público (/site) não linka para cá nem para o painel — a separação é proposital.</div>
+  </div>
+</body>
+</html>

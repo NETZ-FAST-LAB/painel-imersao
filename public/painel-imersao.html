@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NETZ · Painel da Imersão</title>
+<style>
+  :root{
+    --neon:#BFFF80; --bg:#0a0c0f; --panel:#12151b; --panel2:#161a22;
+    --border:#232833; --txt:#e6e9ef; --mut:#8b93a3;
+    --mono:'DM Mono','SF Mono',ui-monospace,monospace;
+    --sans:'Inter',-apple-system,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:var(--sans);overflow-x:hidden}
+  #bg{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+  .container{position:relative;z-index:1;max-width:1160px;margin:0 auto;padding:32px 20px 60px}
+
+  header.top{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:28px}
+  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--neon);opacity:.75;margin-bottom:6px}
+  h1{font-size:46px;font-weight:800;letter-spacing:-1.5px;margin:0;line-height:1}
+  h1 span{color:var(--neon)}
+  .sub{color:var(--mut);font-size:14px;margin-top:10px;max-width:440px;line-height:1.5}
+  .progress-wrap{min-width:240px;flex:0 0 auto}
+  .progress-label{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--mut);margin-bottom:8px;letter-spacing:.5px}
+  .progress-track{height:4px;background:var(--border);overflow:hidden}
+  .progress-fill{height:100%;background:var(--neon);transition:width .5s ease;box-shadow:0 0 12px #BFFF8088;width:0}
+  #saveState{color:#4a5060}
+
+  .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+  .toolbar button{background:none;border:1px solid var(--border);color:var(--mut);font-family:var(--mono);font-size:11px;padding:7px 12px;cursor:pointer;letter-spacing:.3px;transition:all .15s}
+  .toolbar button:hover{border-color:var(--neon);color:var(--neon)}
+
+  nav.tabs{display:flex;gap:2px;margin-bottom:24px;border-bottom:1px solid var(--border);flex-wrap:wrap}
+  nav.tabs button{background:none;border:none;color:var(--mut);font-family:var(--mono);font-size:12.5px;letter-spacing:.5px;padding:12px 18px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .2s}
+  nav.tabs button.active{color:var(--neon);border-bottom-color:var(--neon)}
+
+  .tab-intro{color:var(--mut);font-size:13.5px;line-height:1.6;max-width:680px;margin-bottom:24px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
+  .card{background:var(--panel);border:1px solid var(--border);padding:18px 18px 16px;position:relative;clip-path:polygon(0 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%)}
+  .card.ancora{border-color:#BFFF8044;background:linear-gradient(180deg,#BFFF8008,var(--panel) 40%)}
+  .card-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .num{font-family:var(--mono);font-size:12px;color:var(--neon);letter-spacing:1px}
+  .ancora-tag{font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:1.5px;color:var(--neon);border:1px solid #BFFF8044;padding:2px 7px}
+  .status-dot{width:9px;height:9px;border-radius:50%;margin-left:auto}
+  .card h3{font-size:17px;font-weight:700;margin:0 0 8px;letter-spacing:-.3px}
+  .card-resumo{font-size:12.5px;color:var(--mut);line-height:1.55;margin:0 0 12px}
+  .pergunta{font-size:13px;color:var(--txt);background:var(--panel2);border-left:2px solid var(--neon);padding:9px 12px;line-height:1.45;margin-bottom:10px}
+  .pergunta-label{display:block;font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:1.5px;color:var(--neon);margin-bottom:4px;opacity:.8}
+  .checklist{list-style:none;padding:0;margin:6px 0 4px}
+  .checklist li{font-size:12px;color:var(--mut);line-height:1.5;margin-bottom:5px;display:flex;gap:7px}
+  .checklist li .mk{color:var(--neon);flex-shrink:0}
+  .expand-btn{background:none;border:none;color:var(--neon);font-family:var(--mono);font-size:11px;cursor:pointer;padding:2px 0 12px;opacity:.8;letter-spacing:.5px}
+
+  .controls{border-top:1px solid var(--border);padding-top:12px;margin-top:4px;display:flex;flex-direction:column;gap:10px}
+  .control-row{display:flex;flex-direction:column;gap:6px}
+  .control-label{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--mut)}
+  .chip-row{display:flex;gap:5px;flex-wrap:wrap}
+  .chip{background:none;border:1px solid var(--border);color:var(--mut);font-family:var(--mono);font-size:11px;padding:4px 9px;cursor:pointer;transition:all .15s;letter-spacing:.3px}
+  input.txt,textarea{background:var(--panel2);border:1px solid var(--border);color:var(--txt);padding:7px 10px;outline:none;width:100%;box-sizing:border-box}
+  input.txt{font-family:var(--mono);font-size:12px}
+  textarea{font-family:var(--sans);font-size:12.5px;resize:vertical;line-height:1.45}
+
+  .grid-ideias{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+  .ideia-card{background:var(--panel);border:1px solid var(--border);border-left:3px solid #2a2f3a;padding:14px 16px;transition:border-color .2s}
+  .ideia-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:4px}
+  .ideia-nome{font-size:14.5px;font-weight:700;margin:0;letter-spacing:-.2px;line-height:1.25}
+  .pot-badge{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1px;border:1px solid;padding:2px 6px;flex-shrink:0}
+  .ideia-fonte{font-family:var(--mono);font-size:10.5px;color:var(--mut);margin-bottom:8px;opacity:.8}
+  .ideia-desc{font-size:12.5px;color:var(--mut);line-height:1.55;margin:0 0 12px}
+
+  .grid-bench{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+  .bench-card{background:var(--panel);border:1px solid var(--border);padding:18px 18px 16px;clip-path:polygon(14px 0,100% 0,100% 100%,0 100%,0 14px)}
+  .bench-tag{font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:1.5px;color:var(--mut);margin-bottom:12px}
+  .bench-num{font-size:28px;font-weight:800;color:var(--neon);letter-spacing:-1px;line-height:1;margin-bottom:8px;font-family:var(--mono)}
+  .bench-card h4{font-size:15.5px;font-weight:700;margin:0 0 8px;letter-spacing:-.3px}
+  .bench-desc{font-size:12.5px;color:var(--mut);line-height:1.55;margin:0 0 12px}
+  .bench-lente{font-size:12.5px;color:var(--txt);background:var(--panel2);border-left:2px solid var(--neon);padding:9px 12px;line-height:1.5}
+  .bench-lente-label{display:block;font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:1.5px;color:var(--neon);margin-bottom:4px;opacity:.8}
+
+  .sintese-box{background:linear-gradient(135deg,#BFFF800e,var(--panel2));border:1px solid #BFFF8033;border-left:3px solid var(--neon);padding:16px 18px;margin-bottom:24px;font-size:13.5px;line-height:1.6;color:var(--txt)}
+  .sintese-label{display:block;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--neon);margin-bottom:8px}
+  .pesquisa-wrap{display:grid;grid-template-columns:repeat(auto-fill,minmax(400px,1fr));gap:16px}
+  .pesquisa-card{background:var(--panel);border:1px solid var(--border);padding:20px 20px 18px;clip-path:polygon(0 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%)}
+  .pesquisa-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+  .pesquisa-num{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--bg);background:var(--neon);padding:2px 9px;letter-spacing:1px}
+  .pesquisa-metric{font-family:var(--mono);font-size:12px;color:var(--neon);margin-left:auto;letter-spacing:.5px}
+  .pesquisa-titulo{font-size:17px;font-weight:700;margin:0 0 3px;letter-spacing:-.3px}
+  .pesquisa-sub{font-size:12.5px;color:var(--mut);font-style:italic;margin-bottom:12px}
+  .pesquisa-framework{font-size:12.5px;color:var(--txt);background:var(--panel2);padding:9px 12px;line-height:1.45;margin-bottom:12px;border-left:2px solid var(--mut)}
+  .pesquisa-fw-label{display:block;font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:var(--mut);margin-bottom:4px}
+  .pesquisa-pontos{list-style:none;padding:0;margin:0 0 14px}
+  .pesquisa-pontos li{font-size:12.5px;color:var(--mut);line-height:1.55;margin-bottom:8px;display:flex;gap:8px}
+  .pesquisa-pontos li .mk{color:var(--neon);flex-shrink:0}
+  .pesquisa-netz{font-size:12.5px;color:var(--txt);background:#BFFF800a;border-left:2px solid var(--neon);padding:10px 12px;line-height:1.5}
+  .pesquisa-netz-label{display:block;font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:var(--neon);margin-bottom:4px}
+
+  .hermes-legenda{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+  .hermes-leg-item{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--mut)}
+  .hermes-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+  .hermes-angulo{background:var(--panel);border:1px solid var(--border);padding:20px;margin-bottom:16px;clip-path:polygon(0 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%)}
+  .hermes-angulo-head{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+  .hermes-angulo-letra{font-family:var(--mono);font-size:22px;font-weight:800;color:var(--bg);background:var(--neon);width:40px;height:40px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .hermes-angulo-titulo{font-size:18px;font-weight:700;margin:0;letter-spacing:-.3px}
+  .hermes-angulo-tag{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:1px;color:var(--neon);opacity:.85}
+  .hermes-angulo-tese{font-size:12.5px;color:var(--mut);line-height:1.55;margin:0 0 16px;font-style:italic}
+  .hermes-ramos{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+  .hermes-ramo{background:var(--panel2);border:1px solid var(--border);padding:12px 14px}
+  .hermes-ramo-top{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+  .hermes-ramo-n{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--neon);flex-shrink:0}
+  .hermes-ramo-nome{font-size:13px;font-weight:600;flex:1;line-height:1.2}
+  .hermes-ramo-esf{font-family:var(--mono);font-size:8.5px;text-transform:uppercase;letter-spacing:.5px;border:1px solid;padding:2px 5px;flex-shrink:0}
+  .hermes-ramo-desc{font-size:11.5px;color:var(--mut);line-height:1.5;margin:0}
+  .hermes-cases-titulo{font-size:14px;font-family:var(--mono);text-transform:uppercase;letter-spacing:1.5px;color:var(--txt);margin:28px 0 16px;padding-top:8px}
+  .hermes-cases{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+  .hermes-case{background:var(--panel);border:1px solid var(--border);padding:16px 18px;clip-path:polygon(14px 0,100% 0,100% 100%,0 100%,0 14px)}
+  .hermes-case-num{font-size:24px;font-weight:800;color:var(--neon);letter-spacing:-1px;line-height:1;margin-bottom:6px;font-family:var(--mono)}
+  .hermes-case-titulo{font-size:14.5px;font-weight:700;margin:0 0 7px;letter-spacing:-.3px}
+  .hermes-case-desc{font-size:12px;color:var(--mut);line-height:1.5;margin:0 0 10px}
+  .hermes-case-lente{font-size:12px;color:var(--txt);background:#BFFF800a;border-left:2px solid var(--neon);padding:9px 11px;line-height:1.45}
+
+  .site-achados{display:flex;flex-direction:column;gap:10px}
+  .site-achado{display:flex;gap:12px;align-items:flex-start}
+  .site-achado-mk{font-family:var(--mono);font-size:12px;font-weight:700;border:1px solid;width:22px;height:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+  .site-achado-body{flex:1}
+  .site-achado-label{font-size:13px;font-weight:600;display:block;margin-bottom:2px}
+  .site-achado-desc{font-size:12px;color:var(--mut);line-height:1.5;margin:0}
+  .site-prio-contador{font-family:var(--mono);font-size:11px;color:var(--neon);text-transform:none;letter-spacing:0;margin-left:8px}
+  .site-prios{display:flex;flex-direction:column;gap:8px}
+  .site-prio{display:flex;gap:12px;align-items:flex-start;background:var(--panel);border:1px solid var(--border);padding:14px 16px;cursor:pointer;transition:all .15s}
+  .site-prio:hover{border-color:#3a4150}
+  .site-prio-feito{opacity:.55}
+  .site-prio-feito .site-prio-titulo{text-decoration:line-through}
+  .site-prio-check{width:20px;height:20px;border:1px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--bg);margin-top:1px;transition:all .15s}
+  .site-prio-check.on{background:var(--neon);border-color:var(--neon)}
+  .site-prio-n{font-family:var(--mono);font-size:12px;color:var(--neon);flex-shrink:0;margin-top:2px}
+  .site-prio-body{flex:1}
+  .site-prio-titulo{font-size:13.5px;font-weight:600;display:block;margin-bottom:3px}
+  .site-prio-desc{font-size:12px;color:var(--mut);line-height:1.5;margin:0}
+
+  /* ===== Aba Consultorias ===== */
+  .consult-wrap{display:flex;flex-direction:column;gap:16px}
+  .consult-prob{background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--neon);padding:18px 20px}
+  .consult-head{display:flex;gap:13px;align-items:center;margin-bottom:11px}
+  .consult-n{font-family:var(--mono);font-size:15px;font-weight:800;color:var(--bg);background:var(--neon);width:38px;height:30px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .consult-titulo{font-size:16px;font-weight:700;margin:0;letter-spacing:-.3px}
+  .consult-lema{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--neon);opacity:.85}
+  .consult-diag{font-size:12.5px;line-height:1.55;color:#c5ccd6;margin:0 0 13px}
+  .consult-dados{display:flex;flex-direction:column;gap:7px;margin-bottom:12px}
+  .consult-dado{display:flex;gap:10px;align-items:baseline;background:var(--panel2);border:1px solid var(--border);padding:8px 11px}
+  .consult-fonte{font-family:var(--mono);font-size:10px;color:var(--neon);flex-shrink:0;width:120px;font-weight:600}
+  .consult-dado-txt{font-size:12px;color:var(--mut);line-height:1.45}
+  .consult-mini-label{display:block;font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px;color:var(--mut)}
+  .consult-fw{font-size:12px;color:var(--mut);line-height:1.5;margin:0 0 12px}
+  .consult-netz{font-size:12.5px;color:var(--txt);background:#BFFF800a;border-left:2px solid var(--neon);padding:10px 12px;line-height:1.5;margin:0}
+
+  /* ===== Aba Sebrae ===== */
+  .sebrae-portas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:8px}
+  .sebrae-porta{background:var(--panel);border:1px solid var(--border);padding:16px}
+  .sebrae-porta-n{font-family:var(--mono);font-size:18px;font-weight:800;color:var(--neon)}
+  .sebrae-porta-nome{font-size:14px;font-weight:700;margin:4px 0 6px;letter-spacing:-.2px}
+  .sebrae-porta-desc{font-size:11.5px;color:var(--mut);line-height:1.5;margin:0}
+  .sebrae-blocos{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:720px){.sebrae-blocos{grid-template-columns:1fr}}
+  .sebrae-bloco{background:var(--panel);border:1px solid var(--border);padding:15px 17px}
+  .sebrae-bloco-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+  .sebrae-bloco-tit{font-size:13.5px;font-weight:700;margin:0;letter-spacing:-.2px}
+  .sebrae-bloco-tipo{font-family:var(--mono);font-size:8.5px;text-transform:uppercase;letter-spacing:.5px;border:1px solid;padding:2px 6px;flex-shrink:0}
+  .sebrae-bloco-lista{margin:0;padding-left:16px;display:flex;flex-direction:column;gap:6px}
+  .sebrae-bloco-lista li{font-size:11.5px;color:var(--mut);line-height:1.5}
+  .sebrae-passos{display:flex;flex-direction:column;gap:8px}
+  .sebrae-passo{display:flex;gap:14px;align-items:flex-start;background:var(--panel);border:1px solid var(--border);padding:13px 16px}
+  .sebrae-passo-meta{flex-shrink:0;width:88px}
+  .sebrae-passo-fase{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--neon);display:block}
+  .sebrae-passo-prazo{font-family:var(--mono);font-size:10px;color:var(--mut)}
+  .sebrae-passo-tit{font-size:13.5px;font-weight:600;display:block;margin-bottom:3px}
+  .sebrae-passo-desc{font-size:12px;color:var(--mut);line-height:1.5;margin:0}
+
+  .refs-wrap{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px}
+  .ref-group{background:var(--panel);border:1px solid var(--border);padding:16px}
+  .ref-group-head{display:flex;align-items:center;gap:9px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+  .ref-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+  .ref-tema{font-size:13px;font-family:var(--mono);letter-spacing:.5px;margin:0;text-transform:uppercase}
+  .ref-item{margin-bottom:13px}
+  .ref-item-nome{font-size:13.5px;font-weight:600;margin-bottom:2px}
+  .ref-item-desc{font-size:12px;color:var(--mut);line-height:1.5;margin-bottom:3px}
+  .ref-item-fonte{font-family:var(--mono);font-size:10px;color:var(--mut);opacity:.65}
+
+  footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+  .footer-text{font-size:12px;color:var(--mut);line-height:1.55;max-width:760px;font-style:italic}
+  .reset{background:none;border:1px solid var(--border);color:var(--mut);font-family:var(--mono);font-size:11px;padding:6px 12px;cursor:pointer;flex-shrink:0}
+  .hidden{display:none}
+  /* ===== Camada de síntese (abertura) ===== */
+  .sintese-layer{position:fixed;inset:0;z-index:100;background:rgba(8,10,12,.72);backdrop-filter:blur(6px);display:none;opacity:0;transition:opacity .3s}
+  .sintese-layer.show{display:flex;opacity:1}
+  .sintese-inner{margin:auto;max-width:940px;width:calc(100% - 40px);max-height:calc(100vh - 56px);overflow-y:auto;background:linear-gradient(180deg,#12161a,#0d1013);border:1px solid var(--border);box-shadow:0 30px 80px rgba(0,0,0,.6);padding:44px 48px;clip-path:polygon(0 0,100% 0,100% calc(100% - 22px),calc(100% - 22px) 100%,0 100%)}
+  @media(max-width:640px){.sintese-inner{padding:28px 22px}}
+  .sint-kicker{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--neon);margin-bottom:16px}
+  .sint-tese-titulo{font-size:27px;font-weight:800;line-height:1.2;letter-spacing:-.6px;margin:0 0 20px;color:var(--txt)}
+  @media(max-width:640px){.sint-tese-titulo{font-size:21px}}
+  .sint-tese-p{font-size:14px;line-height:1.62;color:#c5ccd6;margin:0 0 14px}
+  .sint-sec-label{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--txt);border-top:1px solid var(--border);padding-top:18px;margin:30px 0 16px}
+  .sint-padroes{display:flex;flex-direction:column;gap:11px}
+  .sint-padrao{display:flex;gap:13px;align-items:flex-start}
+  .sint-padrao-n{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--bg);background:var(--mut);width:23px;height:23px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:50%}
+  .sint-padrao-nome{font-size:13.5px;font-weight:700;display:block;margin-bottom:2px}
+  .sint-padrao-desc{font-size:12.5px;line-height:1.52;color:var(--mut);margin:0}
+  .sint-decisoes{display:flex;flex-direction:column;gap:14px}
+  .sint-decisao{background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--neon);padding:18px 20px}
+  .sint-dec-head{display:flex;gap:14px;align-items:center;margin-bottom:12px}
+  .sint-dec-num{font-family:var(--mono);font-size:20px;font-weight:800;color:var(--bg);background:var(--neon);width:42px;height:42px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .sint-dec-titulo{font-size:16.5px;font-weight:700;margin:0;line-height:1.2;letter-spacing:-.3px}
+  .sint-dec-sub{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--neon);opacity:.85}
+  .sint-dec-porque,.sint-dec-pronto{font-size:12.5px;line-height:1.55;color:#c5ccd6;margin:0 0 9px}
+  .sint-dec-pronto{margin-bottom:0}
+  .sint-tag{display:inline-block;font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--mut);border:1px solid var(--border);padding:2px 6px;margin-right:8px;vertical-align:middle}
+  .sint-tag.on{color:var(--neon);border-color:#BFFF8055}
+  .sint-ordem{background:#BFFF800a;border-left:2px solid var(--neon);padding:4px 16px 14px;margin-top:26px}
+  .sint-ordem-p{font-size:14px;line-height:1.6;color:var(--txt);margin:0;font-weight:500}
+  .sint-sacri{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:640px){.sint-sacri{grid-template-columns:1fr}}
+  .sint-sacri-col{background:var(--panel2);border:1px solid var(--border);padding:14px 16px}
+  .sint-sacri-h{font-size:12px;font-weight:700;display:block;margin-bottom:9px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.5px}
+  .sint-morrem .sint-sacri-h{color:#ff9f7f}
+  .sint-hibernam .sint-sacri-h{color:#ffd97f}
+  .sint-sacri-col ul{margin:0;padding-left:16px}
+  .sint-sacri-col li{font-size:12px;line-height:1.5;color:var(--mut);margin-bottom:6px}
+  .sint-duro{font-size:13px;line-height:1.6;color:var(--txt);background:#ff9f7f0d;border:1px solid #ff9f7f2a;padding:14px 16px;margin:14px 0 0}
+  .sint-actions{display:flex;align-items:center;gap:16px;margin-top:30px;border-top:1px solid var(--border);padding-top:22px;flex-wrap:wrap}
+  .sint-enter{background:var(--neon);color:var(--bg);border:none;font-family:var(--mono);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:13px 26px;cursor:pointer;transition:all .15s}
+  .sint-enter:hover{filter:brightness(1.1);transform:translateX(2px)}
+  .sint-hint{font-size:12px;color:var(--mut);font-style:italic}
+  .sintese-reopen{background:none;border:1px solid var(--border);color:var(--mut);font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;padding:3px 9px;margin-left:8px;cursor:pointer;transition:all .15s;vertical-align:middle}
+  .sintese-reopen:hover{border-color:var(--neon);color:var(--neon)}
+</style>
+</head>
+<body>
+<svg id="bg" preserveAspectRatio="none" viewBox="0 0 100 100"></svg>
+
+<div id="sintese" class="sintese-layer">
+  <div class="sintese-inner" id="sinteseInner"></div>
+</div>
+
+<div class="container">
+  <header class="top">
+    <div>
+      <div class="kicker">Imersão · 3 dias <span title="Documento interno da Netz. Não compartilhar fora da equipe." style="margin-left:8px;font-size:9.5px;letter-spacing:.14em;color:#ff9f7f;border:1px solid #ff9f7f66;border-radius:20px;padding:2px 8px;vertical-align:middle;white-space:nowrap">🔒 INTERNO · CONFIDENCIAL</span></div>
+      <h1>NETZ<span>.</span></h1>
+      <p class="sub">O gargalo é execução, não ideia. Este painel é para decidir — não para acumular mais input. <button class="sintese-reopen" onclick="abrirSintese()">↑ rever a síntese</button></p>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-label">
+        <span id="progText">0 de 6 decisões fechadas</span>
+        <span id="saveState">salvo</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="progFill"></div></div>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <a href="/inicio" style="text-decoration:none;color:#BFFF80;border:1px solid #BFFF8055;border-radius:8px;padding:6px 11px;font-size:12.5px">⌂ Início</a>
+    <a href="/governanca" style="text-decoration:none;color:#9aa4b2;border:1px solid #2a2f3a;border-radius:8px;padding:6px 11px;font-size:12.5px">🛡️ Governança</a>
+    <span style="width:10px"></span>
+    <button onclick="exportJSON()">⬇ exportar (.json)</button>
+    <button onclick="document.getElementById('importFile').click()">⬆ importar (.json)</button>
+    <button onclick="exportResumo()">📄 exportar resumo (.txt)</button>
+    <input type="file" id="importFile" accept=".json" class="hidden" onchange="importJSON(event)">
+  </div>
+
+  <nav class="tabs" id="tabs"></nav>
+  <main id="main"></main>
+
+  <footer>
+    <span class="footer-text">Teste da imersão: sair com 6 linhas com dono e data é sucesso. Sair com 40 ideias e nenhuma linha é o anti-padrão que vocês já nomearam.</span>
+    <button class="reset" onclick="limparTudo()">limpar tudo</button>
+  </footer>
+</div>
+
+<script>
+// ====================== DADOS ======================
+const SOCIOS = ["João","Gui","Denis","Stacke","—"];
+
+const DECISOES = [
+  {id:"d1",titulo:"Primeiro produto empacotado",ancora:true,
+   resumo:"Escolher UM produto para empacotar de verdade (não três). Rito Derma / Mintzie / assistente de obra são o mesmo tipo: assistente de recomendação sobre um domínio.",
+   pergunta:"Qual produto sai da imersão com escopo, preço e responsável de build definidos?",
+   aFechar:["Escolher 1 produto (não 3)","Definir escopo fixo, preço, o que é replicável vs. feito do zero","Definir formato: SaaS? Template vendável? Serviço produtizado?"]},
+  {id:"d2",titulo:"O Hermes agent: papel definido",ancora:true,
+   resumo:"Denis já subiu o Hermes na VPS e propôs a dinâmica de onboarding. Precisa de papel antes de virar mais um protótipo sem destino.",
+   pergunta:"Ao fim da imersão, qual processo real da NETZ o Hermes vai operar, e quem valida?",
+   aFechar:["Infra interna, produto para cliente, ou os dois em fases?","Rodar a dinâmica de onboarding com resultado definido","Atribuir 1 processo real ao Hermes até data X"]},
+  {id:"d3",titulo:"Máquina de aquisição (comercial)",ancora:false,
+   resumo:"Prospecção ativa de grandes empresas com sites ruins já está no acervo. Falta operacionalizar. O acervo admite: 'somos péssimos comerciais' — precisa de dono, não de boa vontade.",
+   pergunta:"Qual é a meta semanal de prospecção e quem é o dono do funil comercial?",
+   aFechar:["Construir (ou não) o agente de auditoria de site → PDF/proposta","Definir cadência de prospecção (X empresas/semana, quem executa)","Uniu + LinkedIn + site próprio: qual é o funil ponta a ponta?"]},
+  {id:"d4",titulo:"Stack: parar de sangrar em SaaS",ancora:false,
+   resumo:"Atrito real e recorrente (Adobe compartilhada, contas EDU que quebram, senhas no Discord). O carrossel evolving.ai é a lista de substituição pronta.",
+   pergunta:"Quais 2 ferramentas migram nos próximos 30 dias, e quem executa?",
+   aFechar:["Migrar o quê para open-source/self-host? (Bitwarden, Plausible, n8n, AppFlowy)","Só economia interna ou vira oferta para clientes?"]},
+  {id:"d5",titulo:"Conteúdo / YouTube nichado",ancora:false,
+   resumo:"A frente com menos lastro. Benchmarking confirma: 97% dos canais faceless não recuperam o investimento; payoff exige 12-18 meses de consistência — o ponto fraco estrutural da NETZ.",
+   pergunta:"Entra no trimestre ou vai pro parking lot com data de revisão?",
+   aFechar:["É prioridade agora ou parking lot datado?","Se prioridade: nicho, formato, quem produz, relação com o negócio","Alternativa: usar como marketing (cases → conteúdo → leads), não receita"]},
+  {id:"d6",titulo:"Sociedade e ritmo",ancora:false,
+   resumo:"Bloco protegido. Quadro societário marcado como pauta aberta desde mar/2025. Disponibilidades mudaram (Stacke CLT no Canadá, João no Sicredi). A tensão 'temos tudo mas demoramos' é estrutural.",
+   pergunta:"O arranjo atual (papéis, sociedade, ritmo) ainda serve para os próximos 12 meses?",
+   aFechar:["Revisão do quadro societário (pauta aberta)","Como vocês decidem e executam, não só o que"]}
+];
+
+const IDEIAS = [
+  {id:"i1",nome:"Útero de assistentes de cultura",fonte:"João · NETZ 07/jan/2026",potencial:"alto",
+   desc:"Ambiente controlado onde se coleta info cultural de cada organização e se 'gesta' assistentes personalizados para entregar ao cliente. Conecta com a Wonderful."},
+  {id:"i2",nome:"Zito/Mint como avatar-mascote",fonte:"João · NETZ 07/jan; Labz #1",potencial:"medio",
+   desc:"Mascote digital (gato Mint) que aparece no site, interage com clientes, faz intervenções culturais. João explorou Three.js + 3D low-poly."},
+  {id:"i3",nome:"Agente que audita site → PDF/proposta",fonte:"acervo §5",potencial:"alto",
+   desc:"IA que critica o site atual do prospect e gera proposta pronta. Ponte entre capacidade técnica e o gargalo comercial."},
+  {id:"i4",nome:"Micro-ferramentas por nível de pool",fonte:"Denis · NETZ 07/jan",potencial:"medio",
+   desc:"Pequenas ferramentas que resolvem problemas específicos, distribuídas por nível (entrada vê que existe, avançado usa). Produto escalonado."},
+  {id:"i5",nome:"Ferramentas utilitárias grátis (lead-gen)",fonte:"Denis · Alinhamento 30/jun/2025",potencial:"medio",
+   desc:"Sistema de clipboard (~70% pronto) 'para disponibilizar de graça e ver quem usa'. Estratégia de lead por utilitário."},
+  {id:"i6",nome:"Assistente ilustrador de estilo próprio",fonte:"Reunião VX · abr/2025",potencial:"medio",
+   desc:"Assistente treinado no estilo de ilustração da marca para gerar visualizações padronizadas a partir de fotos. Testes funcionais feitos."},
+  {id:"i7",nome:"Cases fictícios por nicho (portfólio)",fonte:"acervo §5; Rito Derma",potencial:"alto",
+   desc:"Estudos de caso fictícios por nicho para portfólio sem cliente real. Rito Derma é a materialização — falta sistematizar."},
+  {id:"i8",nome:"Automação de captação de eventos",fonte:"Denis · Alinhamento 06/abr/2026",potencial:"medio",
+   desc:"Bot que monitora grupos de WhatsApp, cruza com interesses da NETZ e sinaliza eventos relevantes — cada evento como lead."},
+  {id:"i9",nome:"Netz como comunidade tech / caixa de areia",fonte:"João · NETZ 07/jan/2026",potencial:"medio",
+   desc:"Oferecer não conteúdo, mas tecnologia e espaço de experimentação para uma comunidade. O Labz é a semente disso."},
+  {id:"i10",nome:"Editais não-reembolsáveis",fonte:"Denis · NETZ 07/jan; 06/abr",potencial:"baixo",
+   desc:"'O time olha o não-reembolsável com distância excessiva; o tempo passa igual.' Provocação sem plano."}
+];
+
+const REFS = [
+  {tema:"Nossos experimentos",cor:"#BFFF80",itens:[
+    ["Rito Derma","Assistente de recomendação de rotina de skincare. Mesmo padrão do Mintzie.","Gui · #labz 29/05"],
+    ["Mintzie / gatito","Assistente do João. Parte da cultura de assistentes personificados.","acervo §8"],
+    ["Assistente de relatórios de obra","MVP no Dify (agente + API OpenAI). Validado com Rafa. 'MVP vencido'.","acervo §8"],
+    ["Meteor Dodge","Joguinho que virou app de tela inicial.","#labz 22–23/06"],
+    ["Site LABZ / Netz","Identidade forte: constelação verde #BFFF80, recortes razor, node graphs.","acervo §8"],
+    ["Hermes Agent","Agente de memória persistente na VPS. Kanban/to-dos, integrações.","Denis · #estratégia"]]},
+  {tema:"Tese: interno → produto",cor:"#7Fd4ff",itens:[
+    ["Caso Tweet Hunter","Ferramenta interna → MVP US$9 → US$41k/mês → adquirida.","Gui · #labz 22/06"],
+    ["Filosofia do grupo","'Não precisa ter a melhor ideia, só copiar da melhor forma' (Stacke).","acervo §10"],
+    ["Product Hunt","Vitrine de lançamento de produtos de tech.","Gui · #descobertas 27/06"]]},
+  {tema:"Substituir SaaS caro",cor:"#ff9f7f",itens:[
+    ["Bitwarden","Substitui 1Password. Resolve o caos de senhas do §9.","evolving.ai / Insta"],
+    ["Plausible","Substitui GA4. Analytics privacy-first para clientes.","evolving.ai / Insta"],
+    ["n8n","Substitui Zapier. Automação (já citado no acervo).","evolving.ai / Insta"],
+    ["AppFlowy","Substitui Notion. Alternativa self-host.","evolving.ai / Insta"],
+    ["Ollama / Whisper / Fooocus","LLM local, transcrição, geração de imagem — sem custo de API.","evolving.ai / Insta"]]},
+  {tema:"Geração de sites com IA",cor:"#c79fff",itens:[
+    ["Elementor MCP + Claude Code","Sites custom via MCP.","Gui · #descobertas 21/06"],
+    ["Codex (iOS, sites, replay)","Build de apps e sites com IA.","#descobertas 05–19/06"],
+    ["Figma agent / Config 2026","Plugins generativos.","Gui · 24/06"],
+    ["Spline","Design 3D no browser.","João · #labz 15/05"]]},
+  {tema:"Agentes & infra",cor:"#ffd97f",itens:[
+    ["Wonderful (US$2bi)","Startup israelense de agentes locais no Brasil. Espelho de um caminho possível.","Insta"],
+    ["Is Your Site Agent-Ready","Checa llms.txt, MCP, agent skills. Possível serviço.","Denis · 04/06"],
+    ["PewDiePie / Odysseus","Workspace de IA self-hosted, open-source.","Gui · 05/06"]]},
+  {tema:"Conteúdo & clipping",cor:"#ff7fb0",itens:[
+    ["Clipping economy","'Literally making clips' — esteira de cortes como negócio.","Denis · Insta"],
+    ["Codex + editor de vídeo","Editor embutido.","Denis · Insta"],
+    ["LottieFiles Motion System","Logos animados, motion presets.","#descobertas 24/06"]]}
+];
+
+const BENCH = [
+  {id:"b1",titulo:"DesignJoy: o espelho",tag:"Produtização",num:"US$3,1M/ano",
+   desc:"Um designer sozinho, assinatura de escopo fixo, montado num fim de semana, validado no Product Hunt. Preço por posicionamento (US$450→US$5k/mês).",
+   lente:"O portfólio impecável É a máquina de vendas. Recategoriza 'site inacabado' como problema comercial, não estético."},
+  {id:"b2",titulo:"Playbook de produtização",tag:"Produtização",num:"30% → 60-70%",
+   desc:"Margem sobe quando produtiza: sistema uma vez, replica, tempo cai de semanas para dias, júniores executam. Nunca vender projeto avulso.",
+   lente:"A NETZ tem os protótipos; falta disciplina de fechar escopo, publicar preço, tratar como assinatura."},
+  {id:"b3",titulo:"Timing brasileiro de Micro-SaaS",tag:"Produto/IA",num:"44% / 5%",
+   desc:"44% das PMEs brasileiras usam IA amadoramente; só 5% usam SaaS. Demanda existe, sofisticação não. Espaço para oferta estruturada.",
+   lente:"Janela favorável. Mas precifique dentro do que o mercado reconhece, ou não acha early-adopters."},
+  {id:"b4",titulo:"Esteira de sites com IA já existe",tag:"Produto/IA",num:"US$99/200 sites",
+   desc:"Duda, CodeDesign, Readdy, Webflow+IA já são produtos maduros. A pergunta muda de 'conseguimos construir?' para 'por que a nossa é diferente?'.",
+   lente:"Resposta defensável: nicho + serviço em volta + realidade brasileira. Não a capacidade técnica (virou commodity)."},
+  {id:"b5",titulo:"YouTube faceless: o número honesto",tag:"Conteúdo",num:"97% falham",
+   desc:"97% dos canais faceless não recuperam o investimento; desistência comum entre meses 4-6; payoff exige 12-18 meses de consistência.",
+   lente:"Adiar como receita, aproveitar como marketing (cases → conteúdo → leads). Consistência é o ponto fraco da NETZ."},
+  {id:"b6",titulo:"Migrar projeto → recorrência",tag:"Precificação",num:"híbrido",
+   desc:"Projeto lança, retainer sustenta. Empacote em vez de vender peças (chatbot US$2k → bundle US$4k). Especialização bate preço.",
+   lente:"Antídoto direto para o 'vender projeto pontual' que a NETZ quer abandonar."}
+];
+
+// Pesquisa profunda — 5 problemas eleitos, com framework/caso/número e tradução
+const PESQUISA = [
+  {id:"p1",titulo:"Execução e continuidade",sub:'"Temos tudo, mas demoramos"',
+   framework:"WIP limits + Lei de Little: parar de começar, começar a terminar.",
+   num:"1-2 ativos por pessoa",
+   pontos:[
+     "Matemático, não motivacional: reduzir trabalho em paralelo reduz o tempo de cada entrega (Lei de Little, validada há 60+ anos).",
+     "Caso: time com tudo 'em progresso' entregou 1 iniciativa em 6 meses; ao limitar, entregou mais num trimestre que nos dois anteriores.",
+     "Armadilha de quem constrói: shipping ≠ finishing. Publicar cria ilusão de conclusão. Rito Derma, Mintzie, Meteor Dodge foram shipados, não terminados.",
+     "Variação cultural: focar no que está 'envelhecendo' (demorando) ressoa mais que 'limitar'."],
+   netz:"Adotar WIP limit explícito (1-2 iniciativas/sócio) e regra 'nada novo até terminar algo'. O Hermes/kanban torna isso visível. É a aplicação prática da decisão âncora do produto."},
+  {id:"p2",titulo:"Comercial sem dono",sub:'"Somos péssimos comerciais"',
+   framework:"O founder É a credibilidade + prospecção por sinais, não lista fria.",
+   num:"5-8% vs 1-2% resposta",
+   pontos:[
+     "E-mails de founders têm a maior taxa de resposta de qualquer remetente (análise de 7M+ e-mails). Vocês são o melhor 'vendedor' por não serem vendedores.",
+     "Caso espelho: dono de MSP que 'não queria virar vendedor' descobriu que as conversas eram simples — perguntas diretas, sem pitch. Virou hábito repetível.",
+     "Sinais (contratação, mudança de tech, vaga) batem lista fria: 5-8% de resposta vs 1-2%.",
+     "Valida o 'agente audita site → proposta' do cemitério: é gerador de sinal + abertura. Especialização é 10x: 'sites para clínicas odonto' > 'sites para empresas'."],
+   netz:"Duas rotas, ambas sem 'virar vendedor': (A) outbound leve por sinais com o agente-auditor; (B) motor de conteúdo com o founder à frente. A decisão é qual montar primeiro e QUEM é o dono."},
+  {id:"p3",titulo:"Empacotar protótipo em produto",sub:"Do 'feel' ao valor de mercado",
+   framework:"Protótipo testa 'feel'; MVP testa 'alguém paga?'. Niche of one + evitar build trap.",
+   num:"3 caixas de falha",
+   pontos:[
+     "Diagnóstico de falha: é problema de FEATURE (não funciona), de MERCADO (ninguém quer) ou de MENSAGEM (não entenderam)? Os protótipos da NETZ foram abandonados, nunca diagnosticados.",
+     "Niche of one: achar o grupo que já resolve o problema com um hack ruim (planilha caótica). O hack é a evidência de demanda.",
+     "Casos: Slack (ferramenta interna → produto), Instagram (cortou tudo menos a feature mais usada).",
+     "Método Buffer: landing + preço + 'em breve' valida quem paga ANTES de construir."],
+   netz:"Passo zero que vocês pulam: validar demanda com landing+preço antes de construir mais. Aplicar niche of one ao Rito Derma / assistente de obra: qual tem dor diária + poder de compra?"},
+  {id:"p4",titulo:"Precificação e recorrência",sub:"T&M is dead na era da IA",
+   framework:"Preço por valor + 3 tiers com o do meio mais lucrativo + piloto de 90 dias.",
+   num:"tier do meio",
+   pontos:[
+     "Cobrar por hora te pune por ficar rápido com IA: a IA faz em 5h o que levava 20. Cada ganho de eficiência da NETZ está reduzindo receita.",
+     "Value-based só funciona com histórico: cases com +30% dão base para cobrar 3-4x. (O mesmo case serve ao comercial.)",
+     "Maioria escolhe o tier do meio — desenhe-o como o de maior margem. Máx 3-4 tiers.",
+     "Scripts: 'está caro' → 'comparado a quê?' + ROI no papel. 'Quero testar' → piloto de 90 dias no tier de entrada."],
+   netz:"Migração: (1) 3 tiers com o do meio mais lucrativo; (2) estrear com piloto de 90 dias num cliente de confiança (Sicredi/VIEX/Sebrae); (3) o piloto vira case que alimenta preço E comercial."},
+  {id:"p5",titulo:"Esteira de conteúdo / aquisição",sub:"Conteúdo como sistema, não mídia",
+   framework:"Motor de conteúdo: 1 fonte → muitos ativos. Repurposing no briefing, não depois.",
+   num:"3x mais pipeline",
+   pontos:[
+     "Motor documentado = 3x mais pipeline que publicar avulso. Conteúdo é infraestrutura de aquisição, não canal de mídia à parte.",
+     "1 case → post-resumo + 5-8 posts LinkedIn + e-mail + one-pager + infográfico + vídeo curto. Definir repurposing no briefing, com dono e data.",
+     "LinkedIn: link externo derruba alcance 20-35% (use nativo, link no comentário); carrossel rende 5-7%; semanal = 2x engajamento.",
+     "IA reconhecível = -47% de alcance. Use IA para pesquisa/rascunho, voz humana por cima. Iscas: ferramentas > e-books (as micro-ferramentas de vocês são iscas de lead)."],
+   netz:"Reposiciona a frente: não é receita (97% dos canais faceless falham), é a máquina de aquisição do Problema 2. Cada projeto (Sicredi) vira 1 fonte → muitos ativos. Resolve comercial + preço + conteúdo de uma vez."}
+];
+const SINTESE = "Os 5 problemas são 1 sistema. O CASE é a moeda que circula: um projeto terminado (P1) e empacotado com nicho (P3) vira conteúdo que gera leads (P2+P5) e prova que sustenta preço por valor (P4). Sequência para a imersão: (1) WIP limit + escolher 1 produto âncora; (2) validar com piloto de 90 dias + preço em 3 tiers; (3) piloto vira case, case vira motor de conteúdo com o founder à frente. Uma linha, não cinco frentes.";
+
+// Hermes — três ângulos com ramos marcados por esforço
+const HERMES_ANGULOS = [
+  {id:"ha",titulo:"Cérebro operacional interno",tag:"Ataca o 'demoramos'",
+   tese:"Se o gargalo é execução, um agente que segura memória e ritmo é remédio direto. Melhor razão valor/risco agora.",
+   ramos:[
+     {n:"A.1",nome:"Memória institucional viva",esf:"barato",desc:"Fonte única de decisões e pendências. Teste: alimentar com as 26 transcrições + acervo e perguntar 'o que decidimos sobre X?'."},
+     {n:"A.2",nome:"Guardião do WIP limit",esf:"medio",desc:"Kanban que fala: 'Gui, o Rito Derma está parado há 12 dias'. O ritmo vira função de máquina, não de força de vontade."},
+     {n:"A.3",nome:"Operador de processos repetíveis",esf:"medio",desc:"Assume tarefas: ata de reunião, relatório da residência, rascunho de proposta. Cada processo = horas/semana de volta."},
+     {n:"A.4",nome:"Onboarding como explicitação",esf:"barato",desc:"Ensinar o Hermes força explicitar processos tácitos. Exercício de clareza organizacional disfarçado de config."},
+     {n:"A.5",nome:"Hub de integrações",esf:"medio",desc:"Cola entre Discord/Telegram/Notion. Vira sistema nervoso central. Risco: buraco sem fim de integrações."}
+   ]},
+  {id:"hb",titulo:"Produto / serviço vendável",tag:"Bifurcação de vida ou morte",
+   tese:"O que construíram para si, outros pagariam. Mas o Hermes genérico é quase um wrapper — e wrappers morreram. Agente vertical é o que o mercado premia.",
+   ramos:[
+     {n:"B.1",nome:"Cérebro digital white-label",esf:"aposta",desc:"Vender o Hermes inteiro a clientes. É a maior aposta E perigosamente perto de wrapper. Mercado onde a Wonderful (US$2bi) entra."},
+     {n:"B.2",nome:"Agente vertical de nicho",esf:"medio",desc:"Hermes como motor de agente especializado. Assistente de obra (MVP validado com Rafa) é candidato pronto. É o que o mercado premia."},
+     {n:"B.3",nome:"Onboarding de agente como serviço",esf:"medio",desc:"Vender o método de implantar+treinar agente interno para clientes. Serviço produtizado, margem melhor. Vocês são os locais no BR."},
+     {n:"B.4",nome:"Micro-ferramentas / skills como isca",esf:"barato",desc:"Cada skill vira micro-ferramenta pública de lead. Ex.: 'audita seu site'. Alimenta o funil comercial (Problema 2 e 5)."},
+     {n:"B.5",nome:"Hermes como credencial de venda",esf:"barato",desc:"Não é o que se vende, é a prova de que a NETZ sabe fazer. 'Construímos nosso próprio agente' fecha contrato de consultoria."}
+   ]},
+  {id:"hc",titulo:"A dinâmica de onboarding",tag:"O processo É o entregável",
+   tese:"Proposta do Denis. O maior valor talvez não seja o Hermes ficar pronto, mas o que vocês descobrem sobre a NETZ ao tentar ensiná-lo.",
+   ramos:[
+     {n:"C.1",nome:"Onboarding como explicitação",esf:"barato",desc:"O entregável real é um doc de 'como a NETZ opera' que hoje não existe. O Hermes é a desculpa para escrevê-lo."},
+     {n:"C.2",nome:"O teste do processo único",esf:"barato",desc:"Escolher UM processo e levá-lo do zero ao funcionando nos 3 dias. WIP limit aplicado ao próprio Hermes."},
+     {n:"C.3",nome:"Cada sócio ensina sua área",esf:"barato",desc:"Gui ensina site, Denis infra, João conteúdo, Stacke comercial. Mapa das 4 áreas + expõe conhecimento concentrado numa cabeça só."},
+     {n:"C.4",nome:"Definir 'quando está pronto'",esf:"barato",desc:"A decisão mais fácil de esquecer e a mais crítica. 'O Hermes está pronto quando faz X sem ajuda'. Sem isso, vira brincadeira infinita."},
+     {n:"C.5",nome:"A dinâmica como decisão de papel",esf:"barato",desc:"Ao tentar ensinar, vocês sentem se ele é cérebro interno ou produto. A experiência responde melhor que a discussão teórica."}
+   ]}
+];
+const HERMES_CASES = [
+  {num:"95% falham",titulo:"O dado que define tudo",desc:"Estudo MIT (NANDA 2025): 95% dos pilotos corporativos de IA deram zero ROI. Causa não foi o modelo — foi falta de prontidão de contexto (processos não organizados).",lente:"Sem os processos da NETZ organizados, o Hermes será mais um dos 95%. Organizá-los é a dinâmica (Ângulo C). A e C são o mesmo movimento."},
+  {num:"-39%",titulo:"Por que o Hermes deve existir",desc:"Microsoft + Salesforce: performance de IA cai 39% de turno único para múltiplos turnos sem memória adequada. O problema que o Hermes resolve é real e mensurável.",lente:"Valida a intuição do Denis. Mas: definir escopo primeiro, armazenamento depois — a armadilha é 'jogar tudo no banco vetorial'."},
+  {num:"wrappers ✝",titulo:"Thin wrappers morreram",desc:"TechCrunch mar/2026: investidores pararam de financiar wrappers. Quando o provedor lança a feature nativa, o valor evapora. Agentes verticais de nicho prosperam.",lente:"B.1 (Hermes genérico) é quase wrapper. B.2 (agente vertical de obra) é o que cresce. A diferença é vida ou morte."},
+  {num:"US$500-2k/mês",titulo:"O mercado do assistente de obra",desc:"Construção é alvo top de agente vertical: estimadores gastam 40-80h por orçamento; segmento de US$4bi. Empreiteiras pagam US$500-2.000/mês por economia de tempo.",lente:"O 'nicho de um' da construção tem dor e orçamento. O MVP de obra já tem fosso de domínio e workflow — dois moats de saída."},
+  {num:"US$1,5-5k",titulo:"Preço de implantar agente",desc:"Agente de escopo fechado: US$1,5-5k build + US$300-800/mês. A maioria das agências vende deck; poucas entregam sistema rodando. O trabalho caro é integração, não o modelo.",lente:"A NETZ pode ser do tipo que entrega, na faixa de PME brasileira. É onde está a margem — e o diferencial."},
+  {num:"40% cancelados",titulo:"A disciplina que vende",desc:"Gartner: 40% dos projetos de agente serão cancelados até 2027, sempre por pular a 'arqueologia de processo'. Quem tem 192% de ROI escopa apertado antes de construir.",lente:"A disciplina de escopo que FALTA à NETZ é o que o mercado mais valoriza. Vocês podem transformar a fraqueza confessa em diferencial."}
+];
+const HERMES_SINTESE = "A evidência aponta 3 coisas: (1) o ângulo interno (A) e a dinâmica (C) são o mesmo movimento — sem processos organizados, o Hermes é um dos 95% que falham; (2) o produto (B) tem bifurcação de vida ou morte — Hermes genérico é wrapper (morto), agente vertical de obra é o que o mercado premia; (3) a dinâmica do Denis tem lastro de mercado real, e a disciplina de escopo que falta à NETZ é justamente o que o mercado paga para receber. Recomendação: usar a dinâmica (C) para levar UM processo interno (A) ao fim com 'pronto' definido; produto (B) vira parking lot datado, mirando o agente de obra, nunca o cérebro genérico.";
+
+// Auditoria do site netz.now — 3 eixos, cada achado marcado verificado/a-medir
+const SITE_EIXOS = [
+  {id:"seo",titulo:"SEO",tag:"Descoberta e indexação",
+   achados:[
+     {tipo:"ok",label:"Metadados sólidos",desc:"Canonical correto, meta-description vendedora, Open Graph e Twitter Card completos (imagem 1200x630). Link compartilhado renderiza preview bonito."},
+     {tipo:"ok",label:"Headings semânticos",desc:"H1 único e forte ('Tecnologia para operações complexas do mundo real'), H2 por seção. Hierarquia limpa."},
+     {tipo:"erro",label:"Raiz volta vazia",desc:"netz.now/ retorna só título + canonical, zero conteúdo. Só /pt/ entrega HTML real. Redirect a corrigir (301 limpo) ou renderização client-side."},
+     {tipo:"erro",label:"Falta hreflang",desc:"PT/EN/ES têm links no rodapé mas sem tag hreflang. Risco do Google tratar as 3 versões como conteúdo concorrente/duplicado."},
+     {tipo:"medir",label:"Indexação real",desc:"No Search Console: quantas páginas de fato indexadas? Confirma se a raiz vazia já custa tráfego."},
+     {tipo:"medir",label:"robots.txt + sitemap.xml",desc:"Não acessíveis daqui. Conferir se existem, se o sitemap lista os 3 idiomas, se o robots o referencia."},
+     {tipo:"medir",label:"Dados estruturados",desc:"Não detectei JSON-LD. Adicionar schema Organization + WebSite na home, Article/CreativeWork nos cases. Confirmar no Rich Results Test."}
+   ]},
+  {id:"agent",titulo:"Agent-ready",tag:"Vocês vendem isto",
+   achados:[
+     {tipo:"erro",label:"Raiz vazia é pior p/ agentes",desc:"Crawler de IA (ChatGPT, Claude, Perplexity) lê o HTML e NÃO espera o JS renderizar. Casca vazia na porta de entrada = agente conclui 'sem conteúdo' e vai embora."},
+     {tipo:"ok",label:"HTML de /pt/ é amigável",desc:"Headings claros, texto real (não imagem de texto), links descritivos. Metade do trabalho de agent-readiness já feito."},
+     {tipo:"medir",label:"Publicar llms.txt",desc:"Padrão emergente p/ dizer a modelos o que é o site. Quem VENDE prontidão p/ agentes ter um llms.txt exemplar é demonstração de produto. Quase nenhuma consultoria BR tem."},
+     {tipo:"medir",label:"Resolver renderização da raiz",desc:"Garantir conteúdo essencial no HTML inicial (SSR/pré-render). Conserta SEO e agent-ready de uma vez."},
+     {tipo:"medir",label:"Rodar o próprio teste",desc:"Rodar o teste de agent-readiness que vocês conhecem (llms.txt, MCP, agent skills) no site e usar como 1º item do portfólio dessa capacidade."}
+   ]},
+  {id:"perf",titulo:"Performance",tag:"Não medível daqui",
+   achados:[
+     {tipo:"medir",label:"LCP provável gargalo",desc:"Se é client-side rendered, o tempo até o conteúdo aparecer sofre — navegador baixa e executa JS antes de mostrar algo. Medir com prioridade."},
+     {tipo:"ok",label:"Logos em SVG (parte)",desc:"Vários logos em SVG (leve, escalável). Bom."},
+     {tipo:"erro",label:"Logos em PNG pesam",desc:"CMPC, Saneamento, Viex em PNG; Fundação Sicredi em WebP. PNGs de logo são candidatos a SVG/WebP otimizado. Ganho fácil de bytes."},
+     {tipo:"medir",label:"PageSpeed Insights",desc:"Rodar em /pt/ e numa página de case. Fonte de verdade p/ Core Web Vitals (LCP, INP, CLS), mobile e desktop."},
+     {tipo:"medir",label:"Teste em 4G/mobile real",desc:"Não só no desktop do escritório. Decisor de empresa grande abre o 1º link no celular."}
+   ]}
+];
+const SITE_PRIORIDADES = [
+  {id:"sp1",n:"01",titulo:"Diagnosticar e resolver a raiz vazia",esf:"medio",desc:"Maior alavancagem: conserta SEO e agent-ready juntos, é a porta de entrada. 1º passo é achar por que está vazia (redirect? CSR?)."},
+  {id:"sp2",n:"02",titulo:"Adicionar hreflang entre PT/EN/ES",esf:"barato",desc:"Baixo esforço, protege as 3 versões de canibalização, melhora alcance internacional. As páginas já existem."},
+  {id:"sp3",n:"03",titulo:"Publicar llms.txt exemplar",esf:"barato",desc:"Baixo esforço, vira demonstração viva de capacidade que vocês vendem. Marketing e técnica no mesmo movimento."},
+  {id:"sp4",n:"04",titulo:"Adicionar dados estruturados (JSON-LD)",esf:"medio",desc:"Organization + WebSite na home, Article/CreativeWork nos cases. Alimenta rich results e dá contexto a agentes."},
+  {id:"sp5",n:"05",titulo:"Otimizar imagens",esf:"barato",desc:"Logos PNG → SVG/WebP, comprimir a OG image. Ganho de performance de esforço baixo."},
+  {id:"sp6",n:"06",titulo:"Rodar PageSpeed e tratar Core Web Vitals",esf:"medio",desc:"Sem medir, vocês estão no escuro. Tratar o que aparecer em LCP/INP/CLS."}
+];
+const SITE_SINTESE = "A auditoria reencontra o mesmo padrão da imersão inteira, agora na infraestrutura: o site tem estrutura sofisticada esperando conteúdo que não chegou. A página de cases tem filtros de nível enterprise (segmento, tamanho, tecnologia) por trás de 3 cases — a própria meta-description confessa 'base inicial de cases'. É o gargalo de empacotamento encarnado em HTML. A melhor coisa que pode acontecer com o site não é mais uma feature técnica — é o case do Sicredi entrar no ar.";
+
+// SÍNTESE TRANSVERSAL (leitura cruzada dos 9 artefatos) — camada de abertura, acima das abas
+const SINT_TESE_TITULO = "A NETZ não é uma empresa com problema de execução. É uma máquina de preparação que ainda não virou empresa.";
+const SINT_TESE = [
+  "Vocês produziram material de qualidade de consultoria grande — nas horas vagas. Transformar informação em artefato organizado é, comprovadamente, a competência mais forte da casa. Mas o outro lado do balanço: o preço de referência é R$ 950 por uma LP, e a maior entrada de caixa documentada em dois anos não foi um contrato de cliente — foi o salário do Stacke passando pelo CNPJ.",
+  "A causa raiz não é a que os documentos nomeiam. A pesquisa receita WIP limits — correto, mas sintomático. O que a leitura cruzada revela é anterior: nenhum dos quatro sócios depende economicamente da NETZ, e por isso nada nela tem consequência quando não termina. Um protótipo abandonado não custa nada a ninguém; logo, protótipos são abandonados. Nenhum WIP limit resolve ausência de consequência.",
+  "A tese, em uma frase: o que trava a NETZ não é falta de clareza — é excesso de preparação sem nenhum compromisso irreversível com o mercado. A decisão de 'montar portfólio forte' é de novembro de 2024. Vinte meses depois, continua sendo a recomendação final de quase todos os documentos. A próxima coisa que a NETZ produzir não pode ser sobre a NETZ — tem que ser para um cliente, com preço, com prazo e com fim."
+];
+const SINT_PADROES = [
+  {n:"1",nome:"Andaime sem prédio",desc:"Estrutura sempre chega antes da substância: filtros enterprise para 3 cases; infra multiagente do Hermes antes de um processo definido; painel com export antes de haver decisões. Em cinco documentos, o mesmo gesto: construir o contêiner e adiar o conteúdo."},
+  {n:"2",nome:"Terceirizar a disciplina para uma máquina",desc:"Cada problema de comportamento vira um projeto de construção: falta ritmo → Hermes guardião do WIP; falta comercial → agente que audita sites; falta memória → Hermes. Converte cada déficit de hábito em mais uma coisa para construir — alimentando o gargalo que deveria resolver."},
+  {n:"3",nome:"NETZ como veículo das economias individuais",desc:"O CNPJ recebe o salário canadense do Stacke, abriga projetos culturais, e os logos do site vêm majoritariamente de engajamentos individuais dos sócios. A empresa serve aos sócios; ainda não há mecanismo pelo qual os sócios sirvam à empresa."},
+  {n:"4",nome:"Input como conforto, curadoria como produção",desc:"Futures China: 392 links. 3 Ondas: 239. Três artefatos diferentes sentiram necessidade do mesmo disclaimer ('isto é teto de input', 'munição, não decisão', 'cardápio, não lista') — porque todos sabem qual é o vício da casa."},
+  {n:"5",nome:"'Pronto' não existe no vocabulário",desc:"Shipping ≠ finishing; 'definir quando o Hermes está pronto' é a decisão mais fácil de esquecer; o assistente de obra é MVP vencido há 17 meses; o site confessa ser 'base inicial'. Cinco documentos redescobrem que a NETZ nunca define linha de chegada. Este é o verdadeiro centro de gravidade."}
+];
+const SINT_DECISOES = [
+  {num:"01",titulo:"Sociedade e ritmo primeiro, não por último",sub:"d6 promovida a âncora",
+   porque:"Todas as receitas dos outros documentos exigem um 'dono' com capacidade real. Mas nenhum sócio tem a NETZ como ocupação principal, e o quadro societário está 'aberto' desde março de 2025. Nomear donos sem acordar quantas horas cada um entrega é assinar cheque sem fundo — é o que já falhou nas imersões anteriores.",
+   pronto:"Cada sócio declara por escrito horas/semana comprometidas nos próximos 90 dias e o que fica de fora; regra de consequência acordada (o que acontece quando um compromisso não é cumprido); e a ambição da empresa redimensionada para caber na capacidade real. Empresa pequena verdadeira vale mais que consultoria grande fictícia."},
+  {num:"02",titulo:"Um único produto-case, o mesmo objeto em todas as frentes",sub:"resolve a contradição dos dois produtos",
+   porque:"O case é a moeda que todos os documentos cobram: sustenta preço, alimenta o comercial, vira conteúdo, serve de atestado para o Sebrae, é o conteúdo que o site espera. Enquanto essa escolha não fecha, cinco frentes ficam órfãs. Atenção: dois documentos já escolheram produtos diferentes (Sebrae aposta Mintzie; Hermes aponta o assistente de obra com dados de mercado). A sala pode discordar — mas dos dados, não da memória.",
+   pronto:"Um nome escolhido; o 'niche of one' escrito em um parágrafo (quem, com que hack ruim hoje, pagando quanto); landing com preço publicada com data; registro INPI encaminhado para esse produto no CNPJ; e — tão importante quanto — os demais protótipos formalmente arquivados. A decisão só está fechada quando a segunda e a terceira opção estiverem mortas por escrito."},
+  {num:"03",titulo:"Uma única rota de aquisição, com dono e porta de entrada consertada",sub:"d3 + as 3 correções do site",
+   porque:"'Somos péssimos comerciais' está no acervo desde jul/2024 e nenhum protótipo resolve isso — só uma rotina resolve. A escolha de UMA rota (outbound por sinais ou motor de conteúdo founder-led) transforma o problema de talento em problema de hábito. E qualquer rota desemboca no site — cuja raiz está vazia.",
+   pronto:"Rota escolhida (uma, não ambas); dono nomeado com meta semanal verificável; a primeira execução feita ainda dentro da imersão (os 5 primeiros contatos enviados, ou o primeiro post publicado — sem isso a decisão é retórica); e prazo de 14 dias para as 3 correções do site."}
+];
+const SINT_SACRIFICIO = {
+  morrem:["YouTube/conteúdo como linha de receita (o número já é 97% de falha)","Cases fictícios por nicho (um piloto real vale mais)","Mascote, bot de eventos, comunidade tech, micro-ferramentas como frente própria","Nova turma de residência","Qualquer conversa sobre CNPJ em SC (o credenciamento Sebrae é nacional — o argumento já morreu)"],
+  hibernam:["Hermes como produto (todo o ramo B) — revisão out/2026","Sebrae Fases 2–3 (sem case e atestado, é fila sem senha)","Migração de stack, exceto Bitwarden (o caos de senhas é risco real e barato)"],
+  duro:"E o sacrifício mais desconfortável: moratória de input por 90 dias. Nenhum dossiê novo, nenhuma pesquisa nova, nenhum benchmark novo — inclusive (e principalmente) os que seriam ótimos. Vocês já têm munição para dois anos. Cada hora de curadoria compete diretamente com o único conteúdo que muda o jogo: o case."
+};
+const SINT_ORDEM = "sociedade acertada → um produto com preço publicado → um piloto pago → um case no ar → uma rota de aquisição rodando. Nessa ordem, porque cada elo depende do anterior.";
+
+// ===== ABA CONSULTORIAS — os 5 problemas à luz das grandes consultorias =====
+const CONSULT_INTRO = "Munição citável para a imersão. Cada problema traz o diagnóstico das grandes consultorias, os dados com fonte e ano, os frameworks nomeados e a conexão com a NETZ. Fontes distinguidas por robustez.";
+const CONSULT_PROBLEMAS = [
+  {n:"P1",titulo:"Execução e continuidade",lema:"'temos tudo, mas demoramos'",
+   diagnostico:"O gargalo real da execução não é alinhamento (vertical funciona), é coordenação lateral. Sull/Homkes (HBR 2015, 250+ empresas): 84% contam com o chefe, mas só 9% contam com colegas de outras funções. Para 4 sócios interdependentes, compromissos internos são tão frágeis quanto promessas de fornecedor externo.",
+   dados:[
+     {fonte:"BCG, 2020",txt:"Só 30% das transformações atingem o valor-alvo. Bem-sucedidas criaram 66% mais valor."},
+     {fonte:"Gallup Q12, 2024",txt:"Quartil superior de engajamento: +23% lucratividade, +18% produtividade. Fonte mais robusta do relatório."},
+     {fonte:"HBR, 2022",txt:"Trabalhador digital alterna entre apps ~1.200x/dia; ~4h/semana só se reorientando."}
+   ],
+   frameworks:"WIP limits / Lei de Little (limitar trabalho em progresso aumenta throughput); regra dos 70% da McKinsey (decidir com 70% de certeza agora); 'disagree and commit'; dono único por iniciativa.",
+   netz:"'Temos tudo mas demoramos' É o strategy-execution gap. Ações: WIP limit explícito (máx. 1-2 iniciativas ativas), dono único por entrega, tratar o Hermes como o registro que faz decisões 'voltarem' em vez de se perderem."},
+  {n:"P2",titulo:"Comercial sem dono",lema:"'somos péssimos comerciais'",
+   diagnostico:"A a16z (Peter Levine) refuta a crença 'engineer-centric' de que bom produto se vende sozinho: 'se você não consegue vender, um vendedor definitivamente não consegue'. Founder-led sales é insubstituível no início — os fundadores descobrem o sales motion junto com o produto.",
+   dados:[
+     {fonte:"McKinsey B2B Pulse, 2026",txt:"Compradores B2B usam ~10 canais; e-commerce/omnichannel virou linha de base de sobrevivência."},
+     {fonte:"McKinsey",txt:"Fortes crescedores tiram +10% da receita de NOVOS clientes; inside sales cobre 4x mais prospects a 50% do custo."},
+     {fonte:"McKinsey",txt:"Prospecção por sinais/lookalike com gen AI: um distribuidor destravou US$1bi em oportunidades em 6 semanas."}
+   ],
+   frameworks:"a16z 'What time is it?' (o founder vira CEO de vendas nesta fase); prospecção lookalike com IA; rule of thirds (presencial + remoto + digital).",
+   netz:"A solução não é contratar vendedor — é um sócio assumir founder-led sales. A NETZ tem ativo raro: clientes enterprise reais (Sicredi, CMPC, AB InBev, Arezzo) como prova social e base de prospecção lookalike."},
+  {n:"P3",titulo:"Empacotar protótipo em produto",lema:"productização",
+   diagnostico:"Sawhney (HBR 2016): serviços têm crescimento linear e travam abaixo de 40% de margem; produtos operam a 60-90%. A saída é produtizar as tarefas frequentes e de baixa sofisticação. Risco a evitar: o 'build trap' (Perri) — medir por features entregues, não por problemas resolvidos.",
+   dados:[
+     {fonte:"HBR/Sawhney, 2016",txt:"Margem de serviço trava <40%; produto opera a 60-90%. Referência canônica."},
+     {fonte:"YC (Andreessen)",txt:"PMF real = clientes comprando tão rápido quanto você produz; você está sobrecarregado só mantendo de pé."},
+     {fonte:"April Dunford",txt:"Você se diferencia estreitando o foco, não adicionando features. Comece pelos 10-15 melhores clientes."}
+   ],
+   frameworks:"Product Innovation Ladder (serviço → serviço produtizado → produto → assinatura); niche of one (Dunford); 'do things that don't scale' (Graham).",
+   netz:"Três candidatos (Rito Derma, Mintzie, assistente de obra). Escolher UM — o de obra tem a maior evidência de PMF (validado com cliente real). Estreitar o nicho radicalmente. Os outros dois em espera para não cair no build trap."},
+  {n:"P4",titulo:"Precificação e receita recorrente",lema:"cobrar por hora está morrendo",
+   diagnostico:"Sob cobrança por hora, quanto mais eficiente você fica com IA, menos você ganha — modelo autodestrutivo. McKinsey (2025): à medida que o software executa o trabalho, o preço migra para consumo e resultado (unidades de trabalho concluído).",
+   dados:[
+     {fonte:"McKinsey, 2025",txt:"Custo de LLM caiu +80%/ano; captura de impacto de IA subiu de 33% (2024) p/ 46% (2025); só 30% dos fornecedores publicam ROI."},
+     {fonte:"Revology, 2025",txt:"1% de melhoria na realização de preço → +6-7% de lucro operacional. Preço é a alavanca de lucro mais poderosa."},
+     {fonte:"Mercado",txt:"Outcome-based real: Intercom Fin US$0,99/resolução; Zendesk US$1,50/resolução."}
+   ],
+   frameworks:"Value-based pricing; 4 modelos de monetização de IA (per-seat, consumo, resultado, híbrido — o híbrido é o mais comum entre vencedores); tiers (2-3 opções, o do meio mais gordo).",
+   netz:"Migrar de projeto para retainer; nos produtos, modelo híbrido (base + consumo/resultado). O diferencial 'substituir SaaS caro por open-source' casa com value-based: cobrar fração do valor economizado. Mostrar ROI quantificável (ser dos 30%)."},
+  {n:"P5",titulo:"Esteira de conteúdo e aquisição",lema:"conteúdo como sistema, não mídia",
+   diagnostico:"Thought leadership não é branding difuso — gera RFPs e disposição a pagar premium (Edelman-LinkedIn). O formato mais eficaz para empresa pequena é founder-led: compradores confiam em pessoas, não em marcas.",
+   dados:[
+     {fonte:"Edelman-LinkedIn, 2024",txt:"37% dos decisores e 41% do C-level emitiram um RFP por causa de thought leadership. 49% pagam premium (vs 10% que os produtores achavam)."},
+     {fonte:"Ehrenberg-Bass, 2022",txt:"Regra 95:5 — só ~5% dos compradores estão in-market agora; os 95% são a demanda a construir."},
+     {fonte:"Refine Labs",txt:"Perfil pessoal gera 2,75x mais impressões e 5x mais engajamento que a página da empresa."}
+   ],
+   frameworks:"Pillar content + repurposing (1 fonte → 20+ ativos); 3-4 content pillars; 'extrair, não criar' (o founder responde 1 pergunta/semana); Jobs-to-be-Done.",
+   netz:"Vantagem estrutural: a NETZ vende a própria capacidade de construir a esteira com IA. Um sócio grava 1h/semana, o pipeline vira 20+ ativos, LinkedIn orgânico do sócio como canal. Founder-led supera faceless em confiança B2B. Os cases reais são o combustível."}
+];
+const CONSULT_SINTESE = "Somando McKinsey, Gallup, BCG, HBR, a16z, YC e Edelman, emerge uma receita executável por 4 sócios sem contratar: (1) FOCO é a meta-solução — os 5 problemas são a mesma doença (dispersão) em 5 órgãos; (2) disciplina de fluxo (P1) é pré-requisito dos outros 4; (3) venda e marketing são do fundador, e isso é vantagem; (4) produtize UM protótipo e mude a cobrança junto (produto sem preço por valor = pago menos pelo mesmo trabalho); (5) use a própria competência de IA como alavanca de aquisição. A filosofia 'não precisa da melhor ideia, só copiar da melhor forma' está academicamente validada: vencedores não têm estratégia superior, têm execução e foco superiores.";
+
+// ===== ABA SEBRAE — mapa dos caminhos institucionais =====
+const SEBRAE_INTRO = "Mapa dos caminhos para a NETZ virar fornecedora/parceira recorrente de metodologia e tecnologia. O mapa abaixo vinha da pesquisa estratégica; agora está calibrado pela reunião presencial em POA (11/jul/2026) com um gestor de inovação/startups do Sebrae-RS — que confirmou umas coisas, corrigiu outras e deu os próximos passos concretos.";
+
+// Da reunião presencial em Porto Alegre — fonte primária, calibra o restante da aba.
+const SEBRAE_REUNIAO = {
+  data:"11 jul 2026 · Porto Alegre",
+  quem:"Gestor de inovação / startups do Sebrae-RS (atuação estadual), com os sócios da NETZ",
+  itens:[
+    {t:"confirma",x:"Credenciamento é POR ESTADO, mas o credenciado atende o Brasil todo. Resolve o RS×SC: credenciar no RS não limita nada — dá pra atender (e credenciar) em qualquer estado. Não precisa abrir empresa em SC pelo Sebrae."},
+    {t:"muda",x:"O vocabulário real na ponta é: Edital 01 (o Sebrae compra a metodologia e ela vira DELE), Edital 02 / Propriedade Intelectual (a metodologia continua SUA, valor-hora mais alto) e Únio (marketplace do RS, o cliente escolhe). Sebraetec/Ficha Técnica não foi o eixo desta conversa; o gestor trabalha majoritariamente pelo Edital 02."},
+    {t:"status",x:"A NETZ já cadastrou 1 solução na Únio (o site — o processo mais simples), aprovada, aguardando demanda. Próximo passo combinado: cadastrar mais soluções (priorizando alto volume: gestão, planejamento estratégico) e entrar no Edital 02 (PI)."},
+    {t:"valores",x:"Edital de PI no RS: consultoria individual R$211/h; instrutoria (coletivo — workshops, palestras) em tabela decrescente de ~R$1.300/h até ~R$200/h. O valor não é negociável: sai das horas. A Únio faturou ~R$2,5 mi no 1º tri deste ano."},
+    {t:"muda",x:"Não precisa ter produto/SaaS próprio para atuar. Para o Sebrae, consultoria é hora de consultoria; a NETZ não é uma 'startup', mas atende como fornecedora — forte no viés de inovação corporativa e maturidade de gestão (preparar a MPE para receber investimento). As ~10 ferramentas internas não precisam virar produto vendável para este caminho."},
+    {t:"atencao",x:"No Edital 02, solução genérica é 'tiro no pé' (a gestora de soluções pergunta o que difere do que já está na prateleira); específica demais 'não acerta em nada'. Sweet spot: tema de grande volume (gestão: finanças, RH, planejamento, marketing) + uma pitada de diferencial — ex.: IA aplicada de forma consistente para micro e pequenas."},
+    {t:"atencao",x:"Relacionamento importa, mas quem decide puxar a solução é a 'área de soluções', não o gestor (ele pede — ~30% do processo, com uma área intermediária evitando viés). O melhor uso da rede é VISIBILIDADE: levar cases a eventos setoriais (FBV/varejo, Mercopar/indústria, Expo Inter e Fenasoja/agro) e se posicionar como ator relevante — não esperar demanda direta."},
+    {t:"contexto",x:"Setores prioritários revezam a cada 4 anos (Comércio → Agro → Indústria): hoje é ciclo do Comércio; ano que vem, Agro — e isso move recursos. Saúde vem crescendo em startups. RS é polo de varejo e metal-mecânica; SC é o polo nacional do Sebrae Startups."},
+    {t:"proximo",x:"O gestor vai enviar contatos e os links (editais, SGF dos outros estados, Sebrae Startups, observatório com dados de startups). Janela de proposta na Únio: ~7 dias. Contatos citados: David (Regional Sinos, inovação — contato principal), Glaciéria (gestora Regional Sinos), João (Regional Metropolitana/Nexo), Giovana (centro). Rede sugerida: Venture (atende o Brasil todo; ~80% do faturamento vem do Sebrae)."}
+  ]
+};
+const SEBRAE_PORTAS = [
+  {n:"1",nome:"Ser fornecedora do Sebrae",desc:"O Sebrae te contrata e paga para prestar consultoria aos pequenos negócios dele. Portas: SGF (geral) e Sebraetec (inovação/tecnologia). Credenciamento formal, com edital."},
+  {n:"2",nome:"Ser vitrine no marketplace",desc:"O Sebrae te lista numa plataforma onde o próprio empreendedor te contrata, às vezes com subsídio. Porta: Unio (Sebrae-RS)."},
+  {n:"3",nome:"Cadastrar metodologia autoral",desc:"Sua metodologia própria vira um 'produto' que a rede aplica. Portas: Cadastro de Soluções de Mercado e proposição de Ficha Técnica no Sebraetec."}
+];
+const SEBRAE_BLOCOS = [
+  {tit:"Credenciamento (Bloco 1)",tipo:"regra",pontos:[
+    "O Sebrae NÃO segue a Lei 14.133/8.666 — tem regulamento próprio (Resolução CDN 493/2024). Processos mais ágeis, 'permanentemente abertos'.",
+    "Credenciar-se garante elegibilidade, não contratação (é por demanda, rodízio, sem exclusividade). A porta, não o cliente.",
+    "SGF nacional (Edital 01/2025, inscrição digital permanente) + due diligence de integridade + atestados de capacidade técnica.",
+    "DECISIVO p/ RS vs SC: o credenciamento tem ALCANCE NACIONAL. Não precisa de CNPJ em SC para atender o Sebrae/SC. Enfraquece o argumento de abrir empresa em SC só pelo Sebrae. (CONFIRMADO na reunião 11/jul: credencia-se por estado, mas o credenciado atende o Brasil todo.)"
+  ]},
+  {tit:"Marketplace Unio (Bloco 2)",tipo:"pratica",pontos:[
+    "uniosebrae.com.br → 'Sou Prestador' → cadastro com portfólio → curadoria do Sebrae-RS → recebe pedidos de orçamento.",
+    "Categorias de encaixe: Inovação, Transformação Digital, Design Web. Login unificado pelo AMEI.",
+    "Ticket menor (consultorias avulsas p/ pequenos negócios). Porta de entrada e prova, não motor de receita.",
+    "Bônus Mercopar (Caxias): Matchmaking Tecnológico e Projeto Comprador — caminhos para chegar a grandes compradores."
+  ]},
+  {tit:"Metodologia autoral (Bloco 3)",tipo:"regra",pontos:[
+    "ACHADO: 'métodos' em si NÃO são protegidos por direito autoral. Protege-se a expressão — o software.",
+    "Registrar o software (Mintzie) no INPI via e-Software: ~10 dias, 50 anos, barato. Habilita licenciar/vender com segurança.",
+    "Registrar SEMPRE no CNPJ da NETZ, não no CPF de um sócio (numa sociedade de 4, evita disputa futura).",
+    "Cadastrar para a rede: Cadastro de Soluções de Mercado (edital estadual) OU propor Ficha Técnica ao Comitê do Portfólio Sebraetec — este é o movimento de maior alavancagem."
+  ]},
+  {tit:"Sebraetec + relacionamento (Bloco 4)",tipo:"regra",pontos:[
+    "Caminho CENTRAL para a NETZ: 270+ soluções, o Sebrae subsidia 50-90%, área de Serviços Digitais/Desenvolvimento Tecnológico.",
+    "Credenciar: acompanhar edital estadual de prestador (datasebrae.com.br/sebraetec) + comprovar capacidade nas Fichas Técnicas + Termo de Adesão.",
+    "Subsídio por estado: maioria 70%, mas SC e GO = 50%. RS mais barato p/ o empreendedor = mais demanda. Startups até 90% (Negócios Inovadores).",
+    "Anti-golpe oficial: credenciamento é gratuito e direto. Ignore quem cobrar para 'facilitar'. Relacionamento: gerência de Inovação, palestras de edital, ALI, Startup Summit, Mercopar."
+  ]},
+  {tit:"RS vs SC (Bloco 5)",tipo:"pratica",pontos:[
+    "SC confirma foco maior em inovação: Startup SC, MIDITEC/ACATE, rede de Centros de Inovação, FAPESC, 2º no Prêmio Sebrae Startups 2025.",
+    "RS a favor: subsídio Sebraetec 70% (vs 50% SC), Mercopar, e já é a base (custo zero de entrada).",
+    "Para credenciamento Sebrae: não precisa sede em SC (é nacional). Para editais estaduais de inovação (FAPESC, Startup SC): aí sim exige sede no estado.",
+    "Recomendação: não migrar por impulso. Manter RS como base e abrir PJ em SC só quando um edital estadual específico justificar. (Validar com o contador.)"
+  ]},
+  {tit:"Ampliação Sistema S (Bloco 6)",tipo:"pratica",pontos:[
+    "SENAI/SESI: Edital de Inovação para a Indústria (R$55mi/ciclo, aberto a startups). Recurso não-reembolsável.",
+    "Embrapii: financia 1/3 de projeto, contratação direta com a Unidade, sem esperar edital. Modelo mais ágil do país.",
+    "FIESC/FIERGS (federações), ACATE (SC), FINEP/BNDES/FAPESC/FAPERGS (fomento).",
+    "Padrão comum: credenciar-se + metodologia protegida + relação com a gerência de inovação + cada entrega vira atestado. A mesma peça, em vários palcos."
+  ]}
+];
+// Passo a passo recalibrado pela reunião de 11/jul (o que o gestor de fato indicou).
+const SEBRAE_PASSOS = [
+  {fase:"Fase 0",prazo:"sem 1-2",titulo:"Proteger o ativo",desc:"Registrar o software escolhido no INPI e-Software, no CNPJ da NETZ (nunca no CPF de um sócio). Barato, rápido, pré-requisito de credibilidade."},
+  {fase:"Fase 1",prazo:"agora",titulo:"Ampliar o cadastro na Únio",desc:"Já feito: 1 solução (o site) aprovada, aguardando demanda. Agora cadastrar mais soluções — priorizando as de ALTO VOLUME (gestão, planejamento estratégico, finanças, marketing), não o site. Atenção à janela de ~7 dias para responder proposta."},
+  {fase:"Fase 2",prazo:"mês 1",titulo:"Entrar no Edital 02 (PI)",desc:"Cadastrar as metodologias próprias no edital de Propriedade Intelectual (valor-hora mais alto, a solução continua sua). Formatar no ponto certo: tema de grande mercado + uma pitada de diferencial (ex.: IA aplicada de forma consistente para MPE) — genérico é tiro no pé, específico demais não acerta."},
+  {fase:"Fase 3",prazo:"mês 1-2",titulo:"Portfólio pronto no portal + rede por fora",desc:"Deixar o portfólio e os cases bem preparados no portal (é o lastro que a área de soluções confere) e, em paralelo, articular relacionamento: conectar com David (Regional Sinos) e demais gestores, entrar em redes (ex.: Venture)."},
+  {fase:"Fase 4",prazo:"mês 2-3",titulo:"Visibilidade por cases em eventos",desc:"Usar cases com clientes grandes para ganhar palco nos eventos setoriais (FBV/varejo — ciclo atual, Mercopar/indústria, Expo Inter e Fenasoja/agro). Posicionar a NETZ como ator relevante, não só como fornecedora que espera demanda."},
+  {fase:"Fase 5",prazo:"mês 3+",titulo:"Ampliar por gatilho concreto",desc:"SGF dos demais estados (modelo de proposta/oportunidade) e Sistema S (SENAI/Embrapii) quando houver gatilho real. Decidir SC só se um edital estadual específico justificar."}
+];
+
+const STATUS_DEC=[{id:"aberta",label:"Em aberto",cor:"#6b7280"},{id:"andamento",label:"Discutindo",cor:"#ffd97f"},{id:"fechada",label:"Fechada",cor:"#BFFF80"},{id:"parking",label:"Parking lot",cor:"#c79fff"}];
+const TRIAGEM=[{id:"ressuscitar",label:"Ressuscitar",cor:"#BFFF80"},{id:"fundir",label:"Fundir",cor:"#7Fd4ff"},{id:"arquivar",label:"Arquivar",cor:"#6b7280"}];
+const POT_COR={alto:"#BFFF80",medio:"#ffd97f",baixo:"#6b7280"};
+const TABS=[{id:"decisoes",label:"Decisões"},{id:"ideias",label:"Cemitério de ideias"},{id:"hermes",label:"Hermes"},{id:"site",label:"Site"},{id:"pesquisa",label:"Pesquisa profunda"},{id:"consult",label:"Consultorias"},{id:"sebrae",label:"Sebrae"},{id:"bench",label:"Benchmarking"},{id:"refs",label:"Referências"}];
+const KEY="netz-imersao-v1";
+
+// ====================== ESTADO ======================
+function defaultState(){
+  const dec={},ideia={},site={};
+  DECISOES.forEach(d=>dec[d.id]={status:"aberta",dono:"—",prazo:"",nota:""});
+  IDEIAS.forEach(i=>ideia[i.id]={triagem:""});
+  SITE_PRIORIDADES.forEach(p=>site[p.id]={feito:false});
+  return {dec,ideia,site,expanded:{}};
+}
+let state=load();
+let currentTab="decisoes";
+
+function load(){
+  try{const raw=localStorage.getItem(KEY);if(raw){const p=JSON.parse(raw);
+    // merge defensivo caso o schema mude
+    const base=defaultState();
+    return {dec:{...base.dec,...p.dec},ideia:{...base.ideia,...p.ideia},site:{...base.site,...(p.site||{})},expanded:p.expanded||{}};
+  }}catch(e){}
+  return defaultState();
+}
+function save(){
+  try{localStorage.setItem(KEY,JSON.stringify(state));flashSaved();}catch(e){}
+  renderProgress();
+}
+let saveTimer=null;
+function flashSaved(){
+  const el=document.getElementById("saveState");
+  el.textContent="salvo";el.style.color="#4a5060";
+}
+function markSaving(){
+  // localStorage é síncrono e rápido: salva na hora, sem risco de perder edição
+  save();
+}
+// salvaguarda extra: garante gravação se a aba fechar
+window.addEventListener("beforeunload",()=>{try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}});
+
+// ====================== HELPERS ======================
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+
+// ====================== RENDER ======================
+function renderTabs(){
+  const nav=document.getElementById("tabs");
+  nav.innerHTML=TABS.map(t=>`<button class="${t.id===currentTab?'active':''}" onclick="setTab('${t.id}')">${t.label}</button>`).join("");
+}
+function setTab(id){currentTab=id;renderTabs();renderMain();}
+
+function renderProgress(){
+  const fechadas=DECISOES.filter(d=>state.dec[d.id]&&state.dec[d.id].status==="fechada").length;
+  document.getElementById("progText").textContent=`${fechadas} de ${DECISOES.length} decisões fechadas`;
+  document.getElementById("progFill").style.width=Math.round(fechadas/DECISOES.length*100)+"%";
+}
+
+function renderMain(){
+  const m=document.getElementById("main");
+  if(currentTab==="decisoes")m.innerHTML=viewDecisoes();
+  else if(currentTab==="ideias")m.innerHTML=viewIdeias();
+  else if(currentTab==="hermes")m.innerHTML=viewHermes();
+  else if(currentTab==="site")m.innerHTML=viewSite();
+  else if(currentTab==="consult")m.innerHTML=viewConsult();
+  else if(currentTab==="sebrae")m.innerHTML=viewSebrae();
+  else if(currentTab==="pesquisa")m.innerHTML=viewPesquisa();
+  else if(currentTab==="bench")m.innerHTML=viewBench();
+  else m.innerHTML=viewRefs();
+}
+
+function viewDecisoes(){
+  return `<div class="grid">`+DECISOES.map((d,i)=>{
+    const s=state.dec[d.id];
+    const open=state.expanded[d.id];
+    const st=STATUS_DEC.find(x=>x.id===(s.status||"aberta"));
+    return `<article id="${d.id}" class="card ${d.ancora?'ancora':''}">
+      <div class="card-top">
+        <span class="num">${String(i+1).padStart(2,"0")}</span>
+        ${d.ancora?'<span class="ancora-tag">âncora</span>':''}
+        <span class="status-dot" style="background:${st.cor}"></span>
+      </div>
+      <h3>${esc(d.titulo)}</h3>
+      <p class="card-resumo">${esc(d.resumo)}</p>
+      <div class="pergunta"><span class="pergunta-label">Fechamento</span>${esc(d.pergunta)}</div>
+      ${open?`<ul class="checklist">${d.aFechar.map(x=>`<li><span class="mk">▸</span> ${esc(x)}</li>`).join("")}</ul>`:''}
+      <button class="expand-btn" onclick="toggleExpand('${d.id}')">${open?'menos':'o que fechar'}</button>
+      <div class="controls">
+        <div class="control-row"><label class="control-label">Status</label><div class="chip-row">
+          ${STATUS_DEC.map(x=>`<button class="chip" style="${s.status===x.id?`border-color:${x.cor};color:${x.cor};background:${x.cor}18`:''}" onclick="setDec('${d.id}','status','${x.id}')">${x.label}</button>`).join("")}
+        </div></div>
+        <div class="control-row"><label class="control-label">Dono</label><div class="chip-row">
+          ${SOCIOS.map(p=>`<button class="chip" style="${s.dono===p?'border-color:#BFFF80;color:#BFFF80;background:#BFFF8018':''}" onclick="setDec('${d.id}','dono','${p}')">${p}</button>`).join("")}
+        </div></div>
+        <div class="control-row"><label class="control-label">Prazo</label>
+          <input class="txt" type="text" placeholder="ex: até 15/07" value="${esc(s.prazo||'')}" oninput="setDec('${d.id}','prazo',this.value)">
+        </div>
+        <textarea rows="2" placeholder="Próximo passo concreto / o que ficou decidido…" oninput="setDec('${d.id}','nota',this.value)">${esc(s.nota||'')}</textarea>
+      </div>
+    </article>`;
+  }).join("")+`</div>`;
+}
+
+function viewIdeias(){
+  return `<p class="tab-intro">Dez iniciativas que apareceram e perderam tração nas reuniões. "Perdeu tração" é hipótese, não veredicto — decidam conscientemente: ressuscitar, fundir ou arquivar.</p>
+  <div class="grid-ideias">`+IDEIAS.map(it=>{
+    const s=state.ideia[it.id];
+    const tri=TRIAGEM.find(t=>t.id===s.triagem);
+    const bc=tri?tri.cor:"#2a2f3a";
+    return `<article id="${it.id}" class="ideia-card" style="border-left-color:${bc}">
+      <div class="ideia-head">
+        <h4 class="ideia-nome">${esc(it.nome)}</h4>
+        <span class="pot-badge" style="color:${POT_COR[it.potencial]};border-color:${POT_COR[it.potencial]}55">${it.potencial}</span>
+      </div>
+      <div class="ideia-fonte">${esc(it.fonte)}</div>
+      <p class="ideia-desc">${esc(it.desc)}</p>
+      <div class="chip-row">
+        ${TRIAGEM.map(t=>`<button class="chip" style="${s.triagem===t.id?`border-color:${t.cor};color:${t.cor};background:${t.cor}18`:''}" onclick="setIdeia('${it.id}','${t.id}')">${t.label}</button>`).join("")}
+      </div>
+    </article>`;
+  }).join("")+`</div>`;
+}
+
+function viewConsult(){
+  let h=`<p class="tab-intro">${esc(CONSULT_INTRO)}</p>`;
+  h+=`<div class="sintese-box"><span class="sintese-label">síntese transversal das consultorias</span>${esc(CONSULT_SINTESE)}</div>`;
+  h+=`<div class="consult-wrap">`;
+  CONSULT_PROBLEMAS.forEach(p=>{
+    h+=`<section class="consult-prob">
+      <div class="consult-head"><span class="consult-n">${p.n}</span><div><h4 class="consult-titulo">${esc(p.titulo)}</h4><span class="consult-lema">${esc(p.lema)}</span></div></div>
+      <p class="consult-diag">${esc(p.diagnostico)}</p>
+      <div class="consult-dados">`;
+    p.dados.forEach(d=>{
+      h+=`<div class="consult-dado"><span class="consult-fonte">${esc(d.fonte)}</span><span class="consult-dado-txt">${esc(d.txt)}</span></div>`;
+    });
+    h+=`</div>
+      <p class="consult-fw"><span class="consult-mini-label">frameworks</span>${esc(p.frameworks)}</p>
+      <p class="consult-netz"><span class="pesquisa-netz-label">lente NETZ</span>${esc(p.netz)}</p>
+    </section>`;
+  });
+  h+=`</div>`;
+  return h;
+}
+
+function viewSebrae(){
+  const tipoMeta={regra:{cor:"#7Fd4ff",label:"regra formal"},pratica:{cor:"#ffd97f",label:"prática/relacionamento"}};
+  let h=`<p class="tab-intro">${esc(SEBRAE_INTRO)}</p>`;
+  // bloco da reunião presencial (fonte primária)
+  const RTM={confirma:{c:"#BFFF80",l:"confirma"},muda:{c:"#c79fff",l:"muda"},status:{c:"#7Fd4ff",l:"status"},valores:{c:"#ffd97f",l:"valores"},atencao:{c:"#ff9f7f",l:"atenção"},contexto:{c:"#9aa4b2",l:"contexto"},proximo:{c:"#7fe0c0",l:"próximo passo"}};
+  h+=`<section style="margin:4px 0 26px;border:1px solid #2a2f3a;border-left:3px solid #7fe0c0;border-radius:12px;background:linear-gradient(180deg,#12161d,#0e1218);padding:16px 18px">
+    <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:4px">
+      <span style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7fe0c0;font-weight:700">Da reunião em POA</span>
+      <span style="font-size:12px;color:#9aa4b2">${esc(SEBRAE_REUNIAO.data)}</span>
+    </div>
+    <div style="font-size:12.5px;color:#c4ccd6;margin-bottom:14px">${esc(SEBRAE_REUNIAO.quem)}</div>
+    <div style="display:grid;gap:9px">`;
+  SEBRAE_REUNIAO.itens.forEach(it=>{const m=RTM[it.t]||RTM.contexto;
+    h+=`<div style="display:flex;gap:10px;align-items:flex-start">
+      <span style="flex:none;margin-top:2px;font-size:10px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:${m.c};border:1px solid ${m.c}55;border-radius:20px;padding:2px 8px;min-width:74px;text-align:center">${m.l}</span>
+      <span style="font-size:13px;line-height:1.5;color:#dce3ea">${esc(it.x)}</span>
+    </div>`;});
+  h+=`</div></section>`;
+  // três portas
+  h+=`<div class="sebrae-portas">`;
+  SEBRAE_PORTAS.forEach(p=>{
+    h+=`<div class="sebrae-porta"><span class="sebrae-porta-n">${p.n}</span><h4 class="sebrae-porta-nome">${esc(p.nome)}</h4><p class="sebrae-porta-desc">${esc(p.desc)}</p></div>`;
+  });
+  h+=`</div>`;
+  // blocos
+  h+=`<h3 class="hermes-cases-titulo">Os seis blocos</h3>`;
+  h+=`<div class="sebrae-blocos">`;
+  SEBRAE_BLOCOS.forEach(b=>{
+    const m=tipoMeta[b.tipo];
+    h+=`<section class="sebrae-bloco">
+      <div class="sebrae-bloco-head"><h4 class="sebrae-bloco-tit">${esc(b.tit)}</h4><span class="sebrae-bloco-tipo" style="color:${m.cor};border-color:${m.cor}55">${m.label}</span></div>
+      <ul class="sebrae-bloco-lista">`;
+    b.pontos.forEach(pt=>{h+=`<li>${esc(pt)}</li>`;});
+    h+=`</ul></section>`;
+  });
+  h+=`</div>`;
+  // passo a passo
+  h+=`<h3 class="hermes-cases-titulo">Passo a passo (30-90 dias)</h3>`;
+  h+=`<div class="sebrae-passos">`;
+  SEBRAE_PASSOS.forEach(p=>{
+    h+=`<div class="sebrae-passo">
+      <div class="sebrae-passo-meta"><span class="sebrae-passo-fase">${esc(p.fase)}</span><span class="sebrae-passo-prazo">${esc(p.prazo)}</span></div>
+      <div class="sebrae-passo-body"><span class="sebrae-passo-tit">${esc(p.titulo)}</span><p class="sebrae-passo-desc">${esc(p.desc)}</p></div>
+    </div>`;
+  });
+  h+=`</div>`;
+  return h;
+}
+
+function viewSite(){
+  const esfCor={barato:"#BFFF80",medio:"#ffd97f",aposta:"#ff9f7f"};
+  const tipoMeta={
+    ok:{cor:"#BFFF80",label:"ok",mk:"✓"},
+    erro:{cor:"#ff9f7f",label:"corrigir",mk:"!"},
+    medir:{cor:"#7Fd4ff",label:"a medir",mk:"?"}
+  };
+  let html=`<p class="tab-intro">Auditoria técnica de netz.now (jul/2026). "ok/corrigir" foram observados no HTML real; "a medir" exige ferramentas de rede (PageSpeed, Search Console) rodadas sobre o site. A ironia produtiva: vocês vendem sites prontos para agentes — o próprio site é o primeiro case.</p>`;
+  html+=`<div class="sintese-box"><span class="sintese-label">a leitura de fundo</span>${esc(SITE_SINTESE)}</div>`;
+  // legenda
+  html+=`<div class="hermes-legenda">`;
+  ["ok","erro","medir"].forEach(t=>{html+=`<span class="hermes-leg-item"><span class="hermes-dot" style="background:${tipoMeta[t].cor}"></span>${tipoMeta[t].label}</span>`;});
+  html+=`</div>`;
+  // eixos
+  SITE_EIXOS.forEach(eixo=>{
+    html+=`<section class="hermes-angulo">
+      <div class="hermes-angulo-head">
+        <div>
+          <h4 class="hermes-angulo-titulo">${esc(eixo.titulo)}</h4>
+          <span class="hermes-angulo-tag">${esc(eixo.tag)}</span>
+        </div>
+      </div>
+      <div class="site-achados">`;
+    eixo.achados.forEach(a=>{
+      const m=tipoMeta[a.tipo];
+      html+=`<div class="site-achado">
+        <span class="site-achado-mk" style="color:${m.cor};border-color:${m.cor}55">${m.mk}</span>
+        <div class="site-achado-body">
+          <span class="site-achado-label">${esc(a.label)}</span>
+          <p class="site-achado-desc">${esc(a.desc)}</p>
+        </div>
+      </div>`;
+    });
+    html+=`</div></section>`;
+  });
+  // prioridades marcáveis
+  const feitas=SITE_PRIORIDADES.filter(p=>state.site[p.id]&&state.site[p.id].feito).length;
+  html+=`<h3 class="hermes-cases-titulo">Prioridades — por impacto ÷ esforço <span class="site-prio-contador">${feitas}/${SITE_PRIORIDADES.length} feitas</span></h3>
+  <div class="site-prios">`;
+  SITE_PRIORIDADES.forEach(p=>{
+    const feito=state.site[p.id]&&state.site[p.id].feito;
+    html+=`<div class="site-prio ${feito?'site-prio-feito':''}" onclick="toggleSitePrio('${p.id}')">
+      <span class="site-prio-check ${feito?'on':''}">${feito?'✓':''}</span>
+      <span class="site-prio-n">${p.n}</span>
+      <div class="site-prio-body">
+        <span class="site-prio-titulo">${esc(p.titulo)}</span>
+        <p class="site-prio-desc">${esc(p.desc)}</p>
+      </div>
+      <span class="hermes-ramo-esf" style="color:${esfCor[p.esf]};border-color:${esfCor[p.esf]}55">${p.esf}</span>
+    </div>`;
+  });
+  html+=`</div>`;
+  return html;
+}
+
+function viewHermes(){
+  const esfCor={barato:"#BFFF80",medio:"#ffd97f",aposta:"#ff9f7f"};
+  const esfLabel={barato:"barato de testar",medio:"esforço médio",aposta:"aposta grande"};
+  let html=`<p class="tab-intro">O leque do Hermes em três ângulos, com cada ramo marcado por esforço. Abrir o leque não é decidir percorrê-lo todo — um Hermes que faz UMA coisa bem, terminado, vale mais que dez ramos abertos.</p>`;
+  html+=`<div class="sintese-box"><span class="sintese-label">o que a evidência recomenda</span>${esc(HERMES_SINTESE)}</div>`;
+  // legenda de esforço
+  html+=`<div class="hermes-legenda">`;
+  ["barato","medio","aposta"].forEach(e=>{html+=`<span class="hermes-leg-item"><span class="hermes-dot" style="background:${esfCor[e]}"></span>${esfLabel[e]}</span>`;});
+  html+=`</div>`;
+  // ângulos
+  HERMES_ANGULOS.forEach((a,i)=>{
+    const letra=["A","B","C"][i];
+    html+=`<section class="hermes-angulo">
+      <div class="hermes-angulo-head">
+        <span class="hermes-angulo-letra">${letra}</span>
+        <div>
+          <h4 class="hermes-angulo-titulo">${esc(a.titulo)}</h4>
+          <span class="hermes-angulo-tag">${esc(a.tag)}</span>
+        </div>
+      </div>
+      <p class="hermes-angulo-tese">${esc(a.tese)}</p>
+      <div class="hermes-ramos">`;
+    a.ramos.forEach(r=>{
+      html+=`<div class="hermes-ramo">
+        <div class="hermes-ramo-top">
+          <span class="hermes-ramo-n">${r.n}</span>
+          <span class="hermes-ramo-nome">${esc(r.nome)}</span>
+          <span class="hermes-ramo-esf" style="color:${esfCor[r.esf]};border-color:${esfCor[r.esf]}55">${r.esf}</span>
+        </div>
+        <p class="hermes-ramo-desc">${esc(r.desc)}</p>
+      </div>`;
+    });
+    html+=`</div></section>`;
+  });
+  // cases
+  html+=`<h3 class="hermes-cases-titulo">Cases e benchmarks da pesquisa</h3>
+  <div class="hermes-cases">`;
+  HERMES_CASES.forEach(c=>{
+    html+=`<article class="hermes-case">
+      <div class="hermes-case-num">${esc(c.num)}</div>
+      <h4 class="hermes-case-titulo">${esc(c.titulo)}</h4>
+      <p class="hermes-case-desc">${esc(c.desc)}</p>
+      <div class="hermes-case-lente"><span class="pesquisa-netz-label">lente NETZ</span>${esc(c.lente)}</div>
+    </article>`;
+  });
+  html+=`</div>`;
+  return html;
+}
+
+function viewPesquisa(){
+  return `<p class="tab-intro">Os cinco problemas que vocês elegeram, cada um com o framework, os casos e a tradução para a NETZ. Números e casos são de fontes externas; o bloco "para a NETZ" é interpretação — contestem.</p>
+  <div class="sintese-box"><span class="sintese-label">a leitura de fundo</span>${esc(SINTESE)}</div>
+  <div class="pesquisa-wrap">`+PESQUISA.map((p,i)=>`
+    <article class="pesquisa-card">
+      <div class="pesquisa-top">
+        <span class="pesquisa-num">P${i+1}</span>
+        <span class="pesquisa-metric">${esc(p.num)}</span>
+      </div>
+      <h4 class="pesquisa-titulo">${esc(p.titulo)}</h4>
+      <div class="pesquisa-sub">${esc(p.sub)}</div>
+      <div class="pesquisa-framework"><span class="pesquisa-fw-label">framework</span>${esc(p.framework)}</div>
+      <ul class="pesquisa-pontos">${p.pontos.map(x=>`<li><span class="mk">▸</span> ${esc(x)}</li>`).join("")}</ul>
+      <div class="pesquisa-netz"><span class="pesquisa-netz-label">para a NETZ</span>${esc(p.netz)}</div>
+    </article>`).join("")+`</div>`;
+}
+
+function viewBench(){
+  return `<p class="tab-intro">Três ângulos, Brasil e global. Os números são de fontes externas; a "lente NETZ" é interpretação — contestem.</p>
+  <div class="grid-bench">`+BENCH.map(b=>`
+    <article id="${b.id}" class="bench-card">
+      <div class="bench-tag">${esc(b.tag)}</div>
+      <div class="bench-num">${esc(b.num)}</div>
+      <h4>${esc(b.titulo)}</h4>
+      <p class="bench-desc">${esc(b.desc)}</p>
+      <div class="bench-lente"><span class="bench-lente-label">lente NETZ</span>${esc(b.lente)}</div>
+    </article>`).join("")+`</div>`;
+}
+
+function viewRefs(){
+  return `<p class="tab-intro">O que circula nos canais, integrado ao acervo. Isto é teto de input — a imersão deveria ser quase toda output.</p>
+  <div class="refs-wrap">`+REFS.map(g=>`
+    <section class="ref-group">
+      <div class="ref-group-head"><span class="ref-dot" style="background:${g.cor}"></span><h4 class="ref-tema">${esc(g.tema)}</h4></div>
+      ${g.itens.map(([n,d,f])=>`<div class="ref-item"><div class="ref-item-nome">${esc(n)}</div><div class="ref-item-desc">${esc(d)}</div><div class="ref-item-fonte">${esc(f)}</div></div>`).join("")}
+    </section>`).join("")+`</div>`;
+}
+
+// ====================== AÇÕES ======================
+function setDec(id,field,val){state.dec[id][field]=val;markSaving();
+  if(field==="status"||field==="dono"){renderMain();renderProgress();}
+}
+function setIdeia(id,val){state.ideia[id].triagem=(state.ideia[id].triagem===val?"":val);markSaving();renderMain();}
+function toggleExpand(id){state.expanded[id]=!state.expanded[id];save();renderMain();}
+function toggleSitePrio(id){if(!state.site[id])state.site[id]={feito:false};state.site[id].feito=!state.site[id].feito;markSaving();renderMain();}
+function limparTudo(){
+  if(confirm("Limpar todas as marcações do painel? Isso apaga decisões, donos e triagens registrados.")){
+    state=defaultState();save();renderMain();renderProgress();
+  }
+}
+
+// ====================== EXPORT / IMPORT ======================
+function exportJSON(){
+  const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});
+  const d=new Date();const ts=`${d.getMonth()+1}-${d.getDate()}_${String(d.getHours()).padStart(2,'0')}h${String(d.getMinutes()).padStart(2,'0')}`;
+  downloadBlob(blob,`netz-imersao_${ts}.json`);
+}
+function importJSON(ev){
+  const file=ev.target.files[0];if(!file)return;
+  const r=new FileReader();
+  r.onload=()=>{try{
+    const p=JSON.parse(r.result);const base=defaultState();
+    state={dec:{...base.dec,...p.dec},ideia:{...base.ideia,...p.ideia},expanded:p.expanded||{}};
+    save();renderMain();renderProgress();alert("Importado com sucesso.");
+  }catch(e){alert("Arquivo inválido. Confira se é um .json exportado deste painel.");}};
+  r.readAsText(file);ev.target.value="";
+}
+function exportResumo(){
+  let out="NETZ — RESUMO DA IMERSÃO\\n";
+  out+="Gerado em "+new Date().toLocaleString("pt-BR")+"\\n";
+  out+="="+"=".repeat(50)+"\\n\\n";
+  out+="DECISÕES\\n"+"-".repeat(52)+"\\n";
+  DECISOES.forEach((d,i)=>{
+    const s=state.dec[d.id];
+    const st=STATUS_DEC.find(x=>x.id===(s.status||"aberta")).label;
+    out+=`\\n${String(i+1).padStart(2,"0")}. ${d.titulo}${d.ancora?" [ÂNCORA]":""}\\n`;
+    out+=`    Status: ${st}  |  Dono: ${s.dono||"—"}  |  Prazo: ${s.prazo||"—"}\\n`;
+    if(s.nota)out+=`    Próximo passo: ${s.nota}\\n`;
+  });
+  out+="\\n\\nCEMITÉRIO DE IDEIAS — triagem\\n"+"-".repeat(52)+"\\n";
+  const grupos={ressuscitar:[],fundir:[],arquivar:[],semTriagem:[]};
+  IDEIAS.forEach(it=>{const t=state.ideia[it.id].triagem;
+    if(t==="ressuscitar")grupos.ressuscitar.push(it.nome);
+    else if(t==="fundir")grupos.fundir.push(it.nome);
+    else if(t==="arquivar")grupos.arquivar.push(it.nome);
+    else grupos.semTriagem.push(it.nome);});
+  out+=`\\nRESSUSCITAR: ${grupos.ressuscitar.join("; ")||"—"}\\n`;
+  out+=`FUNDIR: ${grupos.fundir.join("; ")||"—"}\\n`;
+  out+=`ARQUIVAR: ${grupos.arquivar.join("; ")||"—"}\\n`;
+  out+=`SEM DECISÃO: ${grupos.semTriagem.join("; ")||"—"}\\n`;
+  const blob=new Blob([out],{type:"text/plain"});
+  downloadBlob(blob,"netz-imersao_resumo.txt");
+}
+function downloadBlob(blob,name){
+  const url=URL.createObjectURL(blob);const a=document.createElement("a");
+  a.href=url;a.download=name;a.click();URL.revokeObjectURL(url);
+}
+
+// ====================== FUNDO (rede) ======================
+function drawBg(){
+  const nodes=[[8,15],[22,8],[15,40],[35,22],[48,12],[30,55],[55,38],[70,20],[62,60],[82,45],[90,25],[78,72],[42,78],[18,68],[95,62],[58,85],[12,88],[88,88]];
+  const links=[[0,1],[0,2],[1,3],[3,4],[2,5],[3,6],[4,7],[6,8],[7,9],[9,10],[8,11],[5,12],[2,13],[9,14],[12,15],[13,16],[11,17],[6,5],[7,8]];
+  const svg=document.getElementById("bg");
+  let s="";
+  links.forEach(([a,b])=>{s+=`<line x1="${nodes[a][0]}" y1="${nodes[a][1]}" x2="${nodes[b][0]}" y2="${nodes[b][1]}" stroke="#BFFF80" stroke-width="0.08" opacity="0.13"/>`;});
+  nodes.forEach(([x,y])=>{s+=`<circle cx="${x}" cy="${y}" r="0.4" fill="#BFFF80" opacity="0.28"/>`;});
+  svg.innerHTML=s;
+}
+
+// ====================== SÍNTESE (camada de abertura) ======================
+function renderSintese(){
+  let h=`<div class="sint-kicker">Síntese transversal · leitura cruzada dos 9 artefatos</div>`;
+  h+=`<h2 class="sint-tese-titulo">${esc(SINT_TESE_TITULO)}</h2>`;
+  SINT_TESE.forEach(p=>{h+=`<p class="sint-tese-p">${esc(p)}</p>`;});
+
+  h+=`<div class="sint-sec-label">Os 5 padrões que se repetem sem terem sido nomeados</div>`;
+  h+=`<div class="sint-padroes">`;
+  SINT_PADROES.forEach(p=>{
+    h+=`<div class="sint-padrao"><span class="sint-padrao-n">${p.n}</span><div><span class="sint-padrao-nome">${esc(p.nome)}</span><p class="sint-padrao-desc">${esc(p.desc)}</p></div></div>`;
+  });
+  h+=`</div>`;
+
+  h+=`<div class="sint-sec-label">As 3 decisões de maior alavancagem</div>`;
+  h+=`<div class="sint-decisoes">`;
+  SINT_DECISOES.forEach(d=>{
+    h+=`<div class="sint-decisao">
+      <div class="sint-dec-head"><span class="sint-dec-num">${d.num}</span><div><h3 class="sint-dec-titulo">${esc(d.titulo)}</h3><span class="sint-dec-sub">${esc(d.sub)}</span></div></div>
+      <p class="sint-dec-porque"><span class="sint-tag">por que é gargalo</span>${esc(d.porque)}</p>
+      <p class="sint-dec-pronto"><span class="sint-tag on">pronto quando</span>${esc(d.pronto)}</p>
+    </div>`;
+  });
+  h+=`</div>`;
+
+  h+=`<div class="sint-ordem"><span class="sint-sec-label" style="margin-top:0">A ordem, porque cada elo depende do anterior</span><p class="sint-ordem-p">${esc(SINT_ORDEM)}</p></div>`;
+
+  h+=`<div class="sint-sec-label">O que sacrificar — dito em voz alta</div>`;
+  h+=`<div class="sint-sacri">`;
+  h+=`<div class="sint-sacri-col sint-morrem"><span class="sint-sacri-h">Morrem (arquivo, não parking lot)</span><ul>`;
+  SINT_SACRIFICIO.morrem.forEach(x=>{h+=`<li>${esc(x)}</li>`;});
+  h+=`</ul></div>`;
+  h+=`<div class="sint-sacri-col sint-hibernam"><span class="sint-sacri-h">Hibernam (com data de revisão)</span><ul>`;
+  SINT_SACRIFICIO.hibernam.forEach(x=>{h+=`<li>${esc(x)}</li>`;});
+  h+=`</ul></div>`;
+  h+=`</div>`;
+  h+=`<p class="sint-duro">${esc(SINT_SACRIFICIO.duro)}</p>`;
+
+  h+=`<div class="sint-actions"><button class="sint-enter" onclick="fecharSintese()">entrar no painel →</button><span class="sint-hint">o painel abaixo é onde vocês registram o que for decidido</span></div>`;
+  document.getElementById("sinteseInner").innerHTML=h;
+}
+function abrirSintese(){document.getElementById("sintese").classList.add("show");document.body.style.overflow="hidden";document.getElementById("sinteseInner").scrollTop=0;}
+function fecharSintese(){document.getElementById("sintese").classList.remove("show");document.body.style.overflow="";}
+
+// ============ NAVEGAÇÃO PARA O MINTZIE (guia) ============
+// o widget do Mintzie chama window.MZ_NAV.goto("d1") para levar a pessoa até um card.
+window.MZ_NAV = {
+  tabForId:function(id){id=String(id||"");
+    if(/^d\d/.test(id))return"decisoes";
+    if(/^i\d/.test(id))return"ideias";
+    if(/^b\d/.test(id))return"bench";
+    return null;},
+  goto:function(id){id=String(id||"");
+    // fecha a síntese (modal) se estiver cobrindo o painel
+    try{var s=document.getElementById("sintese");if(s&&s.classList.contains("show")&&typeof fecharSintese==="function")fecharSintese();}catch(e){}
+    var tab=this.tabForId(id);
+    if(tab&&typeof setTab==="function"&&currentTab!==tab)setTab(tab);
+    (function tryScroll(n){
+      var el=document.getElementById(id);
+      if(el){el.scrollIntoView({behavior:"smooth",block:"center"});el.classList.remove("mz-flash");void el.offsetWidth;el.classList.add("mz-flash");return;}
+      if(n>0)setTimeout(function(){tryScroll(n-1);},70);
+    })(8);
+    return true;}
+};
+
+// ====================== INIT ======================
+drawBg();renderTabs();renderMain();renderProgress();renderSintese();abrirSintese();
+</script>
+
+<!-- ===================== MINTZIE — guia da imersão ===================== -->
+<style>
+@keyframes mzFlash{0%{box-shadow:0 0 0 0 rgba(155,230,90,0)}15%{box-shadow:0 0 0 3px rgba(155,230,90,.9)}100%{box-shadow:0 0 0 0 rgba(155,230,90,0)}}
+.mz-flash{animation:mzFlash 1.7s ease-out}
+</style>
+<script>
+  window.MINTZIE_CONFIG = {
+    brain: "imersao",
+    apiUrl: "/api/chat",
+    assetBase: "",
+    startOpen: false,
+    greeting: "Sou o Mintzie. Li os nove documentos antes de você chegar. Pergunte o que quiser do acervo — ou peça que eu te leve até uma seção.",
+    suggestions: [
+      "Qual é a tese central da imersão?",
+      "Quais são as 3 decisões de maior alavancagem?",
+      "Me leva até a decisão d1",
+      "O que tem no cemitério de ideias?"
+    ]
+  };
+</script>
+<script src="/mintzie-widget.js"></script>
+</body>
+</html>

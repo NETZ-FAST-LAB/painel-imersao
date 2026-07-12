@@ -183,7 +183,10 @@ Hoje existem 3 vídeos: **idle**, **thinking**, **talking**. Abaixo, estados que
 | `sleeping` | ocioso há muito tempo (volta no clique) | baixa |
 
 ### Regras de consistência (pra cada vídeo novo "encaixar")
-1. **Fundo branco sólido e uniforme** (#ffffff), sem sombra forte no chão, sem gradiente — é o que o white-key remove.
+1. **Fundo de geração + conversão pra cinza #202225 no post.** Dois casos:
+   - **Sem elemento claro (só o gato):** gerar em **fundo branco** (#ffffff). Recorte: `colorkey=0xFFFFFF:0.28:0.12` → compõe sobre `color=0x202225`.
+   - **Com cursor/elemento branco embutido:** gerar em **fundo magenta** (#FF00FF) — o branco no fundo branco some no key; o magenta é distinto do gato verde E do cursor branco, então ambos ficam intactos. Recorte: `colorkey=0xBF039C:0.30:0.12` (usar a cor real do fundo magenta gerado; o modelo costuma dar ~#BF039C) → compõe sobre `color=0x202225`. **Similaridade importa:** o verde do gato fica ~0.48 de distância do magenta, então até ~0.32 é seguro; acima disso começa a comer o gato.
+   - Dica de verificação: teste sempre extraindo frame do **mp4 já convertido** (não do overlay com `-ss`, que engana).
 2. **Mesmo personagem:** gato de "point cloud" / voxels verdes, listras que brilham em verde-limão, estilo render 3D.
 3. **Mesma cadeira** de escritório ergonômica preta com detalhes verdes (quando sentado).
 4. **Enquadramento:** corpo inteiro, centralizado, com respiro; câmera fixa, sem corte.
@@ -192,7 +195,7 @@ Hoje existem 3 vídeos: **idle**, **thinking**, **talking**. Abaixo, estados que
 
 ### Prompts prontos (EN — costumam render melhor)
 Base de estilo (cole no começo de qualquer um):
-> *3D render of a cat made of glowing green point-cloud voxels with luminous lime-green stripes, sitting in a black ergonomic office chair with green accents, solid pure white background (#FFFFFF), soft studio lighting, fixed camera, full body centered, 16:9, ~8s seamless loop.*
+> *3D render of a cat made of glowing green point-cloud voxels with luminous lime-green stripes, sitting in a black ergonomic office chair with green accents, solid flat dark gray background (#333333, uniform, no gradient), soft studio lighting, fixed camera, full body centered, 16:9, ~8s seamless loop.*
 
 - **greeting** — *…the cat looks at the camera, gives a friendly little wave with one paw and a subtle confident nod, welcoming. Loop back to neutral.*
 - **listening** — *…the cat leans slightly forward, ears perked, attentive, blinking calmly, small head tilt as if listening. Subtle, calm loop.*

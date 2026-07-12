@@ -1,4 +1,16 @@
+# segredos — use variáveis de ambiente (Coolify), nunca versione a chave
 .env
+.env.shared
+.env.local
+
+# dependências / lixo
 node_modules/
 *.log
 .DS_Store
+
+# artefatos de desenvolvimento e backups (ficam só na sua máquina)
+_diag/
+_downloads/
+uploads/
+public/videos/_pre-rekey/
+public/videos/_white-originals/
