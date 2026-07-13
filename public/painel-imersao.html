@@ -678,10 +678,10 @@ const SEBRAE_PASSOS = [
 const STATUS_DEC=[{id:"aberta",label:"Em aberto",cor:"#6b7280"},{id:"andamento",label:"Discutindo",cor:"#ffd97f"},{id:"fechada",label:"Fechada",cor:"#BFFF80"},{id:"parking",label:"Parking lot",cor:"#c79fff"}];
 const TRIAGEM=[{id:"ressuscitar",label:"Ressuscitar",cor:"#BFFF80"},{id:"fundir",label:"Fundir",cor:"#7Fd4ff"},{id:"arquivar",label:"Arquivar",cor:"#6b7280"}];
 const POT_COR={alto:"#BFFF80",medio:"#ffd97f",baixo:"#6b7280"};
-const TABS=[{id:"cronograma",label:"Cronograma"},{id:"decisoes",label:"Decisões"},{id:"sociedade",label:"Sociedade"},{id:"parking",label:"Parking lot"},{id:"fable",label:"Fable"},{id:"ideias",label:"Cemitério de ideias"},{id:"hermes",label:"Hermez"},{id:"site",label:"Site"},{id:"sebrae",label:"Sebrae"},{id:"pesquisa",label:"Pesquisa profunda"},{id:"consult",label:"Consultorias"},{id:"bench",label:"Benchmarking"},{id:"refs",label:"Referências"}];
+const TABS=[{id:"cronograma",label:"Cronograma"},{id:"decisoes",label:"Decisões"},{id:"sociedade",label:"Sociedade"},{id:"comercial",label:"Comercial"},{id:"parking",label:"Parking lot"},{id:"fable",label:"Fable"},{id:"ideias",label:"Cemitério de ideias"},{id:"hermes",label:"Hermez"},{id:"site",label:"Site"},{id:"sebrae",label:"Sebrae"},{id:"pesquisa",label:"Pesquisa profunda"},{id:"consult",label:"Consultorias"},{id:"bench",label:"Benchmarking"},{id:"refs",label:"Referências"}];
 // menu em 3 grupos (experiência de consumo)
 const GROUPS=[
-  {id:"imersao",label:"Imersão",tabs:["cronograma","decisoes","sociedade","parking"]},
+  {id:"imersao",label:"Imersão",tabs:["cronograma","decisoes","sociedade","comercial","parking"]},
   {id:"analises",label:"Análises",tabs:["fable","ideias","hermes","site","sebrae"]},
   {id:"referencias",label:"Referências",tabs:["refs","pesquisa","consult","bench"]}
 ];
@@ -753,6 +753,7 @@ function renderMain(){
   const m=document.getElementById("main");
   if(currentTab==="cronograma")m.innerHTML=viewCronograma();
   else if(currentTab==="sociedade")m.innerHTML=viewSociedade();
+  else if(currentTab==="comercial")m.innerHTML=viewComercial();
   else if(currentTab==="parking")m.innerHTML=viewParking();
   else if(currentTab==="fable")m.innerHTML=viewFable();
   else if(currentTab==="decisoes")m.innerHTML=viewDecisoes();
@@ -764,6 +765,50 @@ function renderMain(){
   else if(currentTab==="pesquisa")m.innerHTML=viewPesquisa();
   else if(currentTab==="bench")m.innerHTML=viewBench();
   else m.innerHTML=viewRefs();
+}
+
+// ====================== COMERCIAL (estrutura, do momento comercial pt.1) ======================
+function viewComercial(){
+  let h=`<p class="tab-intro">Estrutura comercial desenhada no momento Comercial (pt.1) — oficina de decisão, não debate. Papel do Hermez, as 3 frentes, os 3 pacotes, o funil e as regras.</p>`;
+  h+=`<div style="margin-bottom:14px"><a href="/reuniao-comercial.html" target="_blank" rel="noopener" style="text-decoration:none;color:#7Fd4ff;border:1px solid #7Fd4ff44;border-radius:8px;padding:7px 13px;font-size:12.5px">📄 Transcrição do momento comercial (pt.1)</a></div>`;
+  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px">`;
+
+  h+=socCard("Papel do Hermez no Comercial (1º fluxo)","#7fe0c0",
+    `<div style="font-size:13px;line-height:1.55;color:#dce3ea">Propor ações · organizar tarefas · cobrar follow-up · gerar demanda · manter a disciplina. Mais: <b>mapear o processo de proposta</b> (e replicá-lo), ajudar na <b>precificação</b> e na <b>classificação de produtos</b>, pesquisar/mapear parceiros e IPs do Sebrae. Papel sobretudo <b>estruturante</b> agora.</div>`);
+
+  h+=socCard("As 3 frentes (fontes de demanda)","#7Fd4ff",
+    `<div style="display:flex;flex-direction:column;gap:9px;font-size:13px;color:#dce3ea">
+      <div><b>Parceria</b> <span style="font-size:10px;color:#BFFF80;border:1px solid #BFFF8055;border-radius:20px;padding:1px 7px">FOCO</span> — agências (site white-label/revenda/indicação) + consultorias (VX, Pulsar, Almaria, especialistas). Precisa de um programa de parceria.</div>
+      <div><b>Institucional</b> <span style="font-size:10px;color:#BFFF80;border:1px solid #BFFF8055;border-radius:20px;padding:1px 7px">FOCO</span> — Sebrae/Sistema S, editais, matchmaking. Caminho fechado (portal de fornecedores + contato com gestores).</div>
+      <div><b>Direto</b> <span style="font-size:10px;color:#9aa4b2;border:1px solid #2a2f3a;border-radius:20px;padding:1px 7px">não é foco agora</span> — cliente final. Sem outbound pesado agora; ter só uma estratégia mínima pra quem chegar direto.</div>
+    </div>`);
+
+  h+=socCard("Os 3 pacotes (o menu)","#ffd97f",
+    `<div style="display:flex;flex-direction:column;gap:9px;font-size:13px;color:#dce3ea">
+      <div><b>Entrada — sites/interfaces.</b> Ticket baixo, muito case, margem menor mas escala. Automatizar ao máximo; leva junto uma amostra de assistente (esteira).</div>
+      <div><b>Intermediário — a definir</b> <span style="font-size:10px;color:#ffd97f;border:1px solid #ffd97f55;border-radius:20px;padding:1px 7px">aberto</span>. Candidatos: POC remunerada, assistente pré-formatado (produto próprio), diagnóstico/mapeamento.</div>
+      <div><b>Avançado — consultoria.</b> Alto valor, personalizado (ex.: GPS de carreira ≈ R$ 100 mil). Poucos projetos, bem pagos.</div>
+    </div>`);
+
+  h+=socCard("Funil comercial (v1)","#BFFF80",
+    `<ol style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px;font-size:13px;color:#dce3ea">
+      <li><b>Captura</b> — origem, nome, empresa, contato, dor, prioridade, responsável.</li>
+      <li><b>Qualificação</b> — direto ou parceiro? urgência? cabe em site/recorrência/projeto? orçamento? vale proposta?</li>
+      <li><b>Proposta</b> — Hermez ajuda com escopo, prazo, pacote, próximos passos (padronizar).</li>
+      <li><b>Follow-up</b> — D+2 confirmar leitura · D+5 reforçar valor · D+10 último toque.</li>
+      <li><b>Fechamento & handoff</b> — status, pendências, próxima ação, responsável pela entrega.</li>
+      <li><b>Pós-venda</b> — gerar indicação.</li>
+    </ol><div style="margin-top:8px;font-size:12px;color:#9aa4b2">Mesmas etapas, abordagem diferente por frente.</div>`);
+
+  h+=socCard("Regras da operação","#ff9f7f",
+    `<div style="display:flex;flex-wrap:wrap;gap:7px">`+["todo lead tem dono","todo lead tem próximo passo","todo passo tem data","todo follow-up tem responsável","nada fica em aberto sem status"].map(x=>`<span style="font-size:12px;color:#dce3ea;border:1px solid #2a2f3a;border-radius:20px;padding:3px 10px">${esc(x)}</span>`).join("")+`</div>`);
+
+  h+=socCard("Apresentação comercial & visão de produto","#c79fff",
+    `<div style="font-size:13px;line-height:1.55;color:#dce3ea">Apresentação ~80% pronta (Stacke, Figma, padrão NETZ); padronizar a geração de proposta (futuro: Hermez + MCP do Figma).</div>
+     <div style="margin-top:10px;font-size:12.5px;line-height:1.55;color:#9aa4b2">Produto: assistente <b>vertical</b> (não generalista), que <b>mapeia o processo</b> (o mapa é entrega de valor) e <b>conduz</b> a pessoa pelos sistemas sem precisar integrar. Quebra a dependência do formulário (site ativo/provocativo, voz, SPIN). Casos: Sicredi (GPS de carreira), VX, Corsan.</div>`);
+
+  h+=`</div>`;
+  return h;
 }
 
 // ====================== PARKING LOT (ideias citadas, não endereçadas) ======================
@@ -916,11 +961,11 @@ const CRONOGRAMA = [
     saida:"Fechado: 13h/semana por sócio (teste de 2 semanas) · consequência R$ 50 por tarefa (1h) não concluída · meta R$ 12 mil líq./sócio e R$ 695.952/ano · Hermez começa no Comercial · cadência terça-a-terça (segunda fecha, terça 05:00 o Hermez manda resumo+previsão no Discord). Detalhes na aba Sociedade.",
     nota:"Núcleo operacional decidido. Ainda em teste (2 semanas): horas reais e a regra de consequência.",
     links:[{label:"📄 Transcrição da reunião", href:"/reuniao-society.html"},{label:"→ ver acordos (Sociedade)", tab:"sociedade"}] },
-  { dia:"Segunda", turno:"Tarde", bloco:"Comercial / Editais / Parcerias", tag:"comercial", status:"atualizado pela Society",
+  { dia:"Segunda", turno:"Tarde", bloco:"Comercial / Editais / Parcerias", tag:"comercial", status:"✅ concluído",
     objetivo:"Colocar a Netz na rua — agora com o Hermez como motor do comercial (o primeiro fluxo dele, decidido na Society).",
     pauta:["Estruturar o comercial com o Hermez — é o PRIMEIRO fluxo dele: propor ações, estruturar a estratégia, disciplina de follow-up, geração de demanda. Ordem de mapeamento: Tarefas → Comercial → Follow-up.","Apresentação comercial: montar a base (cases + soluções) pra agências e parceiros — o Hermez ajuda no conteúdo, depois o visual. (Meta: base pronta rápido.)","Parcerias com agências ('iFood dos sites'): desenhar o modelo white-label — portal sem atrito, pacotes (fecha 10, ganha 1), infra/hospedagem/tracking como diferencial. Ref.: parceria da Blue. Ver Parking lot.","Editais: Caldeira/matchmaking (escolher o desafio e inscrever — custo zero). Sebrae: usar o contato do agente regional de POA; vias Únio e Edital 02/PI.","Conta bancária para editais: encaminhar — é pré-requisito.","Prioridade decidida (90 dias): aquisição de clientes → geração de demanda → organização comercial → follow-up. Canal institucional: Sebrae/Sistema S, foco no Sul.","Nó ainda aberto: 'qual o produto?' — edital e comercial esbarram nele. Levar pra terça (Iniciativas)."],
-    saida:"Comercial estruturado como 1º fluxo do Hermez + base da apresentação comercial iniciada + 1 edital encaminhado + modelo de parceria com agências esboçado.",
-    links:[{label:"→ Parking lot (parcerias, apresentação)", tab:"parking"}] },
+    saida:"Estrutura comercial fechada em v1: papel do Hermez, 3 frentes (parceria e institucional em foco), 3 pacotes (entrada/intermediário/avançado), funil e regras. Ver aba Comercial.",
+    links:[{label:"📄 Transcrição do comercial", href:"/reuniao-comercial.html"},{label:"→ ver estrutura (Comercial)", tab:"comercial"},{label:"→ Parking lot", tab:"parking"}] },
   { dia:"Segunda", turno:"Noite", bloco:"Labz", tag:"labs", status:"",
     objetivo:"Criação solta — recarrega a cabeça depois do dia denso.",
     pauta:["Experimentos, som, referência boa.","Seguir o que animar."], saida:"" },
