@@ -42,5 +42,5 @@ Assistente felino (**Mintzie**) + **painel da imersão** da NETZ. Servidor Node 
 - Build por `Dockerfile` (ou Nixpacks, que usa `npm start`). Variáveis no Coolify (marcar *Available at Runtime*): `GEMINI_API_KEY`, `MINTZIE_MODE=internal`, `BASIC_AUTH_USER`, `BASIC_AUTH_PASS`. Passo a passo em `DEPLOY.md`.
 - Repositório: **privado** (contém o acervo interno).
 
-## Acervo (fonte da pesquisa)
-Os documentos-fonte da imersão vivem na pasta-mãe `../análises e pesquisas/` (síntese do Fable, 5 problemas, auditoria, Sebrae, China, 3 Ondas, narrativa do micélio, cronograma). O app usa apenas o **montado** em `imersao/imersao_knowledge.md`.
+## Contexto / acervo (para agentes)
+`contexto/` reúne os documentos processados, divididos em `contexto/netz/` (interno: síntese do Fable, 5 problemas, acervo de decisões, Hermes, auditoria, Sebrae + reunião, narrativa, cronograma, check-in) e `contexto/referencias-externas/` (China, 3 Ondas). Índice em `contexto/README.md`. O servidor usa o **montado** em `imersao/imersao_knowledge.md`; `contexto/` são as fontes organizadas para consulta. (As fontes brutas originais também seguem em `../análises e pesquisas/` e `../Reuniões/`.)
