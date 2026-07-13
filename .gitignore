@@ -7,6 +7,7 @@
 node_modules/
 *.log
 .DS_Store
+.claude/
 
 # artefatos de desenvolvimento, fontes brutas e backups (ficam só na máquina)
 _dev/
