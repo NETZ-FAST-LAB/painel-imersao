@@ -86,9 +86,8 @@
     grab2: prefix + "videos/mintzie-grab2.mp4",
     grab3: prefix + "videos/mintzie-grab3.mp4",
     grab4: prefix + "videos/mintzie-grab4.mp4",
-    grab5: prefix + "videos/mintzie-grab5.mp4",
   };
-  const GRAB_POOL = ["grab", "grab2", "grab3", "grab4", "grab5"]; // variações sorteadas no hover
+  const GRAB_POOL = ["grab", "grab2", "grab3", "grab4"]; // variações sorteadas no hover
 
   /* ---------- estilos ---------- */
   const CSS = `
