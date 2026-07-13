@@ -70,7 +70,7 @@ Quatro trilhas, em ordem: **proteger → converter → medir → encantar**. O e
 
 Dois avisos que os documentos da imersão já deram e que este plano não pode fingir que não existem:
 
-**(a) "Chatbot de site" genérico é wrapper — e wrapper morreu** (Hermes, Parte 2). O mercado tem Intercom, Tidio e dezenas de clones. O que é defensável no Mintzie **não é o chat**: é o conjunto (1) **governança implementada** (fronteira público×interno, guardrails, versões, evals), (2) **método comercial embutido** (SPIN, briefing sintetizado, handoff), (3) **personagem como interface** (o mascote com 24 estados — brand character, não balão genérico). Vende-se o método com o software dentro, não o software.
+**(a) "Chatbot de site" genérico é wrapper — e wrapper morreu** (Hermez, Parte 2). O mercado tem Intercom, Tidio e dezenas de clones. O que é defensável no Mintzie **não é o chat**: é o conjunto (1) **governança implementada** (fronteira público×interno, guardrails, versões, evals), (2) **método comercial embutido** (SPIN, briefing sintetizado, handoff), (3) **personagem como interface** (o mascote com 24 estados — brand character, não balão genérico). Vende-se o método com o software dentro, não o software.
 
 **(b) Este plano pressupõe que a d1 da imersão fechou no Mintzie.** A síntese apontou que o doc Sebrae apostava no Mintzie e os dados de mercado no assistente de obra. Se os quatro decidirem pelo Mintzie, ótimo — mas a escolha precisa ser explícita e o assistente de obra formalmente arquivado ou datado. Um plano executado pela metade por causa de uma decisão não tomada é o padrão que vocês vieram quebrar. E antes de registrar qualquer coisa: **resolver em ata a titularidade** (o software nasce no CNPJ da NETZ, não no CPF de quem escreveu — o doc Sebrae já alerta; a síntese marcou como ponto cego).
 
@@ -82,13 +82,13 @@ Dois avisos que os documentos da imersão já deram e que este plano não pode f
 - **Tier 2 — Conversão** (desenhado para ser o mais escolhido e o mais lucrativo, P4 da pesquisa): tudo do 1 + briefing SPIN, prefill de formulário, ações na página, webhook de leads, relatório mensal (perguntas, leads, buracos da base).
 - **Tier 3 — Operação:** tudo do 2 + integrações (CRM/WhatsApp Business), segundo cérebro interno para equipe do cliente, evolução contínua com evals — o retainer.
 
-Referência de mercado (doc Hermes, Parte 2): agente de escopo fechado custa US$ 1.500–5.000 de build + US$ 300–800/mês lá fora. A tradução BR sai do piloto — não cravar preço antes dele, mas **publicar preço na landing** (método Buffer) é parte do teste.
+Referência de mercado (doc Hermez, Parte 2): agente de escopo fechado custa US$ 1.500–5.000 de build + US$ 300–800/mês lá fora. A tradução BR sai do piloto — não cravar preço antes dele, mas **publicar preço na landing** (método Buffer) é parte do teste.
 
 **Sequência de validação (não construir mais antes disso):**
 1. Mintzie publicado no netz.now = demo viva e case zero (v0.4–v0.5 acima são pré-requisito).
 2. Landing "Assistente com governança para seu site" com os 3 tiers e preço → medir cliques em contratar.
 3. **Piloto pago de 90 dias com 1 cliente de relação existente** (candidatos naturais: Cris Casagrande — já tem site NETZ e público leigo; BSS — dúvidas repetitivas sobre editais; VIEX). Meta do piloto: X conversas, Y leads, Z% de perguntas respondidas — números que viram o case.
-4. **Critério de morte, por escrito:** se em 90 dias a landing + piloto não geraram nem receita nem sinal de demanda, o Mintzie vira *feature dos projetos de site* (diferencial de venda, ângulo B.5 do doc Hermes) — não produto próprio. Isso também é um resultado digno.
+4. **Critério de morte, por escrito:** se em 90 dias a landing + piloto não geraram nem receita nem sinal de demanda, o Mintzie vira *feature dos projetos de site* (diferencial de venda, ângulo B.5 do doc Hermez) — não produto próprio. Isso também é um resultado digno.
 
 ### 3.2 Plano B — Sebrae: metodologia registrada como PI + portfólio
 

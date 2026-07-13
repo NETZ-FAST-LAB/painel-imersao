@@ -283,10 +283,10 @@ const DECISOES = [
    resumo:"Escolher UM produto para empacotar de verdade (não três). Rito Derma / Mintzie / assistente de obra são o mesmo tipo: assistente de recomendação sobre um domínio.",
    pergunta:"Qual produto sai da imersão com escopo, preço e responsável de build definidos?",
    aFechar:["Escolher 1 produto (não 3)","Definir escopo fixo, preço, o que é replicável vs. feito do zero","Definir formato: SaaS? Template vendável? Serviço produtizado?"]},
-  {id:"d2",titulo:"O Hermes agent: papel definido",ancora:true,
-   resumo:"Denis já subiu o Hermes na VPS e propôs a dinâmica de onboarding. Precisa de papel antes de virar mais um protótipo sem destino.",
-   pergunta:"Ao fim da imersão, qual processo real da NETZ o Hermes vai operar, e quem valida?",
-   aFechar:["Infra interna, produto para cliente, ou os dois em fases?","Rodar a dinâmica de onboarding com resultado definido","Atribuir 1 processo real ao Hermes até data X"]},
+  {id:"d2",titulo:"O Hermez agent: papel definido",ancora:true,
+   resumo:"Denis já subiu o Hermez na VPS e propôs a dinâmica de onboarding. Precisa de papel antes de virar mais um protótipo sem destino.",
+   pergunta:"Ao fim da imersão, qual processo real da NETZ o Hermez vai operar, e quem valida?",
+   aFechar:["Infra interna, produto para cliente, ou os dois em fases?","Rodar a dinâmica de onboarding com resultado definido","Atribuir 1 processo real ao Hermez até data X"]},
   {id:"d3",titulo:"Máquina de aquisição (comercial)",ancora:false,
    resumo:"Prospecção ativa de grandes empresas com sites ruins já está no acervo. Falta operacionalizar. O acervo admite: 'somos péssimos comerciais' — precisa de dono, não de boa vontade.",
    pergunta:"Qual é a meta semanal de prospecção e quem é o dono do funil comercial?",
@@ -335,7 +335,7 @@ const REFS = [
     ["Assistente de relatórios de obra","MVP no Dify (agente + API OpenAI). Validado com Rafa. 'MVP vencido'.","acervo §8"],
     ["Meteor Dodge","Joguinho que virou app de tela inicial.","#labz 22–23/06"],
     ["Site LABZ / Netz","Identidade forte: constelação verde #BFFF80, recortes razor, node graphs.","acervo §8"],
-    ["Hermes Agent","Agente de memória persistente na VPS. Kanban/to-dos, integrações.","Denis · #estratégia"]]},
+    ["Hermez Agent","Agente de memória persistente na VPS. Kanban/to-dos, integrações.","Denis · #estratégia"]]},
   {tema:"Tese: interno → produto",cor:"#7Fd4ff",itens:[
     ["Caso Tweet Hunter","Ferramenta interna → MVP US$9 → US$41k/mês → adquirida.","Gui · #labz 22/06"],
     ["Filosofia do grupo","'Não precisa ter a melhor ideia, só copiar da melhor forma' (Stacke).","acervo §10"],
@@ -392,7 +392,7 @@ const PESQUISA = [
      "Caso: time com tudo 'em progresso' entregou 1 iniciativa em 6 meses; ao limitar, entregou mais num trimestre que nos dois anteriores.",
      "Armadilha de quem constrói: shipping ≠ finishing. Publicar cria ilusão de conclusão. Rito Derma, Mintzie, Meteor Dodge foram shipados, não terminados.",
      "Variação cultural: focar no que está 'envelhecendo' (demorando) ressoa mais que 'limitar'."],
-   netz:"Adotar WIP limit explícito (1-2 iniciativas/sócio) e regra 'nada novo até terminar algo'. O Hermes/kanban torna isso visível. É a aplicação prática da decisão âncora do produto."},
+   netz:"Adotar WIP limit explícito (1-2 iniciativas/sócio) e regra 'nada novo até terminar algo'. O Hermez/kanban torna isso visível. É a aplicação prática da decisão âncora do produto."},
   {id:"p2",titulo:"Comercial sem dono",sub:'"Somos péssimos comerciais"',
    framework:"O founder É a credibilidade + prospecção por sinais, não lista fria.",
    num:"5-8% vs 1-2% resposta",
@@ -432,45 +432,45 @@ const PESQUISA = [
 ];
 const SINTESE = "Os 5 problemas são 1 sistema. O CASE é a moeda que circula: um projeto terminado (P1) e empacotado com nicho (P3) vira conteúdo que gera leads (P2+P5) e prova que sustenta preço por valor (P4). Sequência para a imersão: (1) WIP limit + escolher 1 produto âncora; (2) validar com piloto de 90 dias + preço em 3 tiers; (3) piloto vira case, case vira motor de conteúdo com o founder à frente. Uma linha, não cinco frentes.";
 
-// Hermes — três ângulos com ramos marcados por esforço
-const HERMES_ANGULOS = [
+// Hermez — três ângulos com ramos marcados por esforço
+const HERMEZ_ANGULOS = [
   {id:"ha",titulo:"Cérebro operacional interno",tag:"Ataca o 'demoramos'",
    tese:"Se o gargalo é execução, um agente que segura memória e ritmo é remédio direto. Melhor razão valor/risco agora.",
    ramos:[
      {n:"A.1",nome:"Memória institucional viva",esf:"barato",desc:"Fonte única de decisões e pendências. Teste: alimentar com as 26 transcrições + acervo e perguntar 'o que decidimos sobre X?'."},
      {n:"A.2",nome:"Guardião do WIP limit",esf:"medio",desc:"Kanban que fala: 'Gui, o Rito Derma está parado há 12 dias'. O ritmo vira função de máquina, não de força de vontade."},
      {n:"A.3",nome:"Operador de processos repetíveis",esf:"medio",desc:"Assume tarefas: ata de reunião, relatório da residência, rascunho de proposta. Cada processo = horas/semana de volta."},
-     {n:"A.4",nome:"Onboarding como explicitação",esf:"barato",desc:"Ensinar o Hermes força explicitar processos tácitos. Exercício de clareza organizacional disfarçado de config."},
+     {n:"A.4",nome:"Onboarding como explicitação",esf:"barato",desc:"Ensinar o Hermez força explicitar processos tácitos. Exercício de clareza organizacional disfarçado de config."},
      {n:"A.5",nome:"Hub de integrações",esf:"medio",desc:"Cola entre Discord/Telegram/Notion. Vira sistema nervoso central. Risco: buraco sem fim de integrações."}
    ]},
   {id:"hb",titulo:"Produto / serviço vendável",tag:"Bifurcação de vida ou morte",
-   tese:"O que construíram para si, outros pagariam. Mas o Hermes genérico é quase um wrapper — e wrappers morreram. Agente vertical é o que o mercado premia.",
+   tese:"O que construíram para si, outros pagariam. Mas o Hermez genérico é quase um wrapper — e wrappers morreram. Agente vertical é o que o mercado premia.",
    ramos:[
-     {n:"B.1",nome:"Cérebro digital white-label",esf:"aposta",desc:"Vender o Hermes inteiro a clientes. É a maior aposta E perigosamente perto de wrapper. Mercado onde a Wonderful (US$2bi) entra."},
-     {n:"B.2",nome:"Agente vertical de nicho",esf:"medio",desc:"Hermes como motor de agente especializado. Assistente de obra (MVP validado com Rafa) é candidato pronto. É o que o mercado premia."},
+     {n:"B.1",nome:"Cérebro digital white-label",esf:"aposta",desc:"Vender o Hermez inteiro a clientes. É a maior aposta E perigosamente perto de wrapper. Mercado onde a Wonderful (US$2bi) entra."},
+     {n:"B.2",nome:"Agente vertical de nicho",esf:"medio",desc:"Hermez como motor de agente especializado. Assistente de obra (MVP validado com Rafa) é candidato pronto. É o que o mercado premia."},
      {n:"B.3",nome:"Onboarding de agente como serviço",esf:"medio",desc:"Vender o método de implantar+treinar agente interno para clientes. Serviço produtizado, margem melhor. Vocês são os locais no BR."},
      {n:"B.4",nome:"Micro-ferramentas / skills como isca",esf:"barato",desc:"Cada skill vira micro-ferramenta pública de lead. Ex.: 'audita seu site'. Alimenta o funil comercial (Problema 2 e 5)."},
-     {n:"B.5",nome:"Hermes como credencial de venda",esf:"barato",desc:"Não é o que se vende, é a prova de que a NETZ sabe fazer. 'Construímos nosso próprio agente' fecha contrato de consultoria."}
+     {n:"B.5",nome:"Hermez como credencial de venda",esf:"barato",desc:"Não é o que se vende, é a prova de que a NETZ sabe fazer. 'Construímos nosso próprio agente' fecha contrato de consultoria."}
    ]},
   {id:"hc",titulo:"A dinâmica de onboarding",tag:"O processo É o entregável",
-   tese:"Proposta do Denis. O maior valor talvez não seja o Hermes ficar pronto, mas o que vocês descobrem sobre a NETZ ao tentar ensiná-lo.",
+   tese:"Proposta do Denis. O maior valor talvez não seja o Hermez ficar pronto, mas o que vocês descobrem sobre a NETZ ao tentar ensiná-lo.",
    ramos:[
-     {n:"C.1",nome:"Onboarding como explicitação",esf:"barato",desc:"O entregável real é um doc de 'como a NETZ opera' que hoje não existe. O Hermes é a desculpa para escrevê-lo."},
-     {n:"C.2",nome:"O teste do processo único",esf:"barato",desc:"Escolher UM processo e levá-lo do zero ao funcionando nos 3 dias. WIP limit aplicado ao próprio Hermes."},
+     {n:"C.1",nome:"Onboarding como explicitação",esf:"barato",desc:"O entregável real é um doc de 'como a NETZ opera' que hoje não existe. O Hermez é a desculpa para escrevê-lo."},
+     {n:"C.2",nome:"O teste do processo único",esf:"barato",desc:"Escolher UM processo e levá-lo do zero ao funcionando nos 3 dias. WIP limit aplicado ao próprio Hermez."},
      {n:"C.3",nome:"Cada sócio ensina sua área",esf:"barato",desc:"Gui ensina site, Denis infra, João conteúdo, Stacke comercial. Mapa das 4 áreas + expõe conhecimento concentrado numa cabeça só."},
-     {n:"C.4",nome:"Definir 'quando está pronto'",esf:"barato",desc:"A decisão mais fácil de esquecer e a mais crítica. 'O Hermes está pronto quando faz X sem ajuda'. Sem isso, vira brincadeira infinita."},
+     {n:"C.4",nome:"Definir 'quando está pronto'",esf:"barato",desc:"A decisão mais fácil de esquecer e a mais crítica. 'O Hermez está pronto quando faz X sem ajuda'. Sem isso, vira brincadeira infinita."},
      {n:"C.5",nome:"A dinâmica como decisão de papel",esf:"barato",desc:"Ao tentar ensinar, vocês sentem se ele é cérebro interno ou produto. A experiência responde melhor que a discussão teórica."}
    ]}
 ];
-const HERMES_CASES = [
-  {num:"95% falham",titulo:"O dado que define tudo",desc:"Estudo MIT (NANDA 2025): 95% dos pilotos corporativos de IA deram zero ROI. Causa não foi o modelo — foi falta de prontidão de contexto (processos não organizados).",lente:"Sem os processos da NETZ organizados, o Hermes será mais um dos 95%. Organizá-los é a dinâmica (Ângulo C). A e C são o mesmo movimento."},
-  {num:"-39%",titulo:"Por que o Hermes deve existir",desc:"Microsoft + Salesforce: performance de IA cai 39% de turno único para múltiplos turnos sem memória adequada. O problema que o Hermes resolve é real e mensurável.",lente:"Valida a intuição do Denis. Mas: definir escopo primeiro, armazenamento depois — a armadilha é 'jogar tudo no banco vetorial'."},
-  {num:"wrappers ✝",titulo:"Thin wrappers morreram",desc:"TechCrunch mar/2026: investidores pararam de financiar wrappers. Quando o provedor lança a feature nativa, o valor evapora. Agentes verticais de nicho prosperam.",lente:"B.1 (Hermes genérico) é quase wrapper. B.2 (agente vertical de obra) é o que cresce. A diferença é vida ou morte."},
+const HERMEZ_CASES = [
+  {num:"95% falham",titulo:"O dado que define tudo",desc:"Estudo MIT (NANDA 2025): 95% dos pilotos corporativos de IA deram zero ROI. Causa não foi o modelo — foi falta de prontidão de contexto (processos não organizados).",lente:"Sem os processos da NETZ organizados, o Hermez será mais um dos 95%. Organizá-los é a dinâmica (Ângulo C). A e C são o mesmo movimento."},
+  {num:"-39%",titulo:"Por que o Hermez deve existir",desc:"Microsoft + Salesforce: performance de IA cai 39% de turno único para múltiplos turnos sem memória adequada. O problema que o Hermez resolve é real e mensurável.",lente:"Valida a intuição do Denis. Mas: definir escopo primeiro, armazenamento depois — a armadilha é 'jogar tudo no banco vetorial'."},
+  {num:"wrappers ✝",titulo:"Thin wrappers morreram",desc:"TechCrunch mar/2026: investidores pararam de financiar wrappers. Quando o provedor lança a feature nativa, o valor evapora. Agentes verticais de nicho prosperam.",lente:"B.1 (Hermez genérico) é quase wrapper. B.2 (agente vertical de obra) é o que cresce. A diferença é vida ou morte."},
   {num:"US$500-2k/mês",titulo:"O mercado do assistente de obra",desc:"Construção é alvo top de agente vertical: estimadores gastam 40-80h por orçamento; segmento de US$4bi. Empreiteiras pagam US$500-2.000/mês por economia de tempo.",lente:"O 'nicho de um' da construção tem dor e orçamento. O MVP de obra já tem fosso de domínio e workflow — dois moats de saída."},
   {num:"US$1,5-5k",titulo:"Preço de implantar agente",desc:"Agente de escopo fechado: US$1,5-5k build + US$300-800/mês. A maioria das agências vende deck; poucas entregam sistema rodando. O trabalho caro é integração, não o modelo.",lente:"A NETZ pode ser do tipo que entrega, na faixa de PME brasileira. É onde está a margem — e o diferencial."},
   {num:"40% cancelados",titulo:"A disciplina que vende",desc:"Gartner: 40% dos projetos de agente serão cancelados até 2027, sempre por pular a 'arqueologia de processo'. Quem tem 192% de ROI escopa apertado antes de construir.",lente:"A disciplina de escopo que FALTA à NETZ é o que o mercado mais valoriza. Vocês podem transformar a fraqueza confessa em diferencial."}
 ];
-const HERMES_SINTESE = "A evidência aponta 3 coisas: (1) o ângulo interno (A) e a dinâmica (C) são o mesmo movimento — sem processos organizados, o Hermes é um dos 95% que falham; (2) o produto (B) tem bifurcação de vida ou morte — Hermes genérico é wrapper (morto), agente vertical de obra é o que o mercado premia; (3) a dinâmica do Denis tem lastro de mercado real, e a disciplina de escopo que falta à NETZ é justamente o que o mercado paga para receber. Recomendação: usar a dinâmica (C) para levar UM processo interno (A) ao fim com 'pronto' definido; produto (B) vira parking lot datado, mirando o agente de obra, nunca o cérebro genérico.";
+const HERMEZ_SINTESE = "A evidência aponta 3 coisas: (1) o ângulo interno (A) e a dinâmica (C) são o mesmo movimento — sem processos organizados, o Hermez é um dos 95% que falham; (2) o produto (B) tem bifurcação de vida ou morte — Hermez genérico é wrapper (morto), agente vertical de obra é o que o mercado premia; (3) a dinâmica do Denis tem lastro de mercado real, e a disciplina de escopo que falta à NETZ é justamente o que o mercado paga para receber. Recomendação: usar a dinâmica (C) para levar UM processo interno (A) ao fim com 'pronto' definido; produto (B) vira parking lot datado, mirando o agente de obra, nunca o cérebro genérico.";
 
 // Auditoria do site netz.now — 3 eixos, cada achado marcado verificado/a-medir
 const SITE_EIXOS = [
@@ -519,18 +519,18 @@ const SINT_TESE = [
   "A tese, em uma frase: o que trava a NETZ não é falta de clareza — é excesso de preparação sem nenhum compromisso irreversível com o mercado. A decisão de 'montar portfólio forte' é de novembro de 2024. Vinte meses depois, continua sendo a recomendação final de quase todos os documentos. A próxima coisa que a NETZ produzir não pode ser sobre a NETZ — tem que ser para um cliente, com preço, com prazo e com fim."
 ];
 const SINT_PADROES = [
-  {n:"1",nome:"Andaime sem prédio",desc:"Estrutura sempre chega antes da substância: filtros enterprise para 3 cases; infra multiagente do Hermes antes de um processo definido; painel com export antes de haver decisões. Em cinco documentos, o mesmo gesto: construir o contêiner e adiar o conteúdo."},
-  {n:"2",nome:"Terceirizar a disciplina para uma máquina",desc:"Cada problema de comportamento vira um projeto de construção: falta ritmo → Hermes guardião do WIP; falta comercial → agente que audita sites; falta memória → Hermes. Converte cada déficit de hábito em mais uma coisa para construir — alimentando o gargalo que deveria resolver."},
+  {n:"1",nome:"Andaime sem prédio",desc:"Estrutura sempre chega antes da substância: filtros enterprise para 3 cases; infra multiagente do Hermez antes de um processo definido; painel com export antes de haver decisões. Em cinco documentos, o mesmo gesto: construir o contêiner e adiar o conteúdo."},
+  {n:"2",nome:"Terceirizar a disciplina para uma máquina",desc:"Cada problema de comportamento vira um projeto de construção: falta ritmo → Hermez guardião do WIP; falta comercial → agente que audita sites; falta memória → Hermez. Converte cada déficit de hábito em mais uma coisa para construir — alimentando o gargalo que deveria resolver."},
   {n:"3",nome:"NETZ como veículo das economias individuais",desc:"O CNPJ recebe o salário canadense do Stacke, abriga projetos culturais, e os logos do site vêm majoritariamente de engajamentos individuais dos sócios. A empresa serve aos sócios; ainda não há mecanismo pelo qual os sócios sirvam à empresa."},
   {n:"4",nome:"Input como conforto, curadoria como produção",desc:"Futures China: 392 links. 3 Ondas: 239. Três artefatos diferentes sentiram necessidade do mesmo disclaimer ('isto é teto de input', 'munição, não decisão', 'cardápio, não lista') — porque todos sabem qual é o vício da casa."},
-  {n:"5",nome:"'Pronto' não existe no vocabulário",desc:"Shipping ≠ finishing; 'definir quando o Hermes está pronto' é a decisão mais fácil de esquecer; o assistente de obra é MVP vencido há 17 meses; o site confessa ser 'base inicial'. Cinco documentos redescobrem que a NETZ nunca define linha de chegada. Este é o verdadeiro centro de gravidade."}
+  {n:"5",nome:"'Pronto' não existe no vocabulário",desc:"Shipping ≠ finishing; 'definir quando o Hermez está pronto' é a decisão mais fácil de esquecer; o assistente de obra é MVP vencido há 17 meses; o site confessa ser 'base inicial'. Cinco documentos redescobrem que a NETZ nunca define linha de chegada. Este é o verdadeiro centro de gravidade."}
 ];
 const SINT_DECISOES = [
   {num:"01",titulo:"Sociedade e ritmo primeiro, não por último",sub:"d6 promovida a âncora",
    porque:"Todas as receitas dos outros documentos exigem um 'dono' com capacidade real. Mas nenhum sócio tem a NETZ como ocupação principal, e o quadro societário está 'aberto' desde março de 2025. Nomear donos sem acordar quantas horas cada um entrega é assinar cheque sem fundo — é o que já falhou nas imersões anteriores.",
    pronto:"Cada sócio declara por escrito horas/semana comprometidas nos próximos 90 dias e o que fica de fora; regra de consequência acordada (o que acontece quando um compromisso não é cumprido); e a ambição da empresa redimensionada para caber na capacidade real. Empresa pequena verdadeira vale mais que consultoria grande fictícia."},
   {num:"02",titulo:"Um único produto-case, o mesmo objeto em todas as frentes",sub:"resolve a contradição dos dois produtos",
-   porque:"O case é a moeda que todos os documentos cobram: sustenta preço, alimenta o comercial, vira conteúdo, serve de atestado para o Sebrae, é o conteúdo que o site espera. Enquanto essa escolha não fecha, cinco frentes ficam órfãs. Atenção: dois documentos já escolheram produtos diferentes (Sebrae aposta Mintzie; Hermes aponta o assistente de obra com dados de mercado). A sala pode discordar — mas dos dados, não da memória.",
+   porque:"O case é a moeda que todos os documentos cobram: sustenta preço, alimenta o comercial, vira conteúdo, serve de atestado para o Sebrae, é o conteúdo que o site espera. Enquanto essa escolha não fecha, cinco frentes ficam órfãs. Atenção: dois documentos já escolheram produtos diferentes (Sebrae aposta Mintzie; Hermez aponta o assistente de obra com dados de mercado). A sala pode discordar — mas dos dados, não da memória.",
    pronto:"Um nome escolhido; o 'niche of one' escrito em um parágrafo (quem, com que hack ruim hoje, pagando quanto); landing com preço publicada com data; registro INPI encaminhado para esse produto no CNPJ; e — tão importante quanto — os demais protótipos formalmente arquivados. A decisão só está fechada quando a segunda e a terceira opção estiverem mortas por escrito."},
   {num:"03",titulo:"Uma única rota de aquisição, com dono e porta de entrada consertada",sub:"d3 + as 3 correções do site",
    porque:"'Somos péssimos comerciais' está no acervo desde jul/2024 e nenhum protótipo resolve isso — só uma rotina resolve. A escolha de UMA rota (outbound por sinais ou motor de conteúdo founder-led) transforma o problema de talento em problema de hábito. E qualquer rota desemboca no site — cuja raiz está vazia.",
@@ -538,7 +538,7 @@ const SINT_DECISOES = [
 ];
 const SINT_SACRIFICIO = {
   morrem:["YouTube/conteúdo como linha de receita (o número já é 97% de falha)","Cases fictícios por nicho (um piloto real vale mais)","Mascote, bot de eventos, comunidade tech, micro-ferramentas como frente própria","Nova turma de residência","Qualquer conversa sobre CNPJ em SC (o credenciamento Sebrae é nacional — o argumento já morreu)"],
-  hibernam:["Hermes como produto (todo o ramo B) — revisão out/2026","Sebrae Fases 2–3 (sem case e atestado, é fila sem senha)","Migração de stack, exceto Bitwarden (o caos de senhas é risco real e barato)"],
+  hibernam:["Hermez como produto (todo o ramo B) — revisão out/2026","Sebrae Fases 2–3 (sem case e atestado, é fila sem senha)","Migração de stack, exceto Bitwarden (o caos de senhas é risco real e barato)"],
   duro:"E o sacrifício mais desconfortável: moratória de input por 90 dias. Nenhum dossiê novo, nenhuma pesquisa nova, nenhum benchmark novo — inclusive (e principalmente) os que seriam ótimos. Vocês já têm munição para dois anos. Cada hora de curadoria compete diretamente com o único conteúdo que muda o jogo: o case."
 };
 const SINT_ORDEM = "sociedade acertada → um produto com preço publicado → um piloto pago → um case no ar → uma rota de aquisição rodando. Nessa ordem, porque cada elo depende do anterior.";
@@ -554,7 +554,7 @@ const CONSULT_PROBLEMAS = [
      {fonte:"HBR, 2022",txt:"Trabalhador digital alterna entre apps ~1.200x/dia; ~4h/semana só se reorientando."}
    ],
    frameworks:"WIP limits / Lei de Little (limitar trabalho em progresso aumenta throughput); regra dos 70% da McKinsey (decidir com 70% de certeza agora); 'disagree and commit'; dono único por iniciativa.",
-   netz:"'Temos tudo mas demoramos' É o strategy-execution gap. Ações: WIP limit explícito (máx. 1-2 iniciativas ativas), dono único por entrega, tratar o Hermes como o registro que faz decisões 'voltarem' em vez de se perderem."},
+   netz:"'Temos tudo mas demoramos' É o strategy-execution gap. Ações: WIP limit explícito (máx. 1-2 iniciativas ativas), dono único por entrega, tratar o Hermez como o registro que faz decisões 'voltarem' em vez de se perderem."},
   {n:"P2",titulo:"Comercial sem dono",lema:"'somos péssimos comerciais'",
    diagnostico:"A a16z (Peter Levine) refuta a crença 'engineer-centric' de que bom produto se vende sozinho: 'se você não consegue vender, um vendedor definitivamente não consegue'. Founder-led sales é insubstituível no início — os fundadores descobrem o sales motion junto com o produto.",
    dados:[
@@ -650,7 +650,7 @@ const SEBRAE_PASSOS = [
 const STATUS_DEC=[{id:"aberta",label:"Em aberto",cor:"#6b7280"},{id:"andamento",label:"Discutindo",cor:"#ffd97f"},{id:"fechada",label:"Fechada",cor:"#BFFF80"},{id:"parking",label:"Parking lot",cor:"#c79fff"}];
 const TRIAGEM=[{id:"ressuscitar",label:"Ressuscitar",cor:"#BFFF80"},{id:"fundir",label:"Fundir",cor:"#7Fd4ff"},{id:"arquivar",label:"Arquivar",cor:"#6b7280"}];
 const POT_COR={alto:"#BFFF80",medio:"#ffd97f",baixo:"#6b7280"};
-const TABS=[{id:"decisoes",label:"Decisões"},{id:"ideias",label:"Cemitério de ideias"},{id:"hermes",label:"Hermes"},{id:"site",label:"Site"},{id:"pesquisa",label:"Pesquisa profunda"},{id:"consult",label:"Consultorias"},{id:"sebrae",label:"Sebrae"},{id:"bench",label:"Benchmarking"},{id:"refs",label:"Referências"}];
+const TABS=[{id:"decisoes",label:"Decisões"},{id:"ideias",label:"Cemitério de ideias"},{id:"hermes",label:"Hermez"},{id:"site",label:"Site"},{id:"pesquisa",label:"Pesquisa profunda"},{id:"consult",label:"Consultorias"},{id:"sebrae",label:"Sebrae"},{id:"bench",label:"Benchmarking"},{id:"refs",label:"Referências"}];
 const KEY="netz-imersao-v1";
 
 // ====================== ESTADO ======================
@@ -708,7 +708,7 @@ function renderMain(){
   const m=document.getElementById("main");
   if(currentTab==="decisoes")m.innerHTML=viewDecisoes();
   else if(currentTab==="ideias")m.innerHTML=viewIdeias();
-  else if(currentTab==="hermes")m.innerHTML=viewHermes();
+  else if(currentTab==="hermes")m.innerHTML=viewHermez();
   else if(currentTab==="site")m.innerHTML=viewSite();
   else if(currentTab==="consult")m.innerHTML=viewConsult();
   else if(currentTab==="sebrae")m.innerHTML=viewSebrae();
@@ -879,17 +879,17 @@ function viewSite(){
   return html;
 }
 
-function viewHermes(){
+function viewHermez(){
   const esfCor={barato:"#BFFF80",medio:"#ffd97f",aposta:"#ff9f7f"};
   const esfLabel={barato:"barato de testar",medio:"esforço médio",aposta:"aposta grande"};
-  let html=`<p class="tab-intro">O leque do Hermes em três ângulos, com cada ramo marcado por esforço. Abrir o leque não é decidir percorrê-lo todo — um Hermes que faz UMA coisa bem, terminado, vale mais que dez ramos abertos.</p>`;
-  html+=`<div class="sintese-box"><span class="sintese-label">o que a evidência recomenda</span>${esc(HERMES_SINTESE)}</div>`;
+  let html=`<p class="tab-intro">O leque do Hermez em três ângulos, com cada ramo marcado por esforço. Abrir o leque não é decidir percorrê-lo todo — um Hermez que faz UMA coisa bem, terminado, vale mais que dez ramos abertos.</p>`;
+  html+=`<div class="sintese-box"><span class="sintese-label">o que a evidência recomenda</span>${esc(HERMEZ_SINTESE)}</div>`;
   // legenda de esforço
   html+=`<div class="hermes-legenda">`;
   ["barato","medio","aposta"].forEach(e=>{html+=`<span class="hermes-leg-item"><span class="hermes-dot" style="background:${esfCor[e]}"></span>${esfLabel[e]}</span>`;});
   html+=`</div>`;
   // ângulos
-  HERMES_ANGULOS.forEach((a,i)=>{
+  HERMEZ_ANGULOS.forEach((a,i)=>{
     const letra=["A","B","C"][i];
     html+=`<section class="hermes-angulo">
       <div class="hermes-angulo-head">
@@ -916,7 +916,7 @@ function viewHermes(){
   // cases
   html+=`<h3 class="hermes-cases-titulo">Cases e benchmarks da pesquisa</h3>
   <div class="hermes-cases">`;
-  HERMES_CASES.forEach(c=>{
+  HERMEZ_CASES.forEach(c=>{
     html+=`<article class="hermes-case">
       <div class="hermes-case-num">${esc(c.num)}</div>
       <h4 class="hermes-case-titulo">${esc(c.titulo)}</h4>

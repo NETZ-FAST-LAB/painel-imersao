@@ -9,7 +9,7 @@
 - **A janela está aberta.** Capacidade de execução, acessos, contatos, portfólio e bagagem — "dificilmente pega um projeto hoje que mete medo". E estão sem projeto grande juntos: é a hora de focar no **projeto de vocês**.
 - **A meta da imersão:** sair com **algo concreto e minimamente planejado**, pronto pra botar em prática. Não tudo pronto — mas nada de sair só com conversa.
 - **O inimigo a combater:** a "fábrica de quase nada pronto" — sempre dá o passinho e para. O verbo da semana é **frutificar**: terminar e expor o fruto (o cogumelo), não só cultivar o micélio.
-- **Ritmo & vergonha na cara:** ninguém depende da Netz, então nada tem consequência quando não termina. Precisam de um **mecanismo** — um acordo com consequência real (a ideia do caixa: cada um com um valor, desconta a cada combinado não cumprido) e/ou o **agente externo (Hermes)** que cobra sem dever nada a ninguém.
+- **Ritmo & vergonha na cara:** ninguém depende da Netz, então nada tem consequência quando não termina. Precisam de um **mecanismo** — um acordo com consequência real (a ideia do caixa: cada um com um valor, desconta a cada combinado não cumprido) e/ou o **agente externo (Hermez)** que cobra sem dever nada a ninguém.
 - **Narrativa comum:** Netz = rede (no alemão, presente em tudo: redes neurais, de energia…); o micélio que conecta tudo por baixo, e o fruto que aparece. Alinhar as peças difusas sob essa história.
 - **Cultura:** foco **e** diversão. Fazer da imersão uma "zona autônoma" — viver o que sempre quiseram nesses dias e depois estender pro dia a dia. Bobeira também é vital.
 
@@ -43,7 +43,7 @@
 - **Mecanismo de "vergonha na cara":** definir a regra de consequência (o caixa com desconto por combinado não cumprido, ou outra) e/ou o agente como cobrador. Escolher **uma** e escrever.
 - **Organização de tarefas:** como o time vai operar de fato (Kanban + o agente criando e lembrando tarefas, ouvindo ideias e virando tarefa).
 - **Financeiro (parte 1):** o processo hoje cai todo no Gui → o que dá pra automatizar/redistribuir. E as **metas financeiras**: valor mensal por sócio + meta da empresa.
-- **Sincronizar com o assistente (Hermes):** começar a alimentar o histórico pra ele dar ritmo e já entrar contextualizado.
+- **Sincronizar com o assistente (Hermez):** começar a alimentar o histórico pra ele dar ritmo e já entrar contextualizado.
 **Sai daqui com:** horas/semana declaradas por sócio + regra de consequência acordada + metas financeiras (em R$) no papel.
 
 ### SEGUNDA · TARDE — COMERCIAL / EDITAIS / PARCERIAS
@@ -69,8 +69,8 @@
 **Objetivo:** escolher UMA iniciativa e **frutificar** (terminar algo de verdade).
 **Pauta:**
 - **Produtizar / "qual o produto?":** fechar o nó que apareceu no comercial. Escolher **um** produto e dar como foco (matando as outras opções por escrito — senão a semana inteira fica órfã disso).
-- **Site:** dar como **pronto** — trabalhar junto (abre branch → finaliza função → merge) e jogar pra dentro do Hermes. Olhar as mudanças que o Mintzie sugeriu no site.
-- **Hermes:** o que falta pra considerar pronto; a "revistinha"; o papel dele como cérebro e motor de ritmo.
+- **Site:** dar como **pronto** — trabalhar junto (abre branch → finaliza função → merge) e jogar pra dentro do Hermez. Olhar as mudanças que o Mintzie sugeriu no site.
+- **Hermez:** o que falta pra considerar pronto; a "revistinha"; o papel dele como cérebro e motor de ritmo.
 - **Canais de YouTube:** decidir se é iniciativa própria ou Labz; a estratégia "**fábrica de canais**" (um ajuda o canal do outro — arte, animação, edição em rede).
 **Sai daqui com:** 1 ferramenta/iniciativa dada como pronta **ou** o produto escolhido com o próximo passo definido (dono + data).
 
@@ -84,7 +84,7 @@
 **Pauta:**
 - **Revisar as decisões** e transformar em linhas com **dono e data:** sociedade/consequência, metas financeiras, produto escolhido, editais inscritos, parcerias.
 - **Debriefing do projeto Sicredi/Cred** (o que aprendemos; e o que **não** repetir — dedicar tempo demais, entregar além do combinado).
-- **Registrar tudo** (no Hermes/painel) pra não virar "mais micélio sem fruto".
+- **Registrar tudo** (no Hermez/painel) pra não virar "mais micélio sem fruto".
 - Volta ao mundo.
 **Sai daqui com:** a lista de compromissos com dono + data, registrada.
 

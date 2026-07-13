@@ -4,13 +4,13 @@
 
 ---
 
-**Speaker 1** *[00:00]*: Hermes nos ajudaria a gerir isso, tá ligado? 
+**Speaker 1** *[00:00]*: Hermez nos ajudaria a gerir isso, tá ligado? 
 **Speaker 2** *[00:03]*: Essa é. 
-**Speaker 1** *[00:10]*: A minha ideia com o Hermes, tá ligado? Que ele nos ajude a gerar essas tarefas, a jogar as tarefas pra cada. E aí a gente ter, sei lá, na segunda, ele vai lá e apanha, pega relatório, tá ligado? Porque, assim como tu falou, talvez uma tarefa vá ser concluída no domingo. Segunda... A gente bota lá que segunda, três da manhã, ele roda uma verificação. Ó, vê todas as tarefas que foram feitas e leva relatório no Discord. O que tá pronto, o que não tá, o que já tá, qual que é a próxima tarefa e já pode gerar pra essa semana daí o bloco de trabalho dessa semana. Mas deixa eu ler pra ti, mano. 
+**Speaker 1** *[00:10]*: A minha ideia com o Hermez, tá ligado? Que ele nos ajude a gerar essas tarefas, a jogar as tarefas pra cada. E aí a gente ter, sei lá, na segunda, ele vai lá e apanha, pega relatório, tá ligado? Porque, assim como tu falou, talvez uma tarefa vá ser concluída no domingo. Segunda... A gente bota lá que segunda, três da manhã, ele roda uma verificação. Ó, vê todas as tarefas que foram feitas e leva relatório no Discord. O que tá pronto, o que não tá, o que já tá, qual que é a próxima tarefa e já pode gerar pra essa semana daí o bloco de trabalho dessa semana. Mas deixa eu ler pra ti, mano. 
 **Speaker 2** *[00:52]*: Vamos ver. 
-**Speaker 1** *[00:52]*: O que mais ele tem aqui, ó. Estalem as 13 horas por semana. A prioridade dos próximos 90 dias é a aquisição de clientes e geração demanda. O Hermes deve funcionar como gestor de tarefa e mapeador de processos. A cadência operacional será diária. A ordem de mapeamento é tarefas, comercial e follow-up, ou seja, do mapeamento dos processos. A comunicação precisa ser rápida, direta e prática. As decisões são democráticas entre os quatro. O que ainda não está fechado? Horas reais por sócio. Ainda não está fechado. Quantas horas realmente vai se assumir? O que cada vai tirar da mesa pra caber isso? Regra de consequência. Ainda falta escolher se vai ter caixa como multa. Ou se vai ter agente externo cobrando. E qual a regra simples de cumprimento? Operação das tarefas. 
-**Speaker 1** *[01:45]*: Ainda falta definir como o cambão vai funcionar na prática, quem cria, quem cobra, quem atualiza, como o Hermes entra como lembrador e transformador de ideia em tarefa. Financeira, ainda falta fechar meta mensal por sócio, meta mensal da empresa, como automatizar e redistribuir o peso do que hoje está no Gui. Histórico do Hermes, ainda falta decidir que tipo de informação vocês vão passar para o Hermes daqui pra frente, qual o mínimo de contexto que ele precisa para aguardar e acompanhar o ritmo e como tocar o momento, passo labirinto com objetivo Hoje não é uma reunião de ideia, é uma reunião de acordo, saímos daqui com horas, consequências e metas financeiras definidas no papel. 
-**Speaker 1** *[02:27]*: No passo 2, cada sócio declara sua capacidade real em horas, o que vai fazer para caber nisso, qual a frente de prioridade dele, depois fechar com uma regra de consequência, escolher uma regra simples, não duas ou três. Por exemplo, caixa como valor combinado ou cobrança externa com autoridade clara ou os dois, mas só se for muito simples de aplicar. Transformar a organização em processo, onde as tarefas entram, quem aprova, quem cobra, como o Hermes lembra, quem quando algo vir da tarefa obrigatória. Passo 5, fechar o financeiro com números, com meta da empresa, meta por sócio e quem assume o quê para tirar esse peso do guia de novo. Terminar com dono e prazo. E o que eu sugeriria como saída mínima da reunião. 
+**Speaker 1** *[00:52]*: O que mais ele tem aqui, ó. Estalem as 13 horas por semana. A prioridade dos próximos 90 dias é a aquisição de clientes e geração demanda. O Hermez deve funcionar como gestor de tarefa e mapeador de processos. A cadência operacional será diária. A ordem de mapeamento é tarefas, comercial e follow-up, ou seja, do mapeamento dos processos. A comunicação precisa ser rápida, direta e prática. As decisões são democráticas entre os quatro. O que ainda não está fechado? Horas reais por sócio. Ainda não está fechado. Quantas horas realmente vai se assumir? O que cada vai tirar da mesa pra caber isso? Regra de consequência. Ainda falta escolher se vai ter caixa como multa. Ou se vai ter agente externo cobrando. E qual a regra simples de cumprimento? Operação das tarefas. 
+**Speaker 1** *[01:45]*: Ainda falta definir como o cambão vai funcionar na prática, quem cria, quem cobra, quem atualiza, como o Hermez entra como lembrador e transformador de ideia em tarefa. Financeira, ainda falta fechar meta mensal por sócio, meta mensal da empresa, como automatizar e redistribuir o peso do que hoje está no Gui. Histórico do Hermez, ainda falta decidir que tipo de informação vocês vão passar para o Hermez daqui pra frente, qual o mínimo de contexto que ele precisa para aguardar e acompanhar o ritmo e como tocar o momento, passo labirinto com objetivo Hoje não é uma reunião de ideia, é uma reunião de acordo, saímos daqui com horas, consequências e metas financeiras definidas no papel. 
+**Speaker 1** *[02:27]*: No passo 2, cada sócio declara sua capacidade real em horas, o que vai fazer para caber nisso, qual a frente de prioridade dele, depois fechar com uma regra de consequência, escolher uma regra simples, não duas ou três. Por exemplo, caixa como valor combinado ou cobrança externa com autoridade clara ou os dois, mas só se for muito simples de aplicar. Transformar a organização em processo, onde as tarefas entram, quem aprova, quem cobra, como o Hermez lembra, quem quando algo vir da tarefa obrigatória. Passo 5, fechar o financeiro com números, com meta da empresa, meta por sócio e quem assume o quê para tirar esse peso do guia de novo. Terminar com dono e prazo. E o que eu sugeriria como saída mínima da reunião. 
 **Speaker 1** *[03:12]*: Horas da semana de cada sócio, regras de consequência acordada, meta financeira da empresa, meta mensal por sócio, e primeiro o fluxo de tarefas com o Ernst. Então a minha leitura final é converter os vínculos em sistema que se fecha em tempo, cobrança, dinheiro e rotina. 
 **Speaker 3** *[03:31]*: Cara,. 
 **Speaker 1** *[03:36]*: E aí? Fechamos em 13 horas? 
@@ -29,7 +29,7 @@
 **Speaker 2** *[05:17]*: Final de semana seria uma penalidade, mas... Interessante seria achar alguma coisa que seja pra todo mundo, né, Dennis? Pra mim isso não seria... Não é uma coisa... 
 **Speaker 1** *[05:23]*: Não, não, é horrível pra mim. 
 **Speaker 2** *[05:26]*: Não, mas eu tava pensando assim, pode ser que a gente queira aplicar quase como se fosse uma multa da próxima... Do próximo saque que tu vai fazer do caixa, sacou? Cara, você está com crédito aqui net e por conta disso você vai receber 2% a menos, 3% a menos, 5% a menos. Não porcentagem, por índice, tipo, definir índice ali, tá ligado? 
-**Speaker 1** *[05:56]*: Eu acho que o índice poderia ser o work in progress. Tipo, a tarefa que tu deixou de fazer, ela tinha o peso de quantas horas? 1 Hora, então tu perde 50 pila, se era 2 tu perde 100 pila. Mas assim, uma coisa só que eu ia sugerir, a gente está testando isso aqui né, eu acho pouco arriscado a gente colocar isso de cara sendo que é processo que a gente nunca fez, aí o que eu ia sugerir? Cara, regra de consequência, no momento, é cobrança pesada. Entre nós e o Hermes. E daqui duas semanas revisa pra algo assim, tá ligado? 
+**Speaker 1** *[05:56]*: Eu acho que o índice poderia ser o work in progress. Tipo, a tarefa que tu deixou de fazer, ela tinha o peso de quantas horas? 1 Hora, então tu perde 50 pila, se era 2 tu perde 100 pila. Mas assim, uma coisa só que eu ia sugerir, a gente está testando isso aqui né, eu acho pouco arriscado a gente colocar isso de cara sendo que é processo que a gente nunca fez, aí o que eu ia sugerir? Cara, regra de consequência, no momento, é cobrança pesada. Entre nós e o Hermez. E daqui duas semanas revisa pra algo assim, tá ligado? 
 **Speaker 2** *[06:26]*: Tipo assim, eu já ia fazendo como se... Simulando esse cenário. Olha, se esse cenário estivesse vigente, então tu teria essa falta aqui. 
 **Speaker 1** *[06:34]*: 200 Pilôs descontados. 
 **Speaker 2** *[06:36]*: Pra tu já ir sentindo, ó, peraí. Tem alguma coisa que eu preciso ajustar antes de começar. A gente pode botar uma data, ó. A partir de agosto, vai ser assim. 
@@ -50,9 +50,9 @@
 **Speaker 1** *[07:46]*: Pouquinho, mas... Se é pra ser fácil, é melhor não botar a bolosa. 
 **Speaker 2** *[07:50]*: Tu quer, Gui? Eu tiro a minha senha. Troco por algumas horas de trabalho. Tô com umas horas aqui pendentes com a Net, isso aí tá sujo pra mim. Vai virar que nem aqueles navios piratas. Deles tu enganou. 
 **Speaker 1** *[08:17]*: Não deu? Então é aquela... 
-**Speaker 2** *[08:18]*: O Hermes vai e vai. 
+**Speaker 2** *[08:18]*: O Hermez vai e vai. 
 **Speaker 3** *[08:24]*: É esse aqui. O que. 
-**Speaker 2** *[08:36]*: Que o Hermes achou dessas ideias? 
+**Speaker 2** *[08:36]*: Que o Hermez achou dessas ideias? 
 **Speaker 1** *[08:38]*: Não mandei ainda. Tem mais coisa. Eu tô escrevendo aquela... Toda essa dinâmica que a gente falou ainda. Botei por hora, vamos fazer uma métrica que irá relacionar o valor de multa por tarefa não concluída ao final de cada semana. Esse valor ficará registrado e será descontado do próximo pagamento de cada sócia. No momento, queremos criar a regra e testar. Mas somente como simulação em duas semanas iremos verificar na prática beleza meta financeira para a empresa. 
 **Speaker 2** *[09:44]*: Meta financeira pra empresa, ó, seguindo aquela lógica que eu falei ontem, a gente calcular nossa meta pessoal e botar mais os... As porcentagens em cima, né? 
 **Speaker 1** *[09:59]*: É, se a gente for fazer, deixa eu abrir a calculadora aqui, se a gente fizer a média de 12 mil pra cada por mês, vezes 4, dá 48.000 mais 6% daria em torno de 50.000 por mês 51, só de... Imposto e líquido então dá pra jogar dá pra jogar uns 55 aí custo. 
@@ -65,13 +65,13 @@
 **Speaker 4** *[11:13]*: Contabilidade é 325, INSS é mais uns 700 e poucos pila. Aí a gente tem a Turbo Cloud ali, que deve ser uns 30 e poucos por mês. 
 **Speaker 1** *[11:27]*: Mais a VPS, mais uns 30 e poucos. Mais a VPS. 
 **Speaker 4** *[11:31]*: Tem domínio ali que a gente paga anual daí, se não me engano. 
-**Speaker 1** *[11:36]*: Cara, bota uns 1.500 por mês aí. Acho que bem seguro, né Gui? 1500, Não é tudo isso, né? É, isso é uma coisa, ó, que essas paradas a gente tem que conectar em algum momento pro Hermes saber esses números também e a gente poder perguntar rápido, né? 
+**Speaker 1** *[11:36]*: Cara, bota uns 1.500 por mês aí. Acho que bem seguro, né Gui? 1500, Não é tudo isso, né? É, isso é uma coisa, ó, que essas paradas a gente tem que conectar em algum momento pro Hermez saber esses números também e a gente poder perguntar rápido, né? 
 **Speaker 4** *[11:50]*: Posso puxar os números exatos? 
 **Speaker 1** *[11:52]*: Não, não, depois a gente faz .. 
 **Speaker 2** *[11:54]*: É, mas tem que alimentar daí essa base ali... 
 **Speaker 1** *[11:56]*: É, se quiser puxar já... Financeiro... Na real, Gui, o melhor do que tu puxar esse dado é a gente achar, tu ter lugar que esse dado se atualiza, que ele fica lá, tem algum lugar que a gente... Cada coisa tá num canto, né? 
 **Speaker 4** *[12:09]*: Como assim? 
-**Speaker 1** *[12:10]*: Não tem lugar que eu posso mandar o Hermes ficar olhando lá e ele vai saber. A gente pode mandar ele pegar os AFX da conta. Tipo, ele cria uma tarefa pra ti todo fim do mês, de tu exportar o AFX da conta e subir pra ele. Aí ele sabe o que entrou, o que saiu, tudo passa na conta, né? Se não sou eu... 
+**Speaker 1** *[12:10]*: Não tem lugar que eu posso mandar o Hermez ficar olhando lá e ele vai saber. A gente pode mandar ele pegar os AFX da conta. Tipo, ele cria uma tarefa pra ti todo fim do mês, de tu exportar o AFX da conta e subir pra ele. Aí ele sabe o que entrou, o que saiu, tudo passa na conta, né? Se não sou eu... 
 **Speaker 2** *[12:39]*: Tá. 
 **Speaker 1** *[12:40]*: Então qual foi o número final? 
 **Speaker 2** *[12:41]*: Tô calculando aqui. Tá. 
@@ -132,8 +132,8 @@
 **Speaker 2** *[19:20]*: Se a gente fizer a média desse ano, o primeiro semestre, em quanto estaria? 
 **Speaker 1** *[19:26]*: Eu acho que a métrica deveria ser pouco mais curta até, se a gente pegasse o faturamento do primeiro TRI, por exemplo. Isso é uma coisa que o Ernst vai ter que nos ajudar, a gente quebrar o nosso ano em trimestres e comparar com os anteriores. Ele tem que ter isso. Pegar esses OFX da conta e ele tem que saber... Cara, tá louco, mano? Vocês estão faturando menos nesse trimestre do que vocês faturavam três anos atrás, sei lá. Mas a gente tem que ter essa noção. Eu acho que a gente fatura mais, mas o ponto é que a gente tem que ver isso. 
 **Speaker 2** *[19:58]*: Tu consegue exportar esses extratos seguindo? Isso vai ter muita coisa... Não vai ser muito exato assim, né? 
-**Speaker 1** *[20:06]*: Mano... O que passou na conta. Faz anos que a gente não faz mais nada no... No pessoal. Eu, deixa eu pensar o que foi a última coisa que eu fiz que não foi pela conta. Cara... Acho que o Fernando... Não, o Fernando a gente emitia... Não, o Fernando ele me dava uma parte em dinheiro e uma parte em nota. Eu adorava isso, chegava ele com envelope Daí pedi ela uma nota de mil pilas, sei lá. E aí a outra pergunta, só pra fechar, que ele acha que com isso aqui a gente sai bem do momento, eu acho que ainda não, tipo, eu vou mandar e acho que vai ter uma conclusão maior ainda é qual o primeiro fluxo de tarefas que a gente quer fazer com o Hermes? 
-**Speaker 1** *[21:02]*: Que a gente deixou claro, que a primeira coisa que a gente quer fazer é gestão das tarefas. Isso é o que o Hermes vai fazer. Agora ele tá perguntando. Beleza, entendi que é tarefas. Qual a primeira coisa que a gente vai gerir nessas tarefas? Qual o primeiro passo? Só pra deixar claro, a gente tinha dado como uma resposta temporária, parcial, três coisas aqui. 
+**Speaker 1** *[20:06]*: Mano... O que passou na conta. Faz anos que a gente não faz mais nada no... No pessoal. Eu, deixa eu pensar o que foi a última coisa que eu fiz que não foi pela conta. Cara... Acho que o Fernando... Não, o Fernando a gente emitia... Não, o Fernando ele me dava uma parte em dinheiro e uma parte em nota. Eu adorava isso, chegava ele com envelope Daí pedi ela uma nota de mil pilas, sei lá. E aí a outra pergunta, só pra fechar, que ele acha que com isso aqui a gente sai bem do momento, eu acho que ainda não, tipo, eu vou mandar e acho que vai ter uma conclusão maior ainda é qual o primeiro fluxo de tarefas que a gente quer fazer com o Hermez? 
+**Speaker 1** *[21:02]*: Que a gente deixou claro, que a primeira coisa que a gente quer fazer é gestão das tarefas. Isso é o que o Hermez vai fazer. Agora ele tá perguntando. Beleza, entendi que é tarefas. Qual a primeira coisa que a gente vai gerir nessas tarefas? Qual o primeiro passo? Só pra deixar claro, a gente tinha dado como uma resposta temporária, parcial, três coisas aqui. 
 **Speaker 2** *[21:28]*: É, tem que focar nos objetivos ali, né? 
 **Speaker 1** *[21:30]*: Sim, sim, é isso que eu tô procurando. Ele me falou aqui, ó. A ordem do movimento que vocês sugeriram é tarefas, então é o que ele tá falando. Vamos fazer tarefas. Segundo ponto, comercial. Terceiro ponto, follow-up, esse acompanhamento geral de Operação Next. Eu acho que dá pra... Dá pra ir por isso aí, né? Pra comercial agora. 
 **Speaker 2** *[21:54]*: É, eu penso que esse é comercial, esse é braille, é estruturar bem o nosso comercial ali pra saber o que cada pode atacar. 
@@ -167,7 +167,7 @@
 **Speaker 1** *[26:07]*: Tá, 50 reais por hora de tarefa não feita. 
 **Speaker 3** *[26:10]*: Isso. 
 **Speaker 5** *[26:14]*: Vai ficar pendurado lá e dia se vender, acabar o negócio, o cara. 
-**Speaker 1** *[26:17]*: Vai ser despontado da... Daí é... Caralho. Como o Hermes vai operar o comercial na prática? Captar, registrar, cobrar, follow-up e lembrar de tarefas? 
+**Speaker 1** *[26:17]*: Vai ser despontado da... Daí é... Caralho. Como o Hermez vai operar o comercial na prática? Captar, registrar, cobrar, follow-up e lembrar de tarefas? 
 **Speaker 5** *[27:35]*: Sim. 
 **Speaker 1** *[27:35]*: Sim e... Propor ações comerciais. 
 **Speaker 2** *[27:41]*: Ajudar a estruturar essa estratégia comercial. 
@@ -213,7 +213,7 @@
 **Speaker 1** *[33:33]*: Segundo ele, sim. Acho que vale a pena conferir pelo bagulho. 
 **Speaker 2** *[33:38]*: Que bagulho, meu. 
 **Speaker 1** *[33:39]*: Pandúlio? 
-**Speaker 2** *[33:40]*: Não, porque nele é o Hermes, é o Deus, é todo poderoso. Aí o quanto é peso de casa. 
+**Speaker 2** *[33:40]*: Não, porque nele é o Hermez, é o Deus, é todo poderoso. Aí o quanto é peso de casa. 
 **Speaker 4** *[33:46]*: Só bagulhado aí. 
 **Speaker 2** *[33:47]*: E essa... Essa tos gambiarra aí. A sociedade de ritmo. Aqui ó. Sai daqui como? Horas por semana por sócio. Ok. Regra de consequência acordada. 
 **Speaker 1** *[33:58]*: Ok. 
@@ -221,7 +221,7 @@
 **Speaker 1** *[33:59]*: Sim. Qual que é? 50 Pila por hora de tarefa não executada. 
 **Speaker 2** *[34:03]*: E metas financeiras no papel. 
 **Speaker 1** *[34:07]*: Meta individual líquida, meta total da empresa fechada. Tá aqui, ó. 
-**Speaker 2** *[34:14]*: É, o que pra mim não tá claro é a organização de tarefas. Eu acho que falta uma noção de rituais aqui. Tipo assim, a gente não tá tendo check-in semanal pra alinhar o passo da semana, pá. Pode ser que a gente não queira fazer repaul pra isso, pode ser que a gente queira fazer isso assíncrono. O Hermes manda toda segunda-feira de manhã sem reflexão nenhuma só. É isso que eu tenho anotado aqui pra vocês fazerem, vocês se viram. Pode ser que seja isso que a gente queira. Pode ser que a gente queira dedicar tempo pra isso. Pode ser que a gente queira ter checkpoints. Cara... Porque isso entra em ritmo também, né? 
+**Speaker 2** *[34:14]*: É, o que pra mim não tá claro é a organização de tarefas. Eu acho que falta uma noção de rituais aqui. Tipo assim, a gente não tá tendo check-in semanal pra alinhar o passo da semana, pá. Pode ser que a gente não queira fazer repaul pra isso, pode ser que a gente queira fazer isso assíncrono. O Hermez manda toda segunda-feira de manhã sem reflexão nenhuma só. É isso que eu tenho anotado aqui pra vocês fazerem, vocês se viram. Pode ser que seja isso que a gente queira. Pode ser que a gente queira dedicar tempo pra isso. Pode ser que a gente queira ter checkpoints. Cara... Porque isso entra em ritmo também, né? 
 **Speaker 1** *[34:55]*: Uma coisa que eu acho é que a gente pode testar ele agora dando essa... Essa batida digital, assim, no início de uma semana e a partir dessa batida a gente vai ter necessidade de momentos, tá ligado? Tipo, na segunda talvez ele mande, cara, o João avançou essa tarefa até esse ponto muito porque a gente não tem isso aqui feito ainda e isso depende de x, y, z Por isso que eu tô gostando, eu gostaria da sua sugestão de testar algumas coisas por duas semanas, porque isso aqui é uma parada totalmente nova, mano. Acho que se a gente quiser engessar muito de começo, a gente vai ter que voltar muitos passos... 
 **Speaker 2** *[35:35]*: Não, mas vamos pelo menos, então, falar de ritual que vai nos ajudar com isso. A gente tava fazendo aquele momento estratégico ali, NETS. Se sustentou por algumas semanas, depois isso aí meio que caiu. Depois o momento NETS, junto daquele... NETS Labs, né? Ele também teve sua consistência, enquanto o alinhamento também deu uma caída. O Netslabs, eu acho que não tem a ver com gestão de tarefa, uma coisa, uma iniciativa à parte, né? Mas quando não tem o alinhamento, eu reparo que o nosso check-in do Netslabs já fica mais denso ali, a gente começa a falar assim, pô, você já fez isso, já quer atualizar todo mundo que tá... Então... Cara, não sei se não era da gente definir entre segunda e terça, assim, pelo menos 30, 40 minutos ali pra fazer esse alinhamento juntos. 
 **Speaker 1** *[36:30]*: Ou já vai ter o apanhado dele, né? 
@@ -247,7 +247,7 @@
 **Speaker 1** *[39:38]*: Para cada finalizar suas tarefas. 
 **Speaker 4** *[39:44]*: Para quem? 
 **Speaker 3** *[39:45]*: E na... 
-**Speaker 1** *[39:49]*: Madrugada. Eu botei, só vamos deixar a regra do ciclo semanal definida aqui. As semanas de tarefas acontecem de terça a terça, sendo a segunda o último dia para cada finalizar suas tarefas, marcando o fim do ciclo e o início do próximo com o Hermes mandando o resumo da semana no Discord às 5 da manhã da terça. Então, na terça-feira, às 5 da manhã, ele manda o resumo do que vem e da semana anterior, é isso, né? E aí, nessa terça, a gente tem a reunião. É ele, é ele. 
+**Speaker 1** *[39:49]*: Madrugada. Eu botei, só vamos deixar a regra do ciclo semanal definida aqui. As semanas de tarefas acontecem de terça a terça, sendo a segunda o último dia para cada finalizar suas tarefas, marcando o fim do ciclo e o início do próximo com o Hermez mandando o resumo da semana no Discord às 5 da manhã da terça. Então, na terça-feira, às 5 da manhã, ele manda o resumo do que vem e da semana anterior, é isso, né? E aí, nessa terça, a gente tem a reunião. É ele, é ele. 
 **Speaker 2** *[41:28]*: Não, não é pra essa semana não. Hummm... Seria interessante a gente ir chegar na reunião com pelo menos alguma coisa ali. 
 **Speaker 1** *[41:36]*: Boa, a gente pode sugerir e depois a gente pode retroalimentar. 
 **Speaker 2** *[41:38]*: É, uma provocação, seja. 
@@ -281,7 +281,7 @@
 **Speaker 3** *[43:39]*: Acabou o solzinho pegando os pés. 
 **Speaker 2** *[44:00]*: Aqui, eu tava te falando antes, não te mostrei. 
 **Speaker 3** *[44:02]*: Fechou ali. 
-**Speaker 1** *[44:06]*: Mandei pra ele aqui. Entendi sim. Fica assim o ciclo semanal. Semana de tarefas, de terça a terça. Segunda-feira é o último dia pra cada fazer sua tarefa. A virada do ciclo é na terça às cinco da manhã. O Hermes manda no Discord o resumo da semana anterior e a previsão da próxima semana. E na terça-feira vocês fazem uma reunião debatendo essas tarefas. Se quiser eu já posso organizar isso em texto curto de uma regra operacional pronto pra colar no documento da sociedade. É, aí é demais. Documento de sociedade, meu, pô. Não precisa. 
+**Speaker 1** *[44:06]*: Mandei pra ele aqui. Entendi sim. Fica assim o ciclo semanal. Semana de tarefas, de terça a terça. Segunda-feira é o último dia pra cada fazer sua tarefa. A virada do ciclo é na terça às cinco da manhã. O Hermez manda no Discord o resumo da semana anterior e a previsão da próxima semana. E na terça-feira vocês fazem uma reunião debatendo essas tarefas. Se quiser eu já posso organizar isso em texto curto de uma regra operacional pronto pra colar no documento da sociedade. É, aí é demais. Documento de sociedade, meu, pô. Não precisa. 
 **Speaker 4** *[44:41]*: Fedido. 
 **Speaker 1** *[44:43]*: Cara, eu vou mandar ele... Eu queria ver as tarefas aqui no Kamban já. Esse cara tinha receio, né? 
 **Speaker 5** *[44:56]*: Tá, foi ele aí. 
@@ -313,7 +313,7 @@
 **Speaker 2** *[48:50]*: Tuti per tuti la vita. 
 **Speaker 4** *[48:52]*: Pupi di panzi. Opri pepri pi. 
 **Speaker 2** *[48:57]*: Rolou lá então, posso pegar as perguntas e respostas. 
-**Speaker 1** *[49:00]*: Olha aí, abre aí, eu pedi pra ele, Gerardo, no Hermes, pra ele conseguir ver as conversas que eu fiz. 
+**Speaker 1** *[49:00]*: Olha aí, abre aí, eu pedi pra ele, Gerardo, no Hermez, pra ele conseguir ver as conversas que eu fiz. 
 **Speaker 5** *[49:10]*: Essa música eu adoro. 
 **Speaker 4** *[49:11]*: Adora? 
 **Speaker 1** *[49:13]*: Eu fiz compilado e deixei o arquivo. 

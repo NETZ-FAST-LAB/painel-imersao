@@ -42,5 +42,13 @@ Assistente felino (**Mintzie**) + **painel da imersão** da NETZ. Servidor Node 
 - Build por `Dockerfile` (ou Nixpacks, que usa `npm start`). Variáveis no Coolify (marcar *Available at Runtime*): `GEMINI_API_KEY`, `MINTZIE_MODE=internal`, `BASIC_AUTH_USER`, `BASIC_AUTH_PASS`. Passo a passo em `DEPLOY.md`.
 - Repositório: **privado** (contém o acervo interno).
 
-## Contexto / acervo (para agentes)
-`contexto/` reúne os documentos processados, divididos em `contexto/netz/` (interno: síntese do Fable, 5 problemas, acervo de decisões, Hermes, auditoria, Sebrae + reunião, narrativa, cronograma, check-in) e `contexto/referencias-externas/` (China, 3 Ondas). Índice em `contexto/README.md`. O servidor usa o **montado** em `imersao/imersao_knowledge.md`; `contexto/` são as fontes organizadas para consulta. (As fontes brutas originais também seguem em `../análises e pesquisas/` e `../Reuniões/`.)
+## Contexto / acervo (FONTE ÚNICA para agentes)
+`contexto/` é a **fonte única** de onde o Hermez e o Mintzie bebem, dividida em `contexto/netz/` (interno) e `contexto/referencias-externas/` (China, 3 Ondas). Índice em `contexto/README.md`.
+
+O cérebro do Mintzie (`imersao/imersao_knowledge.md`) é **derivado** de `contexto/` — não edite ele à mão. Fluxo ao adicionar/mudar conhecimento:
+1. joga/edita o `.md` em `contexto/netz/` ou `contexto/referencias-externas/` (e uma linha no `contexto/README.md`);
+2. roda **`bash imersao/build-brain.sh`** (monta `_intro.md` + README + os docs de contexto → `imersao_knowledge.md`; transcrições e check-in ficam de fora do cérebro por serem longos);
+3. `git add -A && commit && push`;
+4. reinicia o servidor / redeploy (o cérebro carrega na subida).
+
+(As fontes brutas originais também seguem em `../análises e pesquisas/` e `../Reuniões/`.)

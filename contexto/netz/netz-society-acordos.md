@@ -26,23 +26,23 @@ Decisões democráticas entre os 4; comunicação rápida e direta. O problema c
 
 Canais mais vivos: site, IA, Sebrae/Sistema S, projetos sob demanda. **Canal institucional desejado: Sebrae/Sistema S, foco no território Sul do Brasil.**
 
-## Hermes
+## Hermez
 Agente operacional da empresa: gestão de tarefas, apoio a decisões, insights, acompanhamento do ritmo, memória operacional, cobrança de execução, transformação de ideia em tarefa.
 
 - Interno primeiro; depois vertical se fizer sentido; **não** produto amplo e genérico.
-- **Hermes = máquina de processo, memória e execução.**
+- **Hermez = máquina de processo, memória e execução.**
 - **Primeiro fluxo: Comercial** — propor ações comerciais, estruturar estratégia, organizar a disciplina de follow-up, apoiar a geração de demanda.
-- Ordem dos processos a mapear com o Hermes: **Tarefas → Comercial → Follow-up.**
+- Ordem dos processos a mapear com o Hermez: **Tarefas → Comercial → Follow-up.**
 
 ## Cadência semanal
 - Ciclo de tarefas **de terça a terça**.
 - **Segunda-feira** = último dia para finalizar tarefas (fechamento).
-- **Terça às 05:00** = o Hermes manda no Discord o resumo da semana anterior + a previsão da próxima.
+- **Terça às 05:00** = o Hermez manda no Discord o resumo da semana anterior + a previsão da próxima.
 - **Terça** = reunião do time para debater as tarefas.
 - Cadência **diária**.
 
 ## Definição de pronto
-Algo só é "pronto" quando: tem **dono**, tem **prazo**, foi **executado**, foi **conferido**, foi **registrado**, e **não depende mais de boa vontade**. Regra prática: o Hermes aponta; o dono da área valida o "pronto".
+Algo só é "pronto" quando: tem **dono**, tem **prazo**, foi **executado**, foi **conferido**, foi **registrado**, e **não depende mais de boa vontade**. Regra prática: o Hermez aponta; o dono da área valida o "pronto".
 
 ## Consequência (execução)
 - Multa simbólica: **R$ 50 por tarefa equivalente a 1h de trabalho não concluída**.
@@ -63,4 +63,4 @@ Algo só é "pronto" quando: tem **dono**, tem **prazo**, foi **executado**, foi
 Regra: **"Se ficou só na conversa, morreu. Se precisa sobreviver, vai para o registro oficial."**
 
 ## Tese estratégica
-A NETZ não precisa apenas de clareza — precisa de **ritmo, dono, processo, registro e cobrança**, e o Hermes existe para sustentar isso. O foco sai do debate e **entra em sistema**.
+A NETZ não precisa apenas de clareza — precisa de **ritmo, dono, processo, registro e cobrança**, e o Hermez existe para sustentar isso. O foco sai do debate e **entra em sistema**.
