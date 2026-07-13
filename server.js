@@ -239,7 +239,8 @@ const INTERNAL_PAGES = new Set(["/painel-imersao.html", "/governanca.html", "/hu
 function serveStatic(req, res) {
   let rel = decodeURIComponent(req.url.split("?")[0]);
   const key = rel.replace(/\/+$/, "") || "/";        // ignora barra final
-  if (ROUTE_ALIASES[key]) rel = ROUTE_ALIASES[key];
+  if (key === "/") rel = IS_PUBLIC ? "/index.html" : "/hub.html";  // raiz: site (público) ou hub (interno, seletor de páginas)
+  else if (ROUTE_ALIASES[key]) rel = ROUTE_ALIASES[key];
   if (IS_PUBLIC && INTERNAL_PAGES.has(rel)) return send(res, 404, "Not found");
   const filePath = path.join(PUBLIC_DIR, path.normalize(rel));
   if (!filePath.startsWith(PUBLIC_DIR)) return send(res, 403, "Forbidden");

@@ -678,10 +678,10 @@ const SEBRAE_PASSOS = [
 const STATUS_DEC=[{id:"aberta",label:"Em aberto",cor:"#6b7280"},{id:"andamento",label:"Discutindo",cor:"#ffd97f"},{id:"fechada",label:"Fechada",cor:"#BFFF80"},{id:"parking",label:"Parking lot",cor:"#c79fff"}];
 const TRIAGEM=[{id:"ressuscitar",label:"Ressuscitar",cor:"#BFFF80"},{id:"fundir",label:"Fundir",cor:"#7Fd4ff"},{id:"arquivar",label:"Arquivar",cor:"#6b7280"}];
 const POT_COR={alto:"#BFFF80",medio:"#ffd97f",baixo:"#6b7280"};
-const TABS=[{id:"cronograma",label:"Cronograma"},{id:"decisoes",label:"Decisões"},{id:"fable",label:"Fable"},{id:"ideias",label:"Cemitério de ideias"},{id:"hermes",label:"Hermes"},{id:"site",label:"Site"},{id:"sebrae",label:"Sebrae"},{id:"pesquisa",label:"Pesquisa profunda"},{id:"consult",label:"Consultorias"},{id:"bench",label:"Benchmarking"},{id:"refs",label:"Referências"}];
+const TABS=[{id:"cronograma",label:"Cronograma"},{id:"decisoes",label:"Decisões"},{id:"sociedade",label:"Sociedade"},{id:"parking",label:"Parking lot"},{id:"fable",label:"Fable"},{id:"ideias",label:"Cemitério de ideias"},{id:"hermes",label:"Hermes"},{id:"site",label:"Site"},{id:"sebrae",label:"Sebrae"},{id:"pesquisa",label:"Pesquisa profunda"},{id:"consult",label:"Consultorias"},{id:"bench",label:"Benchmarking"},{id:"refs",label:"Referências"}];
 // menu em 3 grupos (experiência de consumo)
 const GROUPS=[
-  {id:"imersao",label:"Imersão",tabs:["cronograma","decisoes"]},
+  {id:"imersao",label:"Imersão",tabs:["cronograma","decisoes","sociedade","parking"]},
   {id:"analises",label:"Análises",tabs:["fable","ideias","hermes","site","sebrae"]},
   {id:"referencias",label:"Referências",tabs:["refs","pesquisa","consult","bench"]}
 ];
@@ -752,6 +752,8 @@ function renderProgress(){
 function renderMain(){
   const m=document.getElementById("main");
   if(currentTab==="cronograma")m.innerHTML=viewCronograma();
+  else if(currentTab==="sociedade")m.innerHTML=viewSociedade();
+  else if(currentTab==="parking")m.innerHTML=viewParking();
   else if(currentTab==="fable")m.innerHTML=viewFable();
   else if(currentTab==="decisoes")m.innerHTML=viewDecisoes();
   else if(currentTab==="ideias")m.innerHTML=viewIdeias();
@@ -762,6 +764,135 @@ function renderMain(){
   else if(currentTab==="pesquisa")m.innerHTML=viewPesquisa();
   else if(currentTab==="bench")m.innerHTML=viewBench();
   else m.innerHTML=viewRefs();
+}
+
+// ====================== PARKING LOT (ideias citadas, não endereçadas) ======================
+const PARKING = [
+  {t:"Parcerias com agências — \"iFood dos sites\"", cat:"Comercial", de:"check-in + society",
+   d:"Modelo white-label com um portal onde a agência pede site sem atrito (briefing, arquivos, prazo) — sem novo orçamento a cada job. Pacotes (ex.: fecha 10, ganha 1). Diferencial: infra, hospedagem, tracking e código que a agência não quer tocar. Referência: a parceria da Blue (Gui). Precisa de dono e do modelo de parceria."},
+  {t:"Apresentação comercial", cat:"Comercial", de:"society",
+   d:"Montar a base de uma apresentação (cases + soluções) pra levar a agências e parceiros. Hermes ajuda no conteúdo; depois o visual. Serviria pra 'quem conhece e quem não conhece' a Netz."},
+  {t:"Hermes financeiro (números da empresa)", cat:"Financeiro/Hermes", de:"society",
+   d:"Conectar os números ao Hermes: exportar o OFX da conta todo fim de mês, quebrar o ano em trimestres e comparar faturamento com anos anteriores; ter os custos fixos à mão (contabilidade R$325, INSS ~R$700, cloud, VPS, domínio ≈ R$1.500/mês). Ideal: um lugar único onde o dado se atualiza."},
+  {t:"Cláusula de saída da sociedade (shotgun)", cat:"Sociedade", de:"society", status:"adiado",
+   d:"Visão macro de como seria a saída de um sócio (mudança de país, alguém querendo comprar, etc.). Decidido NÃO agora ('agora é fazer dinheiro'), mas registrado como conversa a puxar depois — ter pelo menos o mecanismo macro (ex.: shotgun)."},
+  {t:"Gerenciador de arquivos na VPS", cat:"Operação", de:"society",
+   d:"Instalar um file manager na VPS (ex.: File Browser) pra navegar/subir/baixar arquivos sem depender do terminal. Ver se já tem na lista de apps prontos do Coolify."},
+  {t:"Atualizar o design system no Figma", cat:"Design", de:"society",
+   d:"O design system no Figma está desatualizado. Levar as explorações visuais (grafismos do Hermes, narrativa, liquid glass, nó aceso) pro Figma e evoluir ponto a ponto, em vez de refinar solto."},
+  {t:"Organização de senhas", cat:"Operação", de:"society + acervo",
+   d:"O compartilhamento de senhas (WebUI, Coolify) está no improviso. Adotar um gestor de senhas (ex.: Bitwarden) — barato e resolve um risco real."},
+  {t:"Formato do ritual de alinhamento", cat:"Ritmo", de:"society", status:"em teste",
+   d:"A reunião de terça está definida, mas o formato do alinhamento ainda é teste: síncrono (30–40 min terça) vs assíncrono (o Hermes manda o apanhado e cada um se vira) vs checkpoint no meio da semana. Kanban leve pra ser mais objetivo. Reavaliar nas 2 semanas."},
+  {t:"Fábrica de canais / YouTube", cat:"Iniciativas", de:"check-in",
+   d:"A estratégia de 'fábrica de canais' (um ajuda o canal do outro — arte, animação, edição em rede) ainda não foi endereçada: é iniciativa própria ou fica no Labz? Definir o encaixe."}
+];
+function viewParking(){
+  let h=`<p class="tab-intro">Ideias que foram <b>citadas mas não endereçadas</b> — pra não morrerem na conversa. Não são decisões; são coisas a puxar quando fizer sentido (com dono e data).</p>`;
+  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px">`;
+  PARKING.forEach(p=>{
+    const stCor = p.status==="adiado" ? "#ff9f7f" : p.status==="em teste" ? "#ffd97f" : null;
+    h+=`<section style="border:1px solid #262b34;border-left:3px solid #c79fff;border-radius:12px;background:linear-gradient(180deg,#12161d,#0e1218);padding:14px 16px">
+      <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:7px">
+        <span style="font-size:14.5px;font-weight:700;color:#e7edf3">${esc(p.t)}</span>
+        ${p.status?`<span style="font-size:10px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:${stCor};border:1px solid ${stCor}55;border-radius:20px;padding:1px 7px">${esc(p.status)}</span>`:''}
+      </div>
+      <div style="font-size:13px;line-height:1.55;color:#dce3ea;margin-bottom:10px">${esc(p.d)}</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;font-size:10.5px">
+        <span style="color:#c79fff;border:1px solid #c79fff44;border-radius:20px;padding:2px 8px;text-transform:uppercase;letter-spacing:.06em">${esc(p.cat)}</span>
+        <span style="color:#7e8a99">citado em: ${esc(p.de)}</span>
+      </div>
+    </section>`;
+  });
+  h+=`</div>`;
+  return h;
+}
+
+// ====================== SOCIEDADE (acordos da reunião) ======================
+const SOC_SOCIOS = [
+  {n:"Denis Polidoro", p:"Tecnologia e relacionamento com clientes"},
+  {n:"João Scholz", p:"Relacionamento, gestão de projetos, design estratégico e contabilidade"},
+  {n:"Gui Roennau", p:"Desenvolvimento web e financeiro"},
+  {n:"Gui Stacke", p:"Design, ilustração e UI/UX"}
+];
+const SOC_PRONTO = ["tem dono","tem prazo","foi executado","foi conferido","foi registrado","não depende mais de boa vontade"];
+const SOC_FONTE = [
+  {k:"Notion", v:"operação oficial", c:"#BFFF80"},
+  {k:"Discord", v:"conversa rápida e alinhamento", c:"#7Fd4ff"},
+  {k:"GitHub", v:"código, artefatos e entregas", c:"#c79fff"}
+];
+function socCard(titulo, cor, inner){
+  return `<section style="border:1px solid #262b34;border-left:3px solid ${cor};border-radius:12px;background:linear-gradient(180deg,#12161d,#0e1218);padding:15px 17px">
+    <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:${cor};font-weight:700;margin-bottom:11px">${titulo}</div>${inner}</section>`;
+}
+function viewSociedade(){
+  let h=`<p class="tab-intro">O que ficou <b>decidido</b> na reunião da sociedade (resultado, não hipótese): converter vínculo em sistema — ritmo, dono, processo, registro e cobrança.</p>`;
+  h+=`<div style="margin-bottom:14px"><a href="/reuniao-society.html" target="_blank" rel="noopener" style="text-decoration:none;color:#7Fd4ff;border:1px solid #7Fd4ff44;border-radius:8px;padding:7px 13px;font-size:12.5px">📄 Transcrição completa da reunião</a></div>`;
+  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px">`;
+
+  // sócios
+  h+=socCard("Sócios & papéis","#BFFF80",
+    `<div style="display:flex;flex-direction:column;gap:9px">`+SOC_SOCIOS.map(s=>
+      `<div><div style="font-size:13.5px;font-weight:600;color:#e7edf3">${esc(s.n)}</div><div style="font-size:12.5px;color:#9aa4b2">${esc(s.p)}</div></div>`).join("")+
+    `</div><div style="margin-top:11px;font-size:12px;color:#9aa4b2">Decisões democráticas entre os 4. O problema não é debate — é fechamento e execução.</div>`);
+
+  // capacidade
+  h+=socCard("Capacidade & teste","#7fe0c0",
+    `<div style="font-size:26px;font-weight:800;color:#e7edf3">13h<span style="font-size:14px;font-weight:500;color:#9aa4b2"> / semana por sócio</span></div>
+     <div style="margin-top:8px;font-size:13px;color:#c9d3dd">Teste por <b>2 semanas</b> — observar se cabe, o que melhorar, se ajusta. Trabalhar dentro do limite e testar a operação.</div>`);
+
+  // meta financeira
+  h+=socCard("Meta financeira","#ffd97f",
+    `<div style="display:flex;gap:18px;flex-wrap:wrap;margin-bottom:12px">
+      <div><div style="font-size:24px;font-weight:800;color:#e7edf3">R$ 12 mil</div><div style="font-size:11.5px;color:#9aa4b2">líquidos/mês por sócio</div></div>
+      <div><div style="font-size:24px;font-weight:800;color:#ffd97f">R$ 695.952</div><div style="font-size:11.5px;color:#9aa4b2">/ano da empresa (c/ impostos e custos)</div></div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;font-size:12px">
+      <span style="border:1px solid #2a2f3a;border-radius:8px;padding:4px 9px;color:#c9d3dd">Mês R$ 57.996</span>
+      <span style="border:1px solid #2a2f3a;border-radius:8px;padding:4px 9px;color:#c9d3dd">Trimestre R$ 173.988</span>
+      <span style="border:1px solid #2a2f3a;border-radius:8px;padding:4px 9px;color:#c9d3dd">Semestre R$ 347.976</span>
+    </div>`);
+
+  // cadência
+  h+=socCard("Cadência semanal","#7Fd4ff",
+    `<ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:13px;line-height:1.5;color:#dce3ea">
+      <li>Ciclo de tarefas de <b>terça a terça</b>.</li>
+      <li><b>Segunda</b> = último dia para finalizar (fechamento).</li>
+      <li><b>Terça 05:00</b> = o Hermes manda no Discord o resumo da semana + a previsão da próxima.</li>
+      <li><b>Terça</b> = reunião do time para debater as tarefas.</li>
+    </ul><div style="margin-top:9px;font-size:12px;color:#9aa4b2">Cadência diária.</div>`);
+
+  // consequência
+  h+=socCard("Consequência (execução)","#ff9f7f",
+    `<div style="font-size:20px;font-weight:800;color:#e7edf3">R$ 50 <span style="font-size:13px;font-weight:500;color:#9aa4b2">por tarefa (≈1h) não concluída</span></div>
+     <div style="margin-top:8px;font-size:13px;color:#c9d3dd">Registrada e descontada do próximo pagamento. <b>Simulação por 2 semanas</b>, depois reavaliar. Objetivo: destravar, organizar, concluir, registrar — não punir.</div>`);
+
+  // definição de pronto
+  h+=socCard("Definição de pronto","#BFFF80",
+    `<div style="display:flex;flex-wrap:wrap;gap:7px">`+SOC_PRONTO.map(x=>
+      `<span style="font-size:12px;color:#dce3ea;border:1px solid #2a2f3a;border-radius:20px;padding:3px 10px">✓ ${esc(x)}</span>`).join("")+
+    `</div><div style="margin-top:10px;font-size:12px;color:#9aa4b2">O Hermes aponta; o dono da área valida o "pronto".</div>`);
+
+  // fonte da verdade
+  h+=socCard("Fonte da verdade","#c79fff",
+    `<div style="display:flex;flex-direction:column;gap:7px">`+SOC_FONTE.map(f=>
+      `<div style="font-size:13px;color:#dce3ea"><b style="color:${f.c}">${esc(f.k)}</b> — ${esc(f.v)}</div>`).join("")+
+    `</div><div style="margin-top:10px;font-size:12.5px;color:#bff780;font-style:italic">"Se ficou só na conversa, morreu. Se precisa sobreviver, vai para o registro oficial."</div>`);
+
+  // hermes
+  h+=socCard("Hermes","#7fe0c0",
+    `<div style="font-size:13px;color:#c9d3dd">Máquina de <b>processo, memória e execução</b>. Interno primeiro; vertical depois se fizer sentido; não genérico.</div>
+     <div style="margin-top:10px;font-size:12.5px;color:#dce3ea"><b>Primeiro fluxo: Comercial</b> — propor ações, estruturar estratégia, disciplina de follow-up, geração de demanda.</div>
+     <div style="margin-top:8px;font-size:12px;color:#9aa4b2">Ordem a mapear: Tarefas → Comercial → Follow-up.</div>`);
+
+  // prioridades
+  h+=socCard("Prioridades — 90 dias","#ffd97f",
+    `<ol style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px;font-size:13px;color:#dce3ea">
+      <li>Aquisição de clientes.</li><li>Geração de demanda.</li><li>Organização da operação comercial.</li><li>Follow-up e rotina de execução.</li>
+    </ol><div style="margin-top:9px;font-size:12px;color:#9aa4b2">Canal institucional: Sebrae/Sistema S, foco no território Sul.</div>`);
+
+  h+=`</div>`;
+  return h;
 }
 
 // ====================== CRONOGRAMA (INVERNETZ 2026) ======================
@@ -779,14 +910,17 @@ const CRONOGRAMA = [
     objetivo:"Cada um resolve o externo antes do bloco coletivo.",
     pauta:["Gui finaliza o site.","Espaço individual pra projetos externos / foco.","Combinar o horário de início do Society (sugestão: 11h) e montar a 'sala de reunião' (quiosque/quarto) pra quem tiver call."],
     saida:"Externos encaminhados; horário do Society combinado.", nota:"O Society começa no fim da manhã, quando o Gui liberar." },
-  { dia:"Segunda", turno:"11h · Fim da manhã", bloco:"NETZ Society", tag:"society", status:"o mais denso",
+  { dia:"Segunda", turno:"11h · Fim da manhã", bloco:"NETZ Society", tag:"society", status:"✅ concluído",
     objetivo:"Fechar os acordos de sociedade e ligar o motor financeiro/organizacional. É o bloco que direciona todos os outros — por isso abre a semana.",
     pauta:["Sociedade & ritmo: cada sócio declara horas/semana reais nos próximos 90 dias, e o que fica de fora pra caber. Redimensionar a ambição pra caber na capacidade real.","Mecanismo de 'vergonha na cara': escolher e escrever UM — o caixa (cada um com R$X, desconta por combinado não cumprido) e/ou o agente externo como cobrador que não deve nada a ninguém.","Organização de tarefas: como operar de verdade — Kanban + o agente criando e lembrando tarefas, ouvindo ideia e virando tarefa.","Financeiro (parte 1): tirar o processo das costas do Gui (automatizar/redistribuir). Metas: valor mensal por sócio + meta da empresa.","Sincronizar o Hermes: começar a alimentar o histórico pra ele dar ritmo e entrar contextualizado."],
-    saida:"Horas/semana por sócio + regra de consequência acordada + metas financeiras (R$) no papel.", nota:"Mente fresca — é burocrático e decisivo." },
-  { dia:"Segunda", turno:"Tarde", bloco:"Comercial / Editais / Parcerias", tag:"comercial", status:"",
-    objetivo:"Colocar a Netz na rua.",
-    pauta:["Comercial: desengargalar o processo (hoje manual, pouca exposição, consome tempo) — desenhar como o agente ajuda; usar a interface de organização (Kanban) já construída.","Editais: Caldeira/matchmaking (escolher o desafio e inscrever — custo zero; só justificar por que estão capacitados, sem detalhar a ideia). Sebrae: usar o contato do agente regional de POA; lembrar as vias (Únio, Edital 02/PI).","Conta bancária para editais: encaminhar — é pré-requisito.","Parcerias: mapear os tipos de parceiro (os que potencializam e dão espaço) e o que se espera de cada; o canal de parcerias.","Nó a marcar (não resolver à força): 'qual o produto?' — edital e comercial esbarram nele. Levar pra terça."],
-    saida:"1 edital escolhido e inscrito (ou pronto pra inscrever) + lista de parceiros-alvo + conta bancária encaminhada." },
+    saida:"Fechado: 13h/semana por sócio (teste de 2 semanas) · consequência R$ 50 por tarefa (1h) não concluída · meta R$ 12 mil líq./sócio e R$ 695.952/ano · Hermes começa no Comercial · cadência terça-a-terça (segunda fecha, terça 05:00 o Hermes manda resumo+previsão no Discord). Detalhes na aba Sociedade.",
+    nota:"Núcleo operacional decidido. Ainda em teste (2 semanas): horas reais e a regra de consequência.",
+    links:[{label:"📄 Transcrição da reunião", href:"/reuniao-society.html"},{label:"→ ver acordos (Sociedade)", tab:"sociedade"}] },
+  { dia:"Segunda", turno:"Tarde", bloco:"Comercial / Editais / Parcerias", tag:"comercial", status:"atualizado pela Society",
+    objetivo:"Colocar a Netz na rua — agora com o Hermes como motor do comercial (o primeiro fluxo dele, decidido na Society).",
+    pauta:["Estruturar o comercial com o Hermes — é o PRIMEIRO fluxo dele: propor ações, estruturar a estratégia, disciplina de follow-up, geração de demanda. Ordem de mapeamento: Tarefas → Comercial → Follow-up.","Apresentação comercial: montar a base (cases + soluções) pra agências e parceiros — o Hermes ajuda no conteúdo, depois o visual. (Meta: base pronta rápido.)","Parcerias com agências ('iFood dos sites'): desenhar o modelo white-label — portal sem atrito, pacotes (fecha 10, ganha 1), infra/hospedagem/tracking como diferencial. Ref.: parceria da Blue. Ver Parking lot.","Editais: Caldeira/matchmaking (escolher o desafio e inscrever — custo zero). Sebrae: usar o contato do agente regional de POA; vias Únio e Edital 02/PI.","Conta bancária para editais: encaminhar — é pré-requisito.","Prioridade decidida (90 dias): aquisição de clientes → geração de demanda → organização comercial → follow-up. Canal institucional: Sebrae/Sistema S, foco no Sul.","Nó ainda aberto: 'qual o produto?' — edital e comercial esbarram nele. Levar pra terça (Iniciativas)."],
+    saida:"Comercial estruturado como 1º fluxo do Hermes + base da apresentação comercial iniciada + 1 edital encaminhado + modelo de parceria com agências esboçado.",
+    links:[{label:"→ Parking lot (parcerias, apresentação)", tab:"parking"}] },
   { dia:"Segunda", turno:"Noite", bloco:"Labz", tag:"labs", status:"",
     objetivo:"Criação solta — recarrega a cabeça depois do dia denso.",
     pauta:["Experimentos, som, referência boa.","Seguir o que animar."], saida:"" },
@@ -833,6 +967,13 @@ function viewCronograma(){
     }
     if(b.saida){ h+=`<div class="crono-saida"><span>Sai daqui com:</span> ${esc(b.saida)}</div>`; }
     if(b.nota){ h+=`<div class="crono-nota">${esc(b.nota)}</div>`; }
+    if(b.links&&b.links.length){
+      h+=`<div style="margin-top:11px;display:flex;gap:8px;flex-wrap:wrap">`;
+      b.links.forEach(l=>{ h+= l.tab
+        ? `<a onclick="setTab('${l.tab}')" style="cursor:pointer;text-decoration:none;color:#7Fd4ff;border:1px solid #7Fd4ff44;border-radius:8px;padding:5px 11px;font-size:12px">${esc(l.label)}</a>`
+        : `<a href="${esc(l.href)}" target="_blank" rel="noopener" style="text-decoration:none;color:#7Fd4ff;border:1px solid #7Fd4ff44;border-radius:8px;padding:5px 11px;font-size:12px">${esc(l.label)}</a>`; });
+      h+=`</div>`;
+    }
     h+=`</div></details>`;
   });
   h+=`</div>`;

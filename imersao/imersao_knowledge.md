@@ -39,6 +39,7 @@ Os rótulos exatos e o estado atual de cada item vêm da própria página (eleme
 7. **Futures China — dossiê** (`futures-china-dossie-referencias.md`) — acervo de referências sobre China (tech/IA, geopolítica Brasil–China, energia/agro, cultura/soft power, educação), oportunidades acionáveis e insights-chave. *Aponte aqui para o tema China; lembre que é acervo de input (curadoria), não decisão.*
 8. **3 Ondas — referências e discussões** (`3ondas_referencias_e_discussoes.md`) — organização de uma conversa de comunidade: participantes, linha do tempo temática, referências por tema (IA/agentes, deeptech/saúde, futuro do trabalho, soberania tecnológica, ceticismo/cases de falha). *Aponte aqui para o repertório de discussão; também é input, não decisão.*
 9. **Narrativa & narrativa visual — o micélio** (`narrativa-netz-micelio.md`) — a narrativa de marca da Netz: a metáfora do micélio (a rede sob o solo, o fruto na superfície) e como virar clareza comercial sem cair em "projeto estético". Traz a etimologia de *Netz* (rede / infraestrutura / rede neural em alemão), os riscos (saturação, virar álibi para não empacotar, abstração infinita, projeto estético), a arquitetura da história (mito → mecanismo → prova, com a tabela das quatro frentes traduzidas), o léxico (verbos/substantivos da casa e os proibidos), os quatro motivos visuais (linha do solo, micélio→fruto, nó aceso, enxerto) e **textos prontos** (H1, sub, bio, abertura de proposta, manifesto). Frase-chave: "somos um micélio sem cogumelos" (= muita rede, poucos frutos/cases). *Aponte aqui quando perguntarem de marca, posicionamento, como explicar a Netz numa frase, ou de identidade visual. Atenção: o doc é análise INTERNA; só as frases da seção 6 (H1/sub/bio/manifesto) são candidatas a virar públicas — e mesmo assim ainda não estão no cérebro do site.*
+10. **NETZ Society — acordos da sociedade** (`netz-society-acordos.md`) — o que FICOU DECIDIDO na reunião da sociedade (resultado, não hipótese): sócios e papéis (Denis/tech, João/gestão+contábil, Gui Roennau/dev+financeiro, Gui Stacke/design); capacidade de **13h/semana por sócio** (teste de 2 semanas); **meta de R$ 12 mil líquidos/mês por sócio** e **R$ 695.952/ano** da empresa (mês 57.996 · tri 173.988 · sem 347.976); **consequência de R$ 50 por tarefa (1h) não concluída** (simulação por 2 semanas); **cadência terça-a-terça** (segunda fecha; terça 05:00 o Hermes manda resumo+previsão no Discord; terça = reunião); **definição de pronto** (dono, prazo, executado, conferido, registrado); **fonte da verdade** (Notion oficial, Discord conversa, GitHub código); **Hermes começa no Comercial**. *Aponte aqui quando perguntarem de sociedade, metas financeiras, cadência, consequência, papéis dos sócios, definição de pronto, ou o papel do Hermes. É o núcleo operacional decidido.*
 
 Observação de fidelidade: as duas cópias da auditoria técnica eram idênticas — mantive uma. Onde a síntese do Fable marca "[inferência]", trate como leitura, não como fato dado pelos documentos.
 
@@ -1768,3 +1769,95 @@ O material do Acervo §8 já contém 80% dos elementos; o que falta é a **gram�
 ## O aviso final
 
 Esta narrativa é boa — coerente com o nome, com a identidade visual já construída, com o Hermes, com o produto e até com o diagnóstico duro da imersão. Justamente por isso, o maior risco é ela ser *boa demais como passatempo*. O teste de sucesso não é o manifesto ficar bonito: é a narrativa aparecer, nos próximos 30 dias, em três lugares que vendem — o hero do site, o template de proposta e o primeiro case publicado. Um universo narrativo sem fruto seria a ironia final: mais micélio.
+
+
+==================================================================
+DOCUMENTO-FONTE: netz-society-acordos.md (reunião da sociedade)
+==================================================================
+
+# NETZ Society — acordos da sociedade
+
+*Resultado do bloco NETZ Society (imersão INVERNETZ, jul/2026). Núcleo de decisão: converter vínculo em sistema.*
+
+## Direção geral
+Organizar a casa; transformar debate em execução; aumentar ritmo comercial; criar recorrência e previsibilidade; construir produtos próprios no futuro sem perder o foco no agora. A prioridade não é "pensar mais" — é **operar melhor**.
+
+## Sócios e papéis
+- **Denis Polidoro** — tecnologia e relacionamento com clientes.
+- **João Scholz** — relacionamento, gestão de projetos, design estratégico e contabilidade.
+- **Gui Roennau** — desenvolvimento web e financeiro.
+- **Gui Stacke** — design, ilustração e UI/UX.
+
+Decisões democráticas entre os 4; comunicação rápida e direta. O problema central hoje não é debate — é **falta de fechamento e execução**.
+
+## Capacidade
+- **13 horas/semana por sócio.**
+- Colocado como **teste por 2 semanas**: observar se cabe na prática, o que precisa melhorar, se será necessário ajustar.
+- Por enquanto ninguém precisa "tirar nada da agenda" além do já ajustado; a regra é trabalhar dentro do limite e testar a operação.
+
+## Prioridades (próximos 90 dias)
+1. Aquisição de clientes.
+2. Geração de demanda.
+3. Organização da operação comercial.
+4. Follow-up e rotina de execução.
+
+Canais mais vivos: site, IA, Sebrae/Sistema S, projetos sob demanda. **Canal institucional desejado: Sebrae/Sistema S, foco no território Sul do Brasil.**
+
+## Hermes
+Agente operacional da empresa: gestão de tarefas, apoio a decisões, insights, acompanhamento do ritmo, memória operacional, cobrança de execução, transformação de ideia em tarefa.
+
+- Interno primeiro; depois vertical se fizer sentido; **não** produto amplo e genérico.
+- **Hermes = máquina de processo, memória e execução.**
+- **Primeiro fluxo: Comercial** — propor ações comerciais, estruturar estratégia, organizar a disciplina de follow-up, apoiar a geração de demanda.
+- Ordem dos processos a mapear com o Hermes: **Tarefas → Comercial → Follow-up.**
+
+## Cadência semanal
+- Ciclo de tarefas **de terça a terça**.
+- **Segunda-feira** = último dia para finalizar tarefas (fechamento).
+- **Terça às 05:00** = o Hermes manda no Discord o resumo da semana anterior + a previsão da próxima.
+- **Terça** = reunião do time para debater as tarefas.
+- Cadência **diária**.
+
+## Definição de pronto
+Algo só é "pronto" quando: tem **dono**, tem **prazo**, foi **executado**, foi **conferido**, foi **registrado**, e **não depende mais de boa vontade**. Regra prática: o Hermes aponta; o dono da área valida o "pronto".
+
+## Consequência (execução)
+- Multa simbólica: **R$ 50 por tarefa equivalente a 1h de trabalho não concluída**.
+- Fica registrada e seria descontada do próximo pagamento.
+- **Simulação por 2 semanas**; depois reavaliar se entra na prática.
+- Objetivo: destravar, organizar, concluir, registrar — **não punir por punir**.
+
+## Meta financeira
+- **R$ 12 mil líquidos/mês por sócio.**
+- **Meta anual da empresa: R$ 695.952** (inclui impostos, custos, encargos e demais despesas).
+- Projeção: **mês R$ 57.996 · trimestre R$ 173.988 · semestre R$ 347.976 · ano R$ 695.952.**
+
+## Fonte da verdade
+- **Notion** → operação oficial.
+- **Discord** → conversa rápida e alinhamento.
+- **GitHub** → código, artefatos técnicos e entregas de produto.
+
+Regra: **"Se ficou só na conversa, morreu. Se precisa sobreviver, vai para o registro oficial."**
+
+## Tese estratégica
+A NETZ não precisa apenas de clareza — precisa de **ritmo, dono, processo, registro e cobrança**, e o Hermes existe para sustentar isso. O foco sai do debate e **entra em sistema**.
+
+
+==================================================================
+DOCUMENTO-FONTE: parking-lot-society.md (ideias citadas, não endereçadas)
+==================================================================
+
+# Parking lot — ideias citadas mas não endereçadas (reunião da Society, 13/jul/2026)
+Não são decisões; são pontos a puxar com dono e data quando fizer sentido.
+
+- **Parcerias com agências ('iFood dos sites')**: portal white-label onde a agência pede site sem atrito; pacotes (fecha 10 ganha 1); diferencial = infra/hospedagem/tracking/código. Ref.: parceria da Blue (Gui). Falta dono e modelo.
+- **Apresentação comercial**: montar base (cases + soluções) pra agências/parceiros; Hermes no conteúdo, depois o visual.
+- **Hermes financeiro**: exportar OFX da conta todo mês, quebrar o ano em trimestres, comparar com anos anteriores; custos fixos ~R$1.500/mês (contabilidade 325, INSS ~700, cloud, VPS, domínio).
+- **Cláusula de saída da sociedade (shotgun)**: ADIADO ('agora é fazer dinheiro'); registrar mecanismo macro pra depois.
+- **Gerenciador de arquivos na VPS**: instalar file manager (ex.: File Browser) pra não depender do terminal.
+- **Design system no Figma**: está desatualizado; levar as explorações visuais pro Figma e evoluir ponto a ponto.
+- **Organização de senhas**: caos de senhas (WebUI/Coolify) → adotar gestor (ex.: Bitwarden).
+- **Formato do ritual de alinhamento**: EM TESTE — síncrono (terça 30-40min) vs assíncrono (Hermes manda apanhado) vs checkpoint no meio; Kanban leve. Reavaliar em 2 semanas.
+- **Fábrica de canais / YouTube**: iniciativa própria ou Labz? Ainda não endereçada (do check-in).
+
+NOTA: a transcrição completa da reunião da Society está em contexto/netz/reuniao-society-transcricao.md (fonte primária com o debate da multa, a matemática financeira e estes pontos).
