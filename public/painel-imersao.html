@@ -247,7 +247,7 @@
     <div>
       <div class="kicker">Imersão · 3 dias <span title="Documento interno da Netz. Não compartilhar fora da equipe." style="margin-left:8px;font-size:9.5px;letter-spacing:.14em;color:#ff9f7f;border:1px solid #ff9f7f66;border-radius:20px;padding:2px 8px;vertical-align:middle;white-space:nowrap">🔒 INTERNO · CONFIDENCIAL</span></div>
       <h1>NETZ<span>.</span></h1>
-      <p class="sub">O gargalo é execução, não ideia. Este painel é para decidir — não para acumular mais input. <button class="sintese-reopen" onclick="abrirSintese()">↑ rever a síntese</button></p>
+      <p class="sub">O gargalo é execução, não ideia. Este painel é para decidir — não para acumular mais input. <button class="sintese-reopen" onclick="setTab('fable')">↑ ver a análise (Fable)</button></p>
     </div>
     <div class="progress-wrap">
       <div class="progress-label">
@@ -261,10 +261,15 @@
   <div class="toolbar">
     <a href="/inicio" style="text-decoration:none;color:#BFFF80;border:1px solid #BFFF8055;border-radius:8px;padding:6px 11px;font-size:12.5px">⌂ Início</a>
     <a href="/governanca" style="text-decoration:none;color:#9aa4b2;border:1px solid #2a2f3a;border-radius:8px;padding:6px 11px;font-size:12.5px">🛡️ Governança</a>
-    <span style="width:10px"></span>
-    <button onclick="exportJSON()">⬇ exportar (.json)</button>
-    <button onclick="document.getElementById('importFile').click()">⬆ importar (.json)</button>
-    <button onclick="exportResumo()">📄 exportar resumo (.txt)</button>
+    <span style="flex:1"></span>
+    <div class="dd">
+      <button onclick="toggleDD(event)">⋯ Dados ▾</button>
+      <div class="dd-menu">
+        <button onclick="exportJSON();closeDD()">⬇ Exportar (.json)</button>
+        <button onclick="document.getElementById('importFile').click();closeDD()">⬆ Importar (.json)</button>
+        <button onclick="exportResumo();closeDD()">📄 Exportar resumo (.txt)</button>
+      </div>
+    </div>
     <input type="file" id="importFile" accept=".json" class="hidden" onchange="importJSON(event)">
   </div>
 
@@ -672,7 +677,14 @@ const SEBRAE_PASSOS = [
 const STATUS_DEC=[{id:"aberta",label:"Em aberto",cor:"#6b7280"},{id:"andamento",label:"Discutindo",cor:"#ffd97f"},{id:"fechada",label:"Fechada",cor:"#BFFF80"},{id:"parking",label:"Parking lot",cor:"#c79fff"}];
 const TRIAGEM=[{id:"ressuscitar",label:"Ressuscitar",cor:"#BFFF80"},{id:"fundir",label:"Fundir",cor:"#7Fd4ff"},{id:"arquivar",label:"Arquivar",cor:"#6b7280"}];
 const POT_COR={alto:"#BFFF80",medio:"#ffd97f",baixo:"#6b7280"};
-const TABS=[{id:"cronograma",label:"Cronograma"},{id:"decisoes",label:"Decisões"},{id:"ideias",label:"Cemitério de ideias"},{id:"hermes",label:"Hermes"},{id:"site",label:"Site"},{id:"pesquisa",label:"Pesquisa profunda"},{id:"consult",label:"Consultorias"},{id:"sebrae",label:"Sebrae"},{id:"bench",label:"Benchmarking"},{id:"refs",label:"Referências"}];
+const TABS=[{id:"cronograma",label:"Cronograma"},{id:"decisoes",label:"Decisões"},{id:"fable",label:"Fable"},{id:"ideias",label:"Cemitério de ideias"},{id:"hermes",label:"Hermes"},{id:"site",label:"Site"},{id:"sebrae",label:"Sebrae"},{id:"pesquisa",label:"Pesquisa profunda"},{id:"consult",label:"Consultorias"},{id:"bench",label:"Benchmarking"},{id:"refs",label:"Referências"}];
+// menu em 3 grupos (experiência de consumo)
+const GROUPS=[
+  {id:"imersao",label:"Imersão",tabs:["cronograma","decisoes"]},
+  {id:"analises",label:"Análises",tabs:["fable","ideias","hermes","site","sebrae"]},
+  {id:"referencias",label:"Referências",tabs:["refs","pesquisa","consult","bench"]}
+];
+function groupOf(tabId){const g=GROUPS.find(g=>g.tabs.includes(tabId));return g?g.id:GROUPS[0].id;}
 const KEY="netz-imersao-v1";
 
 // ====================== ESTADO ======================
@@ -685,6 +697,7 @@ function defaultState(){
 }
 let state=load();
 let currentTab="cronograma";
+let currentGroup="imersao";
 
 function load(){
   try{const raw=localStorage.getItem(KEY);if(raw){const p=JSON.parse(raw);
@@ -716,9 +729,18 @@ function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",
 // ====================== RENDER ======================
 function renderTabs(){
   const nav=document.getElementById("tabs");
-  nav.innerHTML=TABS.map(t=>`<button class="${t.id===currentTab?'active':''}" onclick="setTab('${t.id}')">${t.label}</button>`).join("");
+  const g=GROUPS.find(x=>x.id===currentGroup)||GROUPS[0];
+  const groupRow=GROUPS.map(x=>`<button class="grp ${x.id===currentGroup?'active':''}" onclick="setGroup('${x.id}')">${x.label}</button>`).join("");
+  const tabRow=g.tabs.map(id=>{const t=TABS.find(t=>t.id===id);return t?`<button class="${id===currentTab?'active':''}" onclick="setTab('${id}')">${t.label}</button>`:"";}).join("");
+  nav.innerHTML=`<div class="tab-groups">${groupRow}</div><div class="tab-subs">${tabRow}</div>`;
 }
-function setTab(id){currentTab=id;renderTabs();renderMain();}
+function setTab(id){currentTab=id;currentGroup=groupOf(id);renderTabs();renderMain();}
+function setGroup(gid){currentGroup=gid;const g=GROUPS.find(x=>x.id===gid);if(g&&!g.tabs.includes(currentTab))currentTab=g.tabs[0];renderTabs();renderMain();}
+
+function cronoAll(open){document.querySelectorAll('#main details.crono-item').forEach(d=>d.open=open);}
+function toggleDD(e){e.stopPropagation();e.currentTarget.closest('.dd').classList.toggle('open');}
+function closeDD(){document.querySelectorAll('.dd.open').forEach(d=>d.classList.remove('open'));}
+document.addEventListener('click',closeDD);
 
 function renderProgress(){
   const fechadas=DECISOES.filter(d=>state.dec[d.id]&&state.dec[d.id].status==="fechada").length;
@@ -729,6 +751,7 @@ function renderProgress(){
 function renderMain(){
   const m=document.getElementById("main");
   if(currentTab==="cronograma")m.innerHTML=viewCronograma();
+  else if(currentTab==="fable")m.innerHTML=viewFable();
   else if(currentTab==="decisoes")m.innerHTML=viewDecisoes();
   else if(currentTab==="ideias")m.innerHTML=viewIdeias();
   else if(currentTab==="hermes")m.innerHTML=viewHermes();
@@ -785,27 +808,31 @@ const CRONO_FIOS = ["Qual o produto único — e as outras opções mortas por e
 
 function viewCronograma(){
   let h=`<p class="tab-intro">${esc(CRONO_INTRO)}</p>`;
-  h+=`<div style="display:flex;flex-direction:column;gap:12px">`;
+  h+=`<div style="display:flex;gap:8px;margin-bottom:12px"><button class="crono-allbtn" onclick="cronoAll(true)">Expandir tudo</button><button class="crono-allbtn" onclick="cronoAll(false)">Recolher tudo</button></div>`;
+  h+=`<div style="display:flex;flex-direction:column;gap:7px">`;
   let curDia="";
   CRONOGRAMA.forEach(b=>{
     const m=CRONO_TAGS[b.tag]||CRONO_TAGS.externo;
-    if(b.dia!==curDia){ curDia=b.dia; h+=`<div style="margin-top:8px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7e8a99;font-weight:700">${esc(b.dia)}</div>`; }
-    h+=`<section id="crono-${esc(b.dia+'-'+b.turno).replace(/[^a-zA-Z0-9]+/g,'-').toLowerCase()}" style="border:1px solid #262b34;border-left:3px solid ${m.c};border-radius:12px;background:linear-gradient(180deg,#12161d,#0e1218);padding:14px 16px">
-      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px">
-        <span style="font-size:11px;color:#9aa4b2;min-width:120px">${esc(b.turno)}</span>
-        <span style="font-size:15px;font-weight:700;color:#e7edf3">${esc(b.bloco)}</span>
-        <span style="font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:${m.c};border:1px solid ${m.c}55;border-radius:20px;padding:2px 8px">${m.l}</span>
-        ${b.status?`<span style="font-size:11px;color:#7fe0c0">· ${esc(b.status)}</span>`:''}
-      </div>
-      <div style="font-size:13px;color:#c9d3dd;margin-bottom:${b.pauta.length?'10px':'0'}">${esc(b.objetivo)}</div>`;
+    if(b.dia!==curDia){ curDia=b.dia; h+=`<div style="margin-top:9px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7e8a99;font-weight:700">${esc(b.dia)}</div>`; }
+    const cid="crono-"+(b.dia+'-'+b.turno).replace(/[^a-zA-Z0-9]+/g,'-').toLowerCase();
+    h+=`<details id="${cid}" class="crono-item" style="border-left:3px solid ${m.c}">
+      <summary>
+        <span class="crono-chev">▸</span>
+        <span class="crono-turno">${esc(b.turno)}</span>
+        <span class="crono-bloco">${esc(b.bloco)}</span>
+        <span class="crono-tag" style="color:${m.c};border-color:${m.c}55">${m.l}</span>
+        ${b.status?`<span class="crono-status">· ${esc(b.status)}</span>`:''}
+      </summary>
+      <div class="crono-body">
+        <div class="crono-obj">${esc(b.objetivo)}</div>`;
     if(b.pauta.length){
-      h+=`<div style="font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6f7a89;margin-bottom:5px">Pauta</div><ul style="margin:0 0 2px;padding-left:18px;display:flex;flex-direction:column;gap:5px">`;
-      b.pauta.forEach(p=>{ h+=`<li style="font-size:13px;line-height:1.5;color:#dce3ea">${esc(p)}</li>`; });
+      h+=`<div class="crono-plabel">Pauta</div><ul class="crono-pauta">`;
+      b.pauta.forEach(p=>{ h+=`<li>${esc(p)}</li>`; });
       h+=`</ul>`;
     }
-    if(b.saida){ h+=`<div style="margin-top:10px;font-size:12.5px;color:#bff780"><span style="opacity:.7">Sai daqui com:</span> ${esc(b.saida)}</div>`; }
-    if(b.nota){ h+=`<div style="margin-top:6px;font-size:12px;color:#9aa4b2;font-style:italic">${esc(b.nota)}</div>`; }
-    h+=`</section>`;
+    if(b.saida){ h+=`<div class="crono-saida"><span>Sai daqui com:</span> ${esc(b.saida)}</div>`; }
+    if(b.nota){ h+=`<div class="crono-nota">${esc(b.nota)}</div>`; }
+    h+=`</div></details>`;
   });
   h+=`</div>`;
   h+=`<section style="margin-top:22px;border:1px dashed #3a4150;border-radius:12px;padding:14px 16px;background:#0e1218">
@@ -1152,8 +1179,9 @@ function drawBg(){
 }
 
 // ====================== SÍNTESE (camada de abertura) ======================
-function renderSintese(){
-  let h=`<div class="sint-kicker">Síntese transversal · leitura cruzada dos 9 artefatos</div>`;
+function viewFable(){
+  let h=`<p class="tab-intro">A leitura cruzada dos 9 artefatos feita pelo Fable — a tese única, os padrões, as 3 decisões de maior alavancagem e o que sacrificar.</p>`;
+  h+=`<div class="sint-kicker">Síntese transversal · leitura cruzada dos 9 artefatos</div>`;
   h+=`<h2 class="sint-tese-titulo">${esc(SINT_TESE_TITULO)}</h2>`;
   SINT_TESE.forEach(p=>{h+=`<p class="sint-tese-p">${esc(p)}</p>`;});
 
@@ -1188,11 +1216,10 @@ function renderSintese(){
   h+=`</div>`;
   h+=`<p class="sint-duro">${esc(SINT_SACRIFICIO.duro)}</p>`;
 
-  h+=`<div class="sint-actions"><button class="sint-enter" onclick="fecharSintese()">entrar no painel →</button><span class="sint-hint">o painel abaixo é onde vocês registram o que for decidido</span></div>`;
-  document.getElementById("sinteseInner").innerHTML=h;
+  return h;
 }
-function abrirSintese(){document.getElementById("sintese").classList.add("show");document.body.style.overflow="hidden";document.getElementById("sinteseInner").scrollTop=0;}
-function fecharSintese(){document.getElementById("sintese").classList.remove("show");document.body.style.overflow="";}
+function abrirSintese(){setTab("fable");}   // compat: "rever a síntese" agora abre a aba Fable
+function fecharSintese(){}
 
 // ============ NAVEGAÇÃO PARA O MINTZIE (guia) ============
 // o widget do Mintzie chama window.MZ_NAV.goto("d1") para levar a pessoa até um card.
@@ -1216,13 +1243,46 @@ window.MZ_NAV = {
 };
 
 // ====================== INIT ======================
-drawBg();renderTabs();renderMain();renderProgress();renderSintese();abrirSintese();
+drawBg();renderTabs();renderMain();renderProgress();
 </script>
 
 <!-- ===================== MINTZIE — guia da imersão ===================== -->
 <style>
 @keyframes mzFlash{0%{box-shadow:0 0 0 0 rgba(155,230,90,0)}15%{box-shadow:0 0 0 3px rgba(155,230,90,.9)}100%{box-shadow:0 0 0 0 rgba(155,230,90,0)}}
 .mz-flash{animation:mzFlash 1.7s ease-out}
+/* nav em 2 níveis (grupos + sub-abas) */
+#tabs{display:block}
+.tab-groups{display:flex;gap:6px;margin-bottom:9px;flex-wrap:wrap}
+.tab-groups .grp{font-size:12px;letter-spacing:.05em;text-transform:uppercase;font-weight:700;padding:7px 15px;border-radius:9px;border:1px solid var(--border);background:none;color:var(--mut);cursor:pointer;transition:all .15s}
+.tab-groups .grp:hover{color:#e7edf3}
+.tab-groups .grp.active{border-color:var(--neon);color:var(--neon);background:rgba(155,230,90,.09)}
+.tab-subs{display:flex;gap:6px;flex-wrap:wrap}
+/* dropdown de dados (exportar/importar) */
+.dd{position:relative;display:inline-block}
+.dd-menu{position:absolute;right:0;top:calc(100% + 6px);background:#12161d;border:1px solid var(--border);border-radius:10px;padding:6px;min-width:220px;display:none;flex-direction:column;gap:4px;z-index:60;box-shadow:0 14px 34px rgba(0,0,0,.55)}
+.dd.open .dd-menu{display:flex}
+.dd-menu button{width:100%;text-align:left}
+/* cronograma recolhível (accordion) */
+.crono-allbtn{background:none;border:1px solid var(--border);color:var(--mut);border-radius:8px;padding:5px 12px;font-size:11.5px;cursor:pointer;transition:all .15s}
+.crono-allbtn:hover{color:#e7edf3;border-color:#3a4150}
+.crono-item{border:1px solid #262b34;border-radius:12px;background:linear-gradient(180deg,#12161d,#0e1218);overflow:hidden}
+.crono-item>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 15px}
+.crono-item>summary::-webkit-details-marker{display:none}
+.crono-item>summary:hover{background:rgba(255,255,255,.02)}
+.crono-chev{color:#7e8a99;font-size:11px;transition:transform .15s;display:inline-block}
+.crono-item[open]>summary .crono-chev{transform:rotate(90deg)}
+.crono-turno{font-size:11px;color:#9aa4b2;min-width:118px}
+.crono-bloco{font-size:15px;font-weight:700;color:#e7edf3}
+.crono-tag{font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;border:1px solid;border-radius:20px;padding:2px 8px}
+.crono-status{font-size:11px;color:#7fe0c0}
+.crono-body{padding:0 16px 15px 40px}
+.crono-obj{font-size:13px;color:#c9d3dd;margin-bottom:10px}
+.crono-plabel{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6f7a89;margin-bottom:5px}
+.crono-pauta{margin:0 0 2px;padding-left:18px;display:flex;flex-direction:column;gap:5px}
+.crono-pauta li{font-size:13px;line-height:1.5;color:#dce3ea}
+.crono-saida{margin-top:10px;font-size:12.5px;color:#bff780}
+.crono-saida span{opacity:.7}
+.crono-nota{margin-top:6px;font-size:12px;color:#9aa4b2;font-style:italic}
 </style>
 <script>
   window.MINTZIE_CONFIG = {
