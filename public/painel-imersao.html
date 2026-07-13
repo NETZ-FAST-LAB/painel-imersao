@@ -590,7 +590,7 @@ const CONSULT_PROBLEMAS = [
    dados:[
      {fonte:"Edelman-LinkedIn, 2024",txt:"37% dos decisores e 41% do C-level emitiram um RFP por causa de thought leadership. 49% pagam premium (vs 10% que os produtores achavam)."},
      {fonte:"Ehrenberg-Bass, 2022",txt:"Regra 95:5 — só ~5% dos compradores estão in-market agora; os 95% são a demanda a construir."},
-     {fonte:"Refine Labs",txt:"Perfil pessoal gera 2,75x mais impressões e 5x mais engajamento que a página da empresa."}
+     {fonte:"Refine Labz",txt:"Perfil pessoal gera 2,75x mais impressões e 5x mais engajamento que a página da empresa."}
    ],
    frameworks:"Pillar content + repurposing (1 fonte → 20+ ativos); 3-4 content pillars; 'extrair, não criar' (o founder responde 1 pergunta/semana); Jobs-to-be-Done.",
    netz:"Vantagem estrutural: a NETZ vende a própria capacidade de construir a esteira com IA. Um sócio grava 1h/semana, o pipeline vira 20+ ativos, LinkedIn orgânico do sócio como canal. Founder-led supera faceless em confiança B2B. Os cases reais são o combustível."}
@@ -672,7 +672,7 @@ const SEBRAE_PASSOS = [
 const STATUS_DEC=[{id:"aberta",label:"Em aberto",cor:"#6b7280"},{id:"andamento",label:"Discutindo",cor:"#ffd97f"},{id:"fechada",label:"Fechada",cor:"#BFFF80"},{id:"parking",label:"Parking lot",cor:"#c79fff"}];
 const TRIAGEM=[{id:"ressuscitar",label:"Ressuscitar",cor:"#BFFF80"},{id:"fundir",label:"Fundir",cor:"#7Fd4ff"},{id:"arquivar",label:"Arquivar",cor:"#6b7280"}];
 const POT_COR={alto:"#BFFF80",medio:"#ffd97f",baixo:"#6b7280"};
-const TABS=[{id:"decisoes",label:"Decisões"},{id:"ideias",label:"Cemitério de ideias"},{id:"hermes",label:"Hermes"},{id:"site",label:"Site"},{id:"pesquisa",label:"Pesquisa profunda"},{id:"consult",label:"Consultorias"},{id:"sebrae",label:"Sebrae"},{id:"bench",label:"Benchmarking"},{id:"refs",label:"Referências"}];
+const TABS=[{id:"cronograma",label:"Cronograma"},{id:"decisoes",label:"Decisões"},{id:"ideias",label:"Cemitério de ideias"},{id:"hermes",label:"Hermes"},{id:"site",label:"Site"},{id:"pesquisa",label:"Pesquisa profunda"},{id:"consult",label:"Consultorias"},{id:"sebrae",label:"Sebrae"},{id:"bench",label:"Benchmarking"},{id:"refs",label:"Referências"}];
 const KEY="netz-imersao-v1";
 
 // ====================== ESTADO ======================
@@ -684,7 +684,7 @@ function defaultState(){
   return {dec,ideia,site,expanded:{}};
 }
 let state=load();
-let currentTab="decisoes";
+let currentTab="cronograma";
 
 function load(){
   try{const raw=localStorage.getItem(KEY);if(raw){const p=JSON.parse(raw);
@@ -728,7 +728,8 @@ function renderProgress(){
 
 function renderMain(){
   const m=document.getElementById("main");
-  if(currentTab==="decisoes")m.innerHTML=viewDecisoes();
+  if(currentTab==="cronograma")m.innerHTML=viewCronograma();
+  else if(currentTab==="decisoes")m.innerHTML=viewDecisoes();
   else if(currentTab==="ideias")m.innerHTML=viewIdeias();
   else if(currentTab==="hermes")m.innerHTML=viewHermes();
   else if(currentTab==="site")m.innerHTML=viewSite();
@@ -737,6 +738,82 @@ function renderMain(){
   else if(currentTab==="pesquisa")m.innerHTML=viewPesquisa();
   else if(currentTab==="bench")m.innerHTML=viewBench();
   else m.innerHTML=viewRefs();
+}
+
+// ====================== CRONOGRAMA (INVERNETZ 2026) ======================
+const CRONO_INTRO = "Do check-in de domingo (12/jul, noite). Programação até terça à noite; quarta é fechamento e volta. Manhãs = compromissos externos; tardes e noites = Netz, juntos; noites = Labz. A meta: sair com algo concreto — frutificar, não só cultivar o micélio.";
+const CRONO_TAGS = {
+  labs:{c:"#c79fff",l:"Labz"}, externo:{c:"#9aa4b2",l:"Externo"}, society:{c:"#BFFF80",l:"Society"},
+  comercial:{c:"#7Fd4ff",l:"Comercial"}, foco:{c:"#ffd97f",l:"Foco"}, iniciativas:{c:"#7fe0c0",l:"Iniciativas"}, fechamento:{c:"#ff9f7f",l:"Fechamento"}
+};
+const CRONOGRAMA = [
+  { dia:"Domingo", turno:"Noite", bloco:"Labz", tag:"labs", status:"check-in feito",
+    objetivo:"Aterrissar juntos, soltar a cabeça e criar sem cobrança. Hoje não é dia de cabeção.",
+    pauta:["Som livre e experimento aberto — sintetizar, trocar, brincar.","Mostrar os vídeos de bobeira que ficaram guardados.","Trocar referências acumuladas (pra soltar, não pra virar estudo).","Deixar o clima pronto pra segunda."],
+    saida:"Cabeça leve. Nada obrigatório." },
+  { dia:"Segunda", turno:"Manhã", bloco:"Compromissos externos", tag:"externo", status:"",
+    objetivo:"Cada um resolve o externo antes do bloco coletivo.",
+    pauta:["Gui finaliza o site.","Espaço individual pra projetos externos / foco.","Combinar o horário de início do Society (sugestão: 11h) e montar a 'sala de reunião' (quiosque/quarto) pra quem tiver call."],
+    saida:"Externos encaminhados; horário do Society combinado.", nota:"O Society começa no fim da manhã, quando o Gui liberar." },
+  { dia:"Segunda", turno:"11h · Fim da manhã", bloco:"NETZ Society", tag:"society", status:"o mais denso",
+    objetivo:"Fechar os acordos de sociedade e ligar o motor financeiro/organizacional. É o bloco que direciona todos os outros — por isso abre a semana.",
+    pauta:["Sociedade & ritmo: cada sócio declara horas/semana reais nos próximos 90 dias, e o que fica de fora pra caber. Redimensionar a ambição pra caber na capacidade real.","Mecanismo de 'vergonha na cara': escolher e escrever UM — o caixa (cada um com R$X, desconta por combinado não cumprido) e/ou o agente externo como cobrador que não deve nada a ninguém.","Organização de tarefas: como operar de verdade — Kanban + o agente criando e lembrando tarefas, ouvindo ideia e virando tarefa.","Financeiro (parte 1): tirar o processo das costas do Gui (automatizar/redistribuir). Metas: valor mensal por sócio + meta da empresa.","Sincronizar o Hermes: começar a alimentar o histórico pra ele dar ritmo e entrar contextualizado."],
+    saida:"Horas/semana por sócio + regra de consequência acordada + metas financeiras (R$) no papel.", nota:"Mente fresca — é burocrático e decisivo." },
+  { dia:"Segunda", turno:"Tarde", bloco:"Comercial / Editais / Parcerias", tag:"comercial", status:"",
+    objetivo:"Colocar a Netz na rua.",
+    pauta:["Comercial: desengargalar o processo (hoje manual, pouca exposição, consome tempo) — desenhar como o agente ajuda; usar a interface de organização (Kanban) já construída.","Editais: Caldeira/matchmaking (escolher o desafio e inscrever — custo zero; só justificar por que estão capacitados, sem detalhar a ideia). Sebrae: usar o contato do agente regional de POA; lembrar as vias (Únio, Edital 02/PI).","Conta bancária para editais: encaminhar — é pré-requisito.","Parcerias: mapear os tipos de parceiro (os que potencializam e dão espaço) e o que se espera de cada; o canal de parcerias.","Nó a marcar (não resolver à força): 'qual o produto?' — edital e comercial esbarram nele. Levar pra terça."],
+    saida:"1 edital escolhido e inscrito (ou pronto pra inscrever) + lista de parceiros-alvo + conta bancária encaminhada." },
+  { dia:"Segunda", turno:"Noite", bloco:"Labz", tag:"labs", status:"",
+    objetivo:"Criação solta — recarrega a cabeça depois do dia denso.",
+    pauta:["Experimentos, som, referência boa.","Seguir o que animar."], saida:"" },
+  { dia:"Terça", turno:"Manhã", bloco:"Foco (projetos)", tag:"foco", status:"",
+    objetivo:"Trabalho profundo, sem barulho.",
+    pauta:["Stacke: compromisso da manhã.","Projetos externos / foco individual; quem quiser segue no Labz."],
+    saida:"", nota:"Usar a 'sala de reunião' pra quem tiver call." },
+  { dia:"Terça", turno:"Tarde", bloco:"Iniciativas", tag:"iniciativas", status:"",
+    objetivo:"Escolher UMA iniciativa e frutificar — terminar algo de verdade.",
+    pauta:["Produtizar / 'qual o produto?': fechar o nó do comercial. Escolher UM produto e dar foco, matando as outras opções por escrito (senão a semana fica órfã disso).","Site: dar como PRONTO — trabalhar junto (abre branch → finaliza função → merge) e jogar pra dentro do Hermes. Olhar as mudanças que o Mintzie sugeriu no site.","Hermes: o que falta pra considerar pronto (definir a linha de chegada); a 'revistinha'; o papel dele como cérebro e motor de ritmo.","Canais de YouTube: decidir se é iniciativa própria ou Labz; a 'fábrica de canais' (um ajuda o do outro — arte, animação, edição em rede)."],
+    saida:"1 ferramenta dada como pronta OU o produto escolhido com o próximo passo (dono + data)." },
+  { dia:"Terça", turno:"Noite", bloco:"Labz", tag:"labs", status:"",
+    objetivo:"O último Labz — fechar os experimentos abertos.", pauta:[], saida:"" },
+  { dia:"Quarta", turno:"—", bloco:"Fechamento", tag:"fechamento", status:"",
+    objetivo:"Consolidar e sair com o concreto (saídas entre terça-noite e quarta).",
+    pauta:["Virar as decisões em linhas com dono + data: sociedade/consequência, metas financeiras, produto escolhido, editais inscritos, parcerias.","Debriefing do projeto Sicredi/Cred: o que aprendemos e o que NÃO repetir (dedicar tempo demais, entregar além do combinado).","Registrar tudo (Hermes/painel) — pra não virar 'mais micélio sem fruto'.","Volta ao mundo."],
+    saida:"A lista de compromissos com dono + data, registrada." }
+];
+const CRONO_FIOS = ["Qual o produto único — e as outras opções mortas por escrito.","A regra de consequência (o 'vergonha na cara') — escrita e valendo.","Metas financeiras em R$ — por sócio e da empresa.","Dono + data pra cada frente.","Um primeiro fruto exposto ainda dentro da imersão (um edital inscrito, uma ferramenta pronta, um passo comercial dado)."];
+
+function viewCronograma(){
+  let h=`<p class="tab-intro">${esc(CRONO_INTRO)}</p>`;
+  h+=`<div style="display:flex;flex-direction:column;gap:12px">`;
+  let curDia="";
+  CRONOGRAMA.forEach(b=>{
+    const m=CRONO_TAGS[b.tag]||CRONO_TAGS.externo;
+    if(b.dia!==curDia){ curDia=b.dia; h+=`<div style="margin-top:8px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7e8a99;font-weight:700">${esc(b.dia)}</div>`; }
+    h+=`<section id="crono-${esc(b.dia+'-'+b.turno).replace(/[^a-zA-Z0-9]+/g,'-').toLowerCase()}" style="border:1px solid #262b34;border-left:3px solid ${m.c};border-radius:12px;background:linear-gradient(180deg,#12161d,#0e1218);padding:14px 16px">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px">
+        <span style="font-size:11px;color:#9aa4b2;min-width:120px">${esc(b.turno)}</span>
+        <span style="font-size:15px;font-weight:700;color:#e7edf3">${esc(b.bloco)}</span>
+        <span style="font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:${m.c};border:1px solid ${m.c}55;border-radius:20px;padding:2px 8px">${m.l}</span>
+        ${b.status?`<span style="font-size:11px;color:#7fe0c0">· ${esc(b.status)}</span>`:''}
+      </div>
+      <div style="font-size:13px;color:#c9d3dd;margin-bottom:${b.pauta.length?'10px':'0'}">${esc(b.objetivo)}</div>`;
+    if(b.pauta.length){
+      h+=`<div style="font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6f7a89;margin-bottom:5px">Pauta</div><ul style="margin:0 0 2px;padding-left:18px;display:flex;flex-direction:column;gap:5px">`;
+      b.pauta.forEach(p=>{ h+=`<li style="font-size:13px;line-height:1.5;color:#dce3ea">${esc(p)}</li>`; });
+      h+=`</ul>`;
+    }
+    if(b.saida){ h+=`<div style="margin-top:10px;font-size:12.5px;color:#bff780"><span style="opacity:.7">Sai daqui com:</span> ${esc(b.saida)}</div>`; }
+    if(b.nota){ h+=`<div style="margin-top:6px;font-size:12px;color:#9aa4b2;font-style:italic">${esc(b.nota)}</div>`; }
+    h+=`</section>`;
+  });
+  h+=`</div>`;
+  h+=`<section style="margin-top:22px;border:1px dashed #3a4150;border-radius:12px;padding:14px 16px;background:#0e1218">
+    <div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#ff9f7f;font-weight:700;margin-bottom:8px">Os fios que a imersão precisa amarrar</div>
+    <ol style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px">`;
+  CRONO_FIOS.forEach(x=>{ h+=`<li style="font-size:13px;line-height:1.5;color:#dce3ea">${esc(x)}</li>`; });
+  h+=`</ol></section>`;
+  return h;
 }
 
 function viewDecisoes(){
