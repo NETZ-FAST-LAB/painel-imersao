@@ -8,7 +8,7 @@ Guia passo a passo. Você executa os comandos; eu já deixei o app pronto (trava
 
 ## O que já está pronto no código
 - **Trava de senha** no `server.js` (ativa quando você define `BASIC_AUTH_USER` e `BASIC_AUTH_PASS`).
-- **Dockerfile** (Coolify builda direto).
+- **Deploy sem Docker via Nixpacks** — Node puro (`npm start` → `node server.js`), sem dependências; a Coolify builda direto do `package.json`. (Há também um `Dockerfile` no repo como alternativa.)
 - **.gitignore / .dockerignore** — a chave (`.env.shared`) e os backups pesados (`_downloads`, `_pre-rekey`, `_white-originals`, `_diag`) ficam fora do repositório.
 - A chave do Gemini vira **variável de ambiente** no Coolify (não vai no repo).
 
@@ -50,8 +50,9 @@ git push -u origin main
 ## Passo 3 — Deploy no Coolify
 
 1. **New Resource → Application → Public/Private Repository** e escolha `NETZ-FAST-LAB/painel-imersao` (conecte sua conta GitHub à Coolify se ainda não conectou; para repo privado é preciso autorizar).
-2. **Build Pack:** *Dockerfile* (a Coolify detecta o `Dockerfile` na raiz).
-3. **Port / Ports Exposes:** `3000`.
+2. **Build Pack:** escolha **Nixpacks** (recomendado — sem Docker). A Coolify detecta o Node pelo `package.json` e roda `npm start` (`node server.js`) sozinha; não precisa de `Dockerfile`.
+   - _Alternativa:_ **Dockerfile** — o repo também tem um `Dockerfile` pronto na raiz, caso prefira. Os dois funcionam; use um só.
+3. **Port / Ports Exposes:** `3000`. (O app respeita a variável `PORT` da plataforma; deixe `3000` ou o que a Coolify sugerir.)
 4. **Environment Variables** (aba *Environment*), adicione:
 
    | Nome | Valor |
