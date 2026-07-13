@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NETZ · Painel da Imersão</title>
+<link rel="icon" type="image/svg+xml" href="/brand/netz-symbol.svg">
 <style>
   :root{
     --neon:#BFFF80; --bg:#0a0c0f; --panel:#12151b; --panel2:#161a22;
@@ -246,7 +247,7 @@
   <header class="top">
     <div>
       <div class="kicker">Imersão · 3 dias <span title="Documento interno da Netz. Não compartilhar fora da equipe." style="margin-left:8px;font-size:9.5px;letter-spacing:.14em;color:#ff9f7f;border:1px solid #ff9f7f66;border-radius:20px;padding:2px 8px;vertical-align:middle;white-space:nowrap">🔒 INTERNO · CONFIDENCIAL</span></div>
-      <h1>NETZ<span>.</span></h1>
+      <h1 class="brand"><img src="/brand/netz-logo-white.svg" alt="NETZ" class="brand-logo"></h1>
       <p class="sub">O gargalo é execução, não ideia. Este painel é para decidir — não para acumular mais input. <button class="sintese-reopen" onclick="setTab('fable')">↑ ver a análise (Fable)</button></p>
     </div>
     <div class="progress-wrap">
@@ -1283,6 +1284,9 @@ drawBg();renderTabs();renderMain();renderProgress();
 .crono-saida{margin-top:10px;font-size:12.5px;color:#bff780}
 .crono-saida span{opacity:.7}
 .crono-nota{margin-top:6px;font-size:12px;color:#9aa4b2;font-style:italic}
+/* logo oficial da marca no cabeçalho */
+h1.brand{margin:6px 0 9px}
+.brand-logo{height:38px;width:auto;display:block}
 </style>
 <script>
   window.MINTZIE_CONFIG = {
