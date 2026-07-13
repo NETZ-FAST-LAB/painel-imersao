@@ -678,11 +678,11 @@ const SEBRAE_PASSOS = [
 const STATUS_DEC=[{id:"aberta",label:"Em aberto",cor:"#6b7280"},{id:"andamento",label:"Discutindo",cor:"#ffd97f"},{id:"fechada",label:"Fechada",cor:"#BFFF80"},{id:"parking",label:"Parking lot",cor:"#c79fff"}];
 const TRIAGEM=[{id:"ressuscitar",label:"Ressuscitar",cor:"#BFFF80"},{id:"fundir",label:"Fundir",cor:"#7Fd4ff"},{id:"arquivar",label:"Arquivar",cor:"#6b7280"}];
 const POT_COR={alto:"#BFFF80",medio:"#ffd97f",baixo:"#6b7280"};
-const TABS=[{id:"cronograma",label:"Cronograma"},{id:"decisoes",label:"Decisões"},{id:"sociedade",label:"Sociedade"},{id:"comercial",label:"Comercial"},{id:"parking",label:"Parking lot"},{id:"fable",label:"Fable"},{id:"ideias",label:"Cemitério de ideias"},{id:"hermes",label:"Hermez"},{id:"site",label:"Site"},{id:"sebrae",label:"Sebrae"},{id:"pesquisa",label:"Pesquisa profunda"},{id:"consult",label:"Consultorias"},{id:"bench",label:"Benchmarking"},{id:"refs",label:"Referências"}];
+const TABS=[{id:"cronograma",label:"Cronograma"},{id:"decisoes",label:"Decisões"},{id:"sociedade",label:"Sociedade"},{id:"comercial",label:"Comercial"},{id:"parking",label:"Parking lot"},{id:"fable",label:"Fable"},{id:"ideias",label:"Cemitério de ideias"},{id:"hermes",label:"Hermez"},{id:"site",label:"Site"},{id:"sebrae",label:"Sebrae"},{id:"pisebrae",label:"PI Sebrae"},{id:"pesquisa",label:"Pesquisa profunda"},{id:"consult",label:"Consultorias"},{id:"bench",label:"Benchmarking"},{id:"refs",label:"Referências"}];
 // menu em 3 grupos (experiência de consumo)
 const GROUPS=[
   {id:"imersao",label:"Imersão",tabs:["cronograma","decisoes","sociedade","comercial","parking"]},
-  {id:"analises",label:"Análises",tabs:["fable","ideias","hermes","site","sebrae"]},
+  {id:"analises",label:"Análises",tabs:["fable","ideias","hermes","site","sebrae","pisebrae"]},
   {id:"referencias",label:"Referências",tabs:["refs","pesquisa","consult","bench"]}
 ];
 function groupOf(tabId){const g=GROUPS.find(g=>g.tabs.includes(tabId));return g?g.id:GROUPS[0].id;}
@@ -762,16 +762,104 @@ function renderMain(){
   else if(currentTab==="site")m.innerHTML=viewSite();
   else if(currentTab==="consult")m.innerHTML=viewConsult();
   else if(currentTab==="sebrae")m.innerHTML=viewSebrae();
+  else if(currentTab==="pisebrae")m.innerHTML=viewPiSebrae();
   else if(currentTab==="pesquisa")m.innerHTML=viewPesquisa();
   else if(currentTab==="bench")m.innerHTML=viewBench();
   else m.innerHTML=viewRefs();
 }
 
 // ====================== COMERCIAL (estrutura, do momento comercial pt.1) ======================
+// mapa visual do comercial: matriz de cruzamento (frente×dimensões) + funis + escada de pacotes
+const COM_FRENTES = [
+  {k:"A", nome:"Sites via agências", cor:"#BFFF80", cliente:"a agência (não o cliente final)", oferta:"sites rápidos e replicáveis · portal parceiro.netz.now", ticket:"menor · volume", funil:"automatizável", hermez:"acha agências com fit no Google, manda leads, organiza a pipeline", pacote:"Entrada"},
+  {k:"B", nome:"Projetos médios via Sebrae", cor:"#ffd97f", cliente:"canal institucional (Sistema S)", oferta:"diagnóstico + estruturação + POC (PI)", ticket:"médio", funil:"relacionamento", hermez:"registra contatos, mapeia editais, lembra prazos", pacote:"Intermediário"},
+  {k:"C", nome:"Consultoria via parceiros", cor:"#c79fff", cliente:"parceiros (VX · Pulsar · Almaria)", oferta:"tailor-made · personalização absoluta", ticket:"alto", funil:"relacionamento", hermez:"organiza cases, mantém o follow-up vivo", pacote:"Avançado"}
+];
+const COM_FUNIS = [
+  {nome:"Agências", cor:"#BFFF80", tipo:"automatizável", etapas:["lead","qualificação","reunião curta","proposta","follow-up","fechamento","sucesso do lead"]},
+  {nome:"Sebrae", cor:"#ffd97f", tipo:"relacionamento", etapas:["conexão (gestores)","relacionamento","enquadrar oportunidade","chamada / edital"]},
+  {nome:"Consultorias", cor:"#c79fff", tipo:"relacionamento", etapas:["contato qualificado","prova de autoridade","enquadrar","proposta consultiva","negociação","fechamento"]}
+];
+const COM_PACOTES = [
+  {nome:"Entrada", cor:"#BFFF80", d:"sites / interfaces", nota:"ticket baixo, muito case, escala", frente:"A"},
+  {nome:"Intermediário", cor:"#ffd97f", d:"diagnóstico + POC (PI Sebrae)", nota:"em exploração — o \"produto do meio\"", frente:"B"},
+  {nome:"Avançado", cor:"#c79fff", d:"consultoria personalizada", nota:"alto valor, poucos projetos, bem pagos", frente:"C"}
+];
+function comercialMapaVisual(){
+  let h=`<details open style="margin-bottom:16px;border:1px solid #262b34;border-radius:12px;background:#0e1218;padding:4px 2px">
+    <summary style="cursor:pointer;list-style:none;padding:11px 15px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#7Fd4ff;font-weight:700">▸ Mapa visual — o cruzamento (frentes × ofertas × funis)</summary>
+    <div style="padding:6px 15px 16px">`;
+
+  // 1) matriz de cruzamento
+  h+=`<div style="font-size:12.5px;color:#9aa4b2;margin:4px 0 10px">Cada <b>frente</b> tem um cliente, uma oferta (pacote), um ticket, um tipo de funil e um papel do Hermez próprios:</div>`;
+  h+=`<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:12.2px;min-width:680px">
+    <thead><tr>
+      <th style="text-align:left;padding:7px 9px;border-bottom:1px solid #2a2f3a;color:#7e8a99;font-weight:700">Frente</th>
+      <th style="text-align:left;padding:7px 9px;border-bottom:1px solid #2a2f3a;color:#7e8a99;font-weight:700">Cliente</th>
+      <th style="text-align:left;padding:7px 9px;border-bottom:1px solid #2a2f3a;color:#7e8a99;font-weight:700">Oferta (pacote)</th>
+      <th style="text-align:left;padding:7px 9px;border-bottom:1px solid #2a2f3a;color:#7e8a99;font-weight:700">Ticket</th>
+      <th style="text-align:left;padding:7px 9px;border-bottom:1px solid #2a2f3a;color:#7e8a99;font-weight:700">Funil</th>
+      <th style="text-align:left;padding:7px 9px;border-bottom:1px solid #2a2f3a;color:#7e8a99;font-weight:700">Papel do Hermez</th>
+    </tr></thead><tbody>`;
+  COM_FRENTES.forEach(f=>{
+    h+=`<tr>
+      <td style="padding:9px 9px;border-bottom:1px solid #1a1e26;vertical-align:top"><span style="display:inline-flex;align-items:center;gap:6px"><span style="flex:none;width:20px;height:20px;border-radius:5px;background:${f.cor}22;border:1px solid ${f.cor}66;color:${f.cor};font-weight:800;font-size:11px;display:inline-flex;align-items:center;justify-content:center">${f.k}</span><b style="color:#e7edf3">${esc(f.nome)}</b></span></td>
+      <td style="padding:9px 9px;border-bottom:1px solid #1a1e26;color:#c4ccd6;vertical-align:top">${esc(f.cliente)}</td>
+      <td style="padding:9px 9px;border-bottom:1px solid #1a1e26;color:#c4ccd6;vertical-align:top">${esc(f.oferta)} <span style="color:${f.cor};font-size:10.5px;border:1px solid ${f.cor}55;border-radius:20px;padding:0 6px;white-space:nowrap">${esc(f.pacote)}</span></td>
+      <td style="padding:9px 9px;border-bottom:1px solid #1a1e26;color:#c4ccd6;vertical-align:top">${esc(f.ticket)}</td>
+      <td style="padding:9px 9px;border-bottom:1px solid #1a1e26;vertical-align:top"><span style="color:${f.funil==='automatizável'?'#BFFF80':'#7Fd4ff'};font-size:11px">${esc(f.funil)}</span></td>
+      <td style="padding:9px 9px;border-bottom:1px solid #1a1e26;color:#9aa4b2;vertical-align:top;line-height:1.45">${esc(f.hermez)}</td>
+    </tr>`;
+  });
+  h+=`</tbody></table></div>`;
+
+  // 2) funis lado a lado (barras que afunilam)
+  h+=`<div style="font-size:12.5px;color:#9aa4b2;margin:20px 0 10px">Os <b>funis</b> — um por frente (não é um só). Agências = processo, Sebrae e consultorias = relacionamento:</div>`;
+  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px">`;
+  COM_FUNIS.forEach(fn=>{
+    h+=`<div style="border:1px solid #262b34;border-radius:11px;background:linear-gradient(180deg,#12161d,#0e1218);padding:12px 13px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px">
+        <span style="font-size:13.5px;font-weight:700;color:${fn.cor}">${esc(fn.nome)}</span>
+        <span style="font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;color:#8b95a3;border:1px solid #2a2f3a;border-radius:20px;padding:1px 7px">${esc(fn.tipo)}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:4px;align-items:center">`;
+    const n=fn.etapas.length;
+    fn.etapas.forEach((e,i)=>{
+      const w=100-(i*(45/(n-1)));
+      h+=`<div style="width:${w}%;min-width:96px;background:${fn.cor}${i===n-1?'33':'18'};border:1px solid ${fn.cor}${i===n-1?'88':'44'};border-radius:6px;padding:5px 4px;text-align:center;font-size:11px;color:#e7edf3">${esc(e)}</div>`;
+      if(i<n-1) h+=`<div style="color:${fn.cor}88;font-size:9px;line-height:.6">▾</div>`;
+    });
+    h+=`</div></div>`;
+  });
+  h+=`</div>`;
+
+  // 3) escada de pacotes (valor crescente) ligada às frentes
+  h+=`<div style="font-size:12.5px;color:#9aa4b2;margin:20px 0 10px">Os <b>3 pacotes</b> como escada de valor — cada degrau puxa o cliente pro próximo (a esteira), e casa com uma frente:</div>`;
+  h+=`<div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap">`;
+  COM_PACOTES.forEach((p,i)=>{
+    const hgt=70+i*34;
+    h+=`<div style="flex:1;min-width:150px">
+      <div style="height:${hgt}px;border:1px solid ${p.cor}55;border-bottom:3px solid ${p.cor};border-radius:10px 10px 0 0;background:linear-gradient(180deg,${p.cor}0a,${p.cor}20);display:flex;flex-direction:column;justify-content:flex-end;padding:10px 12px">
+        <div style="font-size:13.5px;font-weight:800;color:${p.cor}">${esc(p.nome)}</div>
+        <div style="font-size:12px;color:#e7edf3;margin-top:2px">${esc(p.d)}</div>
+        <div style="font-size:10.5px;color:#8b95a3;margin-top:3px;line-height:1.4">${esc(p.nota)}</div>
+      </div>
+      <div style="text-align:center;font-size:10px;color:${p.cor};padding:4px 0;border:1px solid #1a1e26;border-top:none;border-radius:0 0 8px 8px;background:#0e1218">frente ${esc(p.frente)}</div>
+    </div>`;
+    if(i<COM_PACOTES.length-1) h+=`<div style="align-self:center;color:#4a5060;font-size:16px;padding-bottom:20px">→</div>`;
+  });
+  h+=`</div>`;
+
+  h+=`</div></details>`;
+  return h;
+}
 function viewComercial(){
   let h=`<p class="tab-intro">Estrutura comercial desenhada no momento Comercial (pt.1 + pt.2) — oficina de decisão, não debate. Papel do Hermez, a matriz por frente, os pacotes, o funil e as regras.</p>`;
   h+=`<div style="margin-bottom:14px;display:flex;flex-wrap:wrap;gap:8px"><a href="/reuniao-comercial.html" target="_blank" rel="noopener" style="text-decoration:none;color:#7Fd4ff;border:1px solid #7Fd4ff44;border-radius:8px;padding:7px 13px;font-size:12.5px">📄 Transcrição comercial (pt.1)</a><a href="/reuniao-comercial-pt2.html" target="_blank" rel="noopener" style="text-decoration:none;color:#7Fd4ff;border:1px solid #7Fd4ff44;border-radius:8px;padding:7px 13px;font-size:12.5px">📄 Transcrição comercial (pt.2)</a></div>`;
   h+=`<div style="margin-bottom:14px;padding:11px 14px;border:1px solid #BFFF8033;background:#BFFF800a;border-radius:10px;font-size:12.5px;line-height:1.55;color:#dce3ea"><b style="color:#BFFF80">Virada da pt.2:</b> o <b>site não é o canal principal</b> — é a vitrine/infra comercial. Os canais são as 3 frentes; o LinkedIn é o gancho. A palavra que amarra a oferta é <b>parceria</b>.</div>`;
+
+  h+=comercialMapaVisual();
+
   h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px">`;
 
   h+=socCard("Papel do Hermez no Comercial (1º fluxo)","#7fe0c0",
@@ -848,7 +936,17 @@ const PARKING = [
   {t:"Formato do ritual de alinhamento", cat:"Ritmo", de:"society", status:"em teste",
    d:"A reunião de terça está definida, mas o formato do alinhamento ainda é teste: síncrono (30–40 min terça) vs assíncrono (o Hermez manda o apanhado e cada um se vira) vs checkpoint no meio da semana. Kanban leve pra ser mais objetivo. Reavaliar nas 2 semanas."},
   {t:"Fábrica de canais / YouTube", cat:"Iniciativas", de:"check-in",
-   d:"A estratégia de 'fábrica de canais' (um ajuda o canal do outro — arte, animação, edição em rede) ainda não foi endereçada: é iniciativa própria ou fica no Labz? Definir o encaixe."}
+   d:"A estratégia de 'fábrica de canais' (um ajuda o canal do outro — arte, animação, edição em rede) ainda não foi endereçada: é iniciativa própria ou fica no Labz? Definir o encaixe."},
+  {t:"Portal de parceiros — parceiro.netz.now", cat:"Comercial/Produto", de:"comercial pt.2", status:"em teste",
+   d:"O 'iFood dos sites' virou concreto: um portal onde a agência loga, escolhe o tamanho do site (preço à vista), escreve o briefing OU sobe o áudio da reunião (→ briefing automático), joga os assets e envia; a Netz confirma prazo; wireframe aprovado por seção. Falta dono, escopo do MVP e a integração do áudio→briefing. Meta citada: ~20 agências cadastradas até o fim do ano; Blue como teste."},
+  {t:"Oferta intermediária — diagnóstico + POC de PI (Sebrae)", cat:"Comercial/Produto", de:"comercial pt.2 + análise Sebrae", status:"em teste",
+   d:"O 'produto do meio' finalmente ganhou hipótese: um projeto de diagnóstico + estruturação + POC em Propriedade Intelectual para o ecossistema Sebrae Startups (ver aba PI Sebrae). Falta fechar escopo, precificação e o formato do piloto remunerado. João segue analisando os dados do Observatório."},
+  {t:"Agente que escreve editais", cat:"Hermez/Institucional", de:"comercial pt.2",
+   d:"Frente Sebrae/institucional pede um agente específico pra redigir editais/chamadas a partir do histórico e das oportunidades mapeadas. Ideia citada como 'futuro' — registrar pra puxar quando a frente institucional amadurecer."},
+  {t:"Indicador de PI para o Observatório Sebrae", cat:"Institucional/Produto", de:"análise Sebrae",
+   d:"O portal do Sebrae não mede PI em ponto nenhum. Oportunidade de propor ao Sebrae um eixo de indicador de PI (metodologia própria) e um report temático 'PI nas Startups' replicável ano a ano — vira autoridade + canal. Não endereçado; depende de relacionamento institucional."},
+  {t:"Transformar projetos em vídeos (cases)", cat:"Comercial/Conteúdo", de:"comercial pt.2",
+   d:"Estratégia de relacionamento: virar cada projeto entregue em vídeo/case pra alimentar o site, os cafés com parceiros e o gancho do LinkedIn. Conecta com a fábrica de canais. Falta ritmo e dono do 'case após entrega'."}
 ];
 function viewParking(){
   let h=`<p class="tab-intro">Ideias que foram <b>citadas mas não endereçadas</b> — pra não morrerem na conversa. Não são decisões; são coisas a puxar quando fizer sentido (com dono e data).</p>`;
@@ -1167,6 +1265,114 @@ function viewSebrae(){
     </div>`;
   });
   h+=`</div>`;
+  return h;
+}
+
+// ====================== PI SEBRAE (análise do Observatório Sebrae Startups) ======================
+const PIS_KPI = [
+  {n:"22,8 mil", l:"startups mapeadas", s:"+26,7% no ano", c:"#BFFF80"},
+  {n:"51,8%", l:"usam IA", s:"APIs 26,7% · Nuvem 22,6%", c:"#7Fd4ff"},
+  {n:"39,1%", l:"são SaaS", s:"B2B 50,5% (70%+ com B2B2C)", c:"#7fe0c0"},
+  {n:"44%", l:"deeptech em SC", s:"maior densidade patenteável", c:"#c79fff"},
+  {n:"+R$9 mi", l:"em negócios no exterior", s:"39 canais em 9 países", c:"#ffd97f"},
+  {n:"0", l:"indicadores de PI no portal", s:"o espaço em branco", c:"#ff9f7f"}
+];
+const PIS_TESE = [
+  {t:"Os ativos existem", d:"Mais da metade das startups usam IA; SaaS e software dominam os modelos de negócio."},
+  {t:"A proteção não existe", d:"Nenhum indicador de patente, marca, registro de software ou segredo industrial em todo o Observatório."},
+  {t:"O próprio Sebrae reconhece o gap", d:"O Report Brasil 2025 fala, textualmente, em \"menor intensidade tecnológica e participação limitada em deeptech e inovação científica aplicada\"."}
+];
+const PIS_LACUNA = [
+  {l:"Nenhum indicador de PI no portal", e:"Mede segmento, receita, maturidade, sócios — nada de patentes/marcas/software", o:"Propor um eixo de indicador de PI, com metodologia própria"},
+  {l:"PI ausente dos ~30 reports", e:"Nenhum estudo trata proteção de ativos como tema central", o:"Report temático \"PI nas Startups\", replicável ano a ano"},
+  {l:"Deeptech/IA sem rota de patente", e:"IA em 51,8% (BR); 44% deeptech em SC; \"participação limitada em deeptech\"", o:"Trilha de patente para deeptech, começando por SC e SP"},
+  {l:"Patente é benchmark, não é medida no BR", e:"O Startup Genome ranqueia por densidade de patentes; o Sebrae não mede", o:"Métrica de PI que o benchmark internacional já valida"},
+  {l:"Internacionalização sem proteção formal", e:"39 canais no exterior, venda de IA a big techs, zero dado sobre registro lá fora", o:"\"PI para exportar\" acoplado às missões Sebrae/APEX"}
+];
+const PIS_GANCHOS = [
+  {p:"SaaS / software (39,1%)", g:"registro de programa de computador + marca como ativos centrais", c:"#7fe0c0"},
+  {p:"Deeptech / IA (51,8% usam IA)", g:"rota de patente e segredo industrial", c:"#c79fff"},
+  {p:"B2B (50,5%)", g:"marca e contratos protegem diferenciação e licenciamento", c:"#7Fd4ff"},
+  {p:"Em internacionalização", g:"registro de marca/patente no território de destino (pré-requisito de expansão)", c:"#ffd97f"},
+  {p:"Govtechs", g:"titularidade de código e cláusulas de PI em contratos públicos", c:"#BFFF80"},
+  {p:"Pré-investimento / M&A", g:"PI como fator de due diligence e valuation", c:"#ff9f7f"}
+];
+const PIS_ESTRUTURA = [
+  {n:"1", t:"O ativo invisível", d:"Abrir mostrando que 51,8% já usam IA e quase ninguém protege. Ancorar no dado do próprio Sebrae sobre o gap de deeptech."},
+  {n:"2", t:"Diagnóstico ao vivo", d:"Usar o painel de Indicadores (filtro por segmento/maturidade/UF) para o público se enxergar no mapa e dimensionar seus ativos."},
+  {n:"3", t:"Os gatilhos de PI", d:"Quando proteger, o quê e por quê — por perfil de startup (ver ganchos abaixo)."},
+  {n:"4", t:"Casos reais", d:"Internacionalização (39 canais no exterior), venda de IA a big techs, deeptech catarinense."},
+  {n:"5", t:"Da imersão à POC", d:"Encaminhar o grupo para um piloto remunerado com metas mensuráveis (nº de registros/depósitos gerados)."}
+];
+function viewPiSebrae(){
+  let h=`<p class="tab-intro">Análise dos <b>6 relatórios oficiais do Observatório Sebrae Startups</b> — a base de dados da <b>oferta intermediária</b> (frente B): um projeto de <b>diagnóstico + estruturação + POC</b> em Propriedade Intelectual. A tese: o Sebrae já tem uma base grande e tech, mas <b>não mede nem trabalha PI em nenhum ponto do portal</b>. Esse é o espaço em branco.</p>`;
+
+  // KPIs
+  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:11px;margin-bottom:22px">`;
+  PIS_KPI.forEach(k=>{
+    h+=`<div style="border:1px solid #262b34;border-top:3px solid ${k.c};border-radius:12px;background:linear-gradient(180deg,#12161d,#0e1218);padding:13px 14px">
+      <div style="font-size:24px;font-weight:800;color:${k.c};line-height:1.1">${esc(k.n)}</div>
+      <div style="font-size:12.5px;color:#e7edf3;margin-top:3px;font-weight:600">${esc(k.l)}</div>
+      <div style="font-size:11px;color:#8b95a3;margin-top:2px">${esc(k.s)}</div>
+    </div>`;
+  });
+  h+=`</div>`;
+
+  // tese central (3 colunas encadeadas)
+  h+=`<h3 class="hermes-cases-titulo">A tese — o ativo invisível</h3>`;
+  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:24px">`;
+  PIS_TESE.forEach((t,i)=>{
+    h+=`<section style="border:1px solid #262b34;border-radius:12px;background:linear-gradient(180deg,#12161d,#0e1218);padding:15px 16px;position:relative">
+      <div style="font-size:11px;color:#7e8a99;font-weight:700;letter-spacing:.1em">0${i+1}</div>
+      <div style="font-size:14.5px;font-weight:700;color:#e7edf3;margin:5px 0 7px">${esc(t.t)}</div>
+      <div style="font-size:12.8px;line-height:1.55;color:#dce3ea">${esc(t.d)}</div>
+    </section>`;
+  });
+  h+=`</div>`;
+
+  // lacuna de PI (matriz)
+  h+=`<h3 class="hermes-cases-titulo">A lacuna de PI — lacuna → evidência → oportunidade</h3>`;
+  h+=`<div style="overflow-x:auto;margin-bottom:24px"><table style="width:100%;border-collapse:collapse;font-size:12.6px;min-width:640px">
+    <thead><tr>
+      <th style="text-align:left;padding:8px 10px;color:#ff9f7f;border-bottom:1px solid #2a2f3a;font-weight:700;width:26%">Lacuna</th>
+      <th style="text-align:left;padding:8px 10px;color:#9aa4b2;border-bottom:1px solid #2a2f3a;font-weight:700;width:42%">Evidência nos dados</th>
+      <th style="text-align:left;padding:8px 10px;color:#BFFF80;border-bottom:1px solid #2a2f3a;font-weight:700;width:32%">Oportunidade</th>
+    </tr></thead><tbody>`;
+  PIS_LACUNA.forEach(r=>{
+    h+=`<tr>
+      <td style="padding:9px 10px;border-bottom:1px solid #1a1e26;color:#e7edf3;font-weight:600;vertical-align:top">${esc(r.l)}</td>
+      <td style="padding:9px 10px;border-bottom:1px solid #1a1e26;color:#c4ccd6;line-height:1.5;vertical-align:top">${esc(r.e)}</td>
+      <td style="padding:9px 10px;border-bottom:1px solid #1a1e26;color:#cfe8b0;line-height:1.5;vertical-align:top">${esc(r.o)}</td>
+    </tr>`;
+  });
+  h+=`</tbody></table></div>`;
+
+  // ganchos por perfil
+  h+=`<h3 class="hermes-cases-titulo">Ganchos de PI por perfil de startup</h3>`;
+  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin-bottom:24px">`;
+  PIS_GANCHOS.forEach(g=>{
+    h+=`<div style="border:1px solid #262b34;border-left:3px solid ${g.c};border-radius:10px;background:#10141b;padding:11px 13px">
+      <div style="font-size:13px;font-weight:700;color:#e7edf3">${esc(g.p)}</div>
+      <div style="font-size:12.4px;color:#c4ccd6;line-height:1.5;margin-top:3px">→ ${esc(g.g)}</div>
+    </div>`;
+  });
+  h+=`</div>`;
+
+  // estrutura da imersão (funil 5 passos)
+  h+=`<h3 class="hermes-cases-titulo">Estrutura da imersão — da abertura à POC</h3>`;
+  h+=`<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:8px">`;
+  PIS_ESTRUTURA.forEach((p,i)=>{
+    const w=100-i*11;
+    h+=`<div style="display:flex;align-items:center;gap:12px">
+      <div style="flex:none;width:28px;height:28px;border-radius:50%;background:#7fe0c022;border:1px solid #7fe0c066;color:#7fe0c0;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center">${p.n}</div>
+      <div style="flex:1;max-width:${w}%;border:1px solid #262b34;border-left:3px solid #7fe0c0;border-radius:9px;background:linear-gradient(90deg,#12161d,#0e1218);padding:9px 13px">
+        <span style="font-size:13.5px;font-weight:700;color:#e7edf3">${esc(p.t)}</span>
+        <div style="font-size:12.3px;color:#9aa4b2;line-height:1.45;margin-top:2px">${esc(p.d)}</div>
+      </div>
+    </div>`;
+  });
+  h+=`</div>`;
+  h+=`<p style="font-size:11.5px;color:#6f7987;margin-top:14px">Fontes: Report Brasil 2025, Impacto da Internacionalização (2024), Startup Genome SP (2026) e Florianópolis (2025), Govtechs no Brasil (2024), Mapeamento SC 2024 · Observatório Sebrae Startups.</p>`;
   return h;
 }
 
