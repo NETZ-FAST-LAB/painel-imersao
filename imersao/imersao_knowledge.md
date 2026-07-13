@@ -53,8 +53,9 @@ Pasta de contexto consumível por agentes (Claude Code, Mintzie-guia, e outros).
 - **netz-society-acordos.md** — o que ficou DECIDIDO na reunião da sociedade: sócios e papéis, 13h/semana por sócio, meta R$ 12 mil líq./sócio e R$ 695.952/ano, consequência R$ 50/tarefa (1h), cadência terça-a-terça, definição de pronto, fonte da verdade (Notion/Discord/GitHub), Hermez começa no Comercial. *Núcleo operacional — comece por aqui para as regras da operação.*
 - **reuniao-society-transcricao.md** — transcrição completa da reunião da Society (fonte primária, com o debate da multa, a matemática financeira e as ideias tangenciais).
 - **parking-lot-society.md** — ideias citadas mas não endereçadas (parcerias com agências, apresentação comercial, Hermez financeiro, cláusula de saída, gerenciador de arquivos na VPS, design system no Figma, senhas, ritual de alinhamento, fábrica de canais). *Não são decisões; são pontos a puxar.*
-- **comercial-estrutura.md** — a estrutura comercial desenhada no momento Comercial: papel do Hermez no comercial, as 3 frentes (direto/parceria/institucional; parceria e institucional em foco), os 3 pacotes (entrada/intermediário/avançado), o funil (captura→qualificação→proposta→follow-up D+2/D+5/D+10→fechamento→pós-venda), as regras da operação, a apresentação e a visão de produto (assistente vertical, mapeamento de processo). *Aponte aqui para funil, frentes, pacotes, precificação e o papel comercial do Hermez.*
+- **comercial-estrutura.md** — a estrutura comercial desenhada no momento Comercial (pt.1 + pt.2): papel do Hermez, as 3 frentes/pacotes iniciais e — na **parte 2** — a matriz consolidada por frente (A: sites via agências parceiras / portal `parceiro.netz.now`; B: projetos médios via Sebrae; C: consultoria grande via parceiros), o funil próprio de cada frente, a virada "site = infra/vitrine, não canal", a estratégia de relacionamento e as promessas por frente. *Aponte aqui para funil, frentes, pacotes, precificação, portal de parceiros e o papel comercial do Hermez.*
 - **reuniao-comercial-pt1-transcricao.md** — transcrição do momento comercial pt.1 (fonte primária).
+- **reuniao-comercial-pt2-transcricao.md** — transcrição do momento comercial pt.2 (fonte primária): a matriz por frente, o portal de agências, o insight do Sebrae e as promessas da consultoria.
 
 ## `referencias-externas/` — repertório externo (input, não decisão)
 - **futures-china-dossie-referencias.md** — dossiê de referências sobre China (tech/IA, geopolítica, energia/agro, cultura, educação), oportunidades e insights.
@@ -225,6 +226,31 @@ Tema forte que atravessou o comercial:
 - **Não precisa integrar** para entregar valor: o assistente **conduz** a pessoa pelos sistemas (Notion, Discord, Slack…) — "vai em tal aba, exporta isso" — sem precisar do login dela. Integração completa vem depois (roadmap).
 - **Quebrar a dependência do usuário / do formulário:** o site ativo/provocativo, onde o assistente identifica o que a pessoa quer e traz a interface/pergunta certa (voz/áudio, diagnóstico rápido sem "cara de chatbot"); treinar com técnicas de venda/entrevista (SPIN) para perguntas consistentes. Rastreamento leve (tempo na página, conteúdo clicado, cookies) para inferir a intenção.
 - Exemplos citados: **Sicredi** (GPS de carreira — uma interface sobre vários sistemas), **VX** (produto complexo, difícil de entender pelo site), **Corsan** (integração/backlog de e-mails — valor mesmo sem resolver 100%). "Mapeamento + gestão de processos atrelada à integração de sistemas" = bom produto para a prateleira do Sebrae.
+
+---
+
+# Parte 2 — a matriz por frente (refinamento)
+
+**Virada importante:** o **site não é o canal principal de aquisição** — ele é o **ativo / vitrine / base comercial (infra comercial)**. Os canais principais são as 3 frentes. LinkedIn = gancho/chamariz que leva ao site (produção de conteúdo: cases, aprendizados, conceitos). Palavra que amarra a oferta: **parceria** (parceiro da agência, do Sebrae, dos parceiros).
+
+## Frente → cliente → objetivo → oferta
+
+**A. Sites via agências parceiras** — cliente: **a agência** (não o cliente final). Objetivo: **volume**, ticket menor, demanda repetível e **automatizável**. O insight-chave: *a NETZ resolve o problema da AGÊNCIA*, não do cliente dela — a agência precisa de sites mas não os faz, e freelancer é pouco confiável (sem padronização, some, hospedagem bagunçada). **Oferta:** "A NETZ entrega sites rápidos, bons e replicáveis pra sua agência vender sem aumentar a estrutura." Modelo: portal **`parceiro.netz.now`** — a agência loga, escolhe o tamanho do site (com preços já visíveis), escreve o briefing (ou **sobe o áudio da reunião com o cliente** → briefing automático), joga os assets (link do drive), envia; a NETZ confirma prazo. Wireframe com aprovação por seção. **Recorrência** (agência bem atendida vira recorrente — ex.: Blue, ~1 ano). Meta: ~20 agências cadastradas até o fim do ano. Blue = caso de teste.
+
+**B. Projetos médios via Sebrae / Sistema S** — cliente: **canal institucional**. Objetivo: projetos médios (o "miolo a descobrir"), que geram **cases + entendimento de demanda + conhecimento de mercado** (valor estratégico, não só financeiro). **Oferta:** projeto médio de **diagnóstico + estruturação + POC** — mapeamento de problema/processo, diagnóstico rápido, workshop/imersão, protótipo ou POC remunerada, relatório/roadmap. Insight do Sebrae: startups/MPEs não chegam à maturidade que dá segurança ao investidor (sem clareza do uso do recurso; não evidenciam que o crescimento foi consistência, não sorte) → a NETZ ajuda a **mapear processo e gerar evidências**. (Sebrae Startups tem Observatório com dados/ferramenta de diagnóstico.)
+
+**C. Projetos customizados / consultoria para grandes clientes** — via **parceiros** (VX, Pulsar, Almaria + outras consultorias, pequenas/médias/grandes). Objetivo: **tickets altos**, venda **relacional**, tailor-made/menos padronizada. **Promessa:** resolver problemas complexos com estratégia, método e execução sob medida. Promessa de alto valor: **personalização absoluta; curadoria e especialidade em tendências/tecnologias emergentes; visão criativa que rompe a lógica corporativa; capacidade de prototipação rápida e validação real de hipóteses.** "Consultoria com **método**" (mesmo sem o método escrito, há um jeito de fazer — usado no Sicredi, VX, Corsan).
+
+## Funil por frente (não é um só)
+- **Agências (automatizável):** lead → qualificação → reunião curta → alinhamento da demanda → proposta → follow-up → fechamento → **sucesso do lead** (relacionamento contínuo: mandar cases/referências). O Hermez busca agências, mapeia fit, monta a lista, cobra retorno, organiza a pipeline. Meta operacional: ~2 reuniões com agências por semana (cronjob do Hermez achando agências com fit no Google e mandando leads qualificados).
+- **Sebrae (relacionamento, menos digital):** conexão (agentes/gestores) → relacionamento → enquadramento da oportunidade → proposta / chamada / edital. O Hermez acompanha contatos, registra oportunidades, lembra prazos, mapeia editais/chamadas, mantém histórico. (Futuro: um agente específico pra **escrever editais**.)
+- **Consultorias / grandes projetos (relacionamento):** contato qualificado (vem de nós) → relacionamento → prova de autoridade (cases) → enquadramento da oportunidade → proposta consultiva → negociação → fechamento. O Hermez organiza cases, monta material de apoio, registra o contexto do parceiro, sugere próximos movimentos, mantém o follow-up vivo.
+
+## Estratégia de relacionamento (chave para Sebrae e consultorias)
+Manter parceiros/consultorias/gestores do Sebrae **informados do que a NETZ está fazendo** (cases no site, "olha o que fizemos"), cafés ("só pra te mostrar", sem vender), e **transformar projetos em vídeos** (conecta com a fábrica de canais/YouTube). Foi assim que vieram Sicredi (via Gui) e Almaria (via João).
+
+## Ponto ainda em aberto
+A **oferta intermediária** (frente B / Sebrae) segue em exploração (João analisando os dados do Observatório Sebrae Startups). É o "produto do meio" a definir.
 
 
 ==================================================================

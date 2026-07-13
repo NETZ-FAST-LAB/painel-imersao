@@ -769,8 +769,9 @@ function renderMain(){
 
 // ====================== COMERCIAL (estrutura, do momento comercial pt.1) ======================
 function viewComercial(){
-  let h=`<p class="tab-intro">Estrutura comercial desenhada no momento Comercial (pt.1) — oficina de decisão, não debate. Papel do Hermez, as 3 frentes, os 3 pacotes, o funil e as regras.</p>`;
-  h+=`<div style="margin-bottom:14px"><a href="/reuniao-comercial.html" target="_blank" rel="noopener" style="text-decoration:none;color:#7Fd4ff;border:1px solid #7Fd4ff44;border-radius:8px;padding:7px 13px;font-size:12.5px">📄 Transcrição do momento comercial (pt.1)</a></div>`;
+  let h=`<p class="tab-intro">Estrutura comercial desenhada no momento Comercial (pt.1 + pt.2) — oficina de decisão, não debate. Papel do Hermez, a matriz por frente, os pacotes, o funil e as regras.</p>`;
+  h+=`<div style="margin-bottom:14px;display:flex;flex-wrap:wrap;gap:8px"><a href="/reuniao-comercial.html" target="_blank" rel="noopener" style="text-decoration:none;color:#7Fd4ff;border:1px solid #7Fd4ff44;border-radius:8px;padding:7px 13px;font-size:12.5px">📄 Transcrição comercial (pt.1)</a><a href="/reuniao-comercial-pt2.html" target="_blank" rel="noopener" style="text-decoration:none;color:#7Fd4ff;border:1px solid #7Fd4ff44;border-radius:8px;padding:7px 13px;font-size:12.5px">📄 Transcrição comercial (pt.2)</a></div>`;
+  h+=`<div style="margin-bottom:14px;padding:11px 14px;border:1px solid #BFFF8033;background:#BFFF800a;border-radius:10px;font-size:12.5px;line-height:1.55;color:#dce3ea"><b style="color:#BFFF80">Virada da pt.2:</b> o <b>site não é o canal principal</b> — é a vitrine/infra comercial. Os canais são as 3 frentes; o LinkedIn é o gancho. A palavra que amarra a oferta é <b>parceria</b>.</div>`;
   h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px">`;
 
   h+=socCard("Papel do Hermez no Comercial (1º fluxo)","#7fe0c0",
@@ -782,6 +783,23 @@ function viewComercial(){
       <div><b>Institucional</b> <span style="font-size:10px;color:#BFFF80;border:1px solid #BFFF8055;border-radius:20px;padding:1px 7px">FOCO</span> — Sebrae/Sistema S, editais, matchmaking. Caminho fechado (portal de fornecedores + contato com gestores).</div>
       <div><b>Direto</b> <span style="font-size:10px;color:#9aa4b2;border:1px solid #2a2f3a;border-radius:20px;padding:1px 7px">não é foco agora</span> — cliente final. Sem outbound pesado agora; ter só uma estratégia mínima pra quem chegar direto.</div>
     </div>`);
+
+  h+=socCard("A matriz por frente (pt.2) — frente → cliente → oferta","#7Fd4ff",
+    `<div style="display:flex;flex-direction:column;gap:11px;font-size:12.8px;line-height:1.5;color:#dce3ea">
+      <div style="padding-left:10px;border-left:2px solid #BFFF80"><b>A · Sites via agências parceiras</b> — cliente é <b>a agência</b> (não o cliente final). Volume, ticket menor, <b>automatizável</b>. A NETZ resolve o problema da agência (precisa de site, freelancer é pouco confiável). Portal <b>parceiro.netz.now</b>: agência loga, escolhe o tamanho (preço à vista), escreve o briefing ou <b>sobe o áudio</b> da reunião, joga os assets, envia. Wireframe por seção. Meta: ~20 agências até o fim do ano. Blue = teste.</div>
+      <div style="padding-left:10px;border-left:2px solid #ffd97f"><b>B · Projetos médios via Sebrae/Sistema S</b> — canal institucional, o "miolo a descobrir". Gera <b>cases + conhecimento de mercado</b>. Oferta: diagnóstico + estruturação + POC. Insight: startups não evidenciam maturidade/consistência a investidores → a NETZ ajuda a mapear processo e gerar evidências.</div>
+      <div style="padding-left:10px;border-left:2px solid #c79fff"><b>C · Consultoria grande via parceiros</b> (VX, Pulsar, Almaria) — tickets altos, venda relacional, tailor-made. Promessa: <b>personalização absoluta</b>, curadoria de tecnologias emergentes, visão criativa que rompe a lógica corporativa, prototipação rápida e validação real. "Consultoria com método."</div>
+    </div>`);
+
+  h+=socCard("Funil por frente (não é um só)","#7fe0c0",
+    `<div style="display:flex;flex-direction:column;gap:8px;font-size:12.6px;line-height:1.5;color:#dce3ea">
+      <div><b style="color:#BFFF80">Agências (automatizável):</b> lead → qualificação → reunião curta → alinhar demanda → proposta → follow-up → fechamento → sucesso do lead. Hermez busca agências com fit no Google e manda leads. Meta: ~2 reuniões/semana.</div>
+      <div><b style="color:#ffd97f">Sebrae (relacionamento):</b> conexão com gestores → relacionamento → enquadrar oportunidade → chamada/edital. Hermez registra contatos, lembra prazos, mapeia editais. (Futuro: agente que escreve editais.)</div>
+      <div><b style="color:#c79fff">Consultorias (relacionamento):</b> contato qualificado → prova de autoridade (cases) → enquadrar → proposta consultiva → negociação → fechamento. Hermez organiza cases e mantém o follow-up vivo.</div>
+    </div>`);
+
+  h+=socCard("Estratégia de relacionamento","#ff9f7f",
+    `<div style="font-size:12.8px;line-height:1.55;color:#dce3ea">Chave para Sebrae e consultorias: manter parceiros e gestores <b>informados do que a NETZ faz</b> (cases no site, "olha o que fizemos"), <b>cafés</b> sem vender, e <b>transformar projetos em vídeos</b> (conecta com a fábrica de canais). Foi assim que vieram Sicredi (via Gui) e Almaria (via João).</div>`);
 
   h+=socCard("Os 3 pacotes (o menu)","#ffd97f",
     `<div style="display:flex;flex-direction:column;gap:9px;font-size:13px;color:#dce3ea">
@@ -964,8 +982,8 @@ const CRONOGRAMA = [
   { dia:"Segunda", turno:"Tarde", bloco:"Comercial / Editais / Parcerias", tag:"comercial", status:"✅ concluído",
     objetivo:"Colocar a Netz na rua — agora com o Hermez como motor do comercial (o primeiro fluxo dele, decidido na Society).",
     pauta:["Estruturar o comercial com o Hermez — é o PRIMEIRO fluxo dele: propor ações, estruturar a estratégia, disciplina de follow-up, geração de demanda. Ordem de mapeamento: Tarefas → Comercial → Follow-up.","Apresentação comercial: montar a base (cases + soluções) pra agências e parceiros — o Hermez ajuda no conteúdo, depois o visual. (Meta: base pronta rápido.)","Parcerias com agências ('iFood dos sites'): desenhar o modelo white-label — portal sem atrito, pacotes (fecha 10, ganha 1), infra/hospedagem/tracking como diferencial. Ref.: parceria da Blue. Ver Parking lot.","Editais: Caldeira/matchmaking (escolher o desafio e inscrever — custo zero). Sebrae: usar o contato do agente regional de POA; vias Únio e Edital 02/PI.","Conta bancária para editais: encaminhar — é pré-requisito.","Prioridade decidida (90 dias): aquisição de clientes → geração de demanda → organização comercial → follow-up. Canal institucional: Sebrae/Sistema S, foco no Sul.","Nó ainda aberto: 'qual o produto?' — edital e comercial esbarram nele. Levar pra terça (Iniciativas)."],
-    saida:"Estrutura comercial fechada em v1: papel do Hermez, 3 frentes (parceria e institucional em foco), 3 pacotes (entrada/intermediário/avançado), funil e regras. Ver aba Comercial.",
-    links:[{label:"📄 Transcrição do comercial", href:"/reuniao-comercial.html"},{label:"→ ver estrutura (Comercial)", tab:"comercial"},{label:"→ Parking lot", tab:"parking"}] },
+    saida:"Estrutura comercial fechada em v1 (pt.1 + pt.2): papel do Hermez, a matriz por frente (A sites via agências / B projetos médios via Sebrae / C consultoria via parceiros), funil próprio de cada frente e a virada 'site = vitrine, não canal'. Ver aba Comercial.",
+    links:[{label:"📄 Transcrição comercial (pt.1)", href:"/reuniao-comercial.html"},{label:"📄 Transcrição comercial (pt.2)", href:"/reuniao-comercial-pt2.html"},{label:"→ ver estrutura (Comercial)", tab:"comercial"},{label:"→ Parking lot", tab:"parking"}] },
   { dia:"Segunda", turno:"Noite", bloco:"Labz", tag:"labs", status:"",
     objetivo:"Criação solta — recarrega a cabeça depois do dia denso.",
     pauta:["Experimentos, som, referência boa.","Seguir o que animar."], saida:"" },
