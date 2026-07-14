@@ -1622,6 +1622,40 @@ function viewParcerias(){
   return h;
 }
 
+// ====================== SITE — tarefas da reunião 14/jul (separado da auditoria) ======================
+const SITE_REUNIAO = [
+  {s:"Header", c:"#7Fd4ff", t:["Ajustar a largura horizontal do header para igualar a largura do conteúdo centralizado do site."]},
+  {s:"Banner de entrada", c:"#BFFF80", t:["Aumentar a altura do banner: 1ª dobra = banner + faixa de empresas + espiada da 2ª dobra (continuidade).","Animar os dois glows (verde à esquerda, cinza à direita) alternando suavemente.","Animação de pontos/conexões só no detalhe, guardada — o grupo achou 'batida' para usar em tudo."]},
+  {s:"Faixa de empresas (logos)", c:"#ffd97f", t:["Tirar o 'stop on hover' — deixar a faixa fluindo, sem interação.","Resolver a travadinha no fim do loop (deixar seamless).","Simplificar/diminuir a frase 'empresas que fazem parte da nossa jornada' (fonte menor, menos destaque).","São empresas DA JORNADA, não clientes ativos — a frase evita dar a entender que são clientes."]},
+  {s:"Capacidades (as 5)", c:"#c79fff", t:["Reescrever título e cópias em 1ª pessoa, tom imperativo ('Aplicamos…', 'Materializamos nosso trabalho em 5 capacidades…').","Padronizar quebras de linha dos títulos (se um tem 2 linhas, todos com 2 — harmônico).","Animações de entrada quando os blocos carregam (fade/lazy-load, sutil)."]},
+  {s:"Cases — preview na home", c:"#ff9f7f", t:["Fundo dos cards: trocar cor por imagem do case (blur, bem fraca), com o mouse iluminando (overlay, sem roubar o logo).","Adicionar tags (RAG · Automação · Governança) nos 3 cards, não só no destaque.","Melhorar o respiro entre seções (evitar 'preto e vazio') — seções-ponte com imagem animada (glassmorfismo).","Cards de case estão simplistas demais."]},
+  {s:"Sobre a NETZ", c:"#7fe0c0", t:["Conteúdo mais fraco (blocos soltos) — reescrever com storytelling orientado a valor (StoryBrand).","Seção de lastro: ~10 anos, com quem já trabalhou, projetos em 2 continentes, frentes.","Pilares (4–5: método · agilidade/adaptabilidade · processos · rituais) como data-viz, não boxes.","Conectar ao método NETZ ('Conheça o método que nos trouxe até aqui').","Gancho Sebrae: comprovar que o resultado veio de plano, não sorte ('não chegamos aqui por acaso').","A /sobre repete os 2 blocos da home — melhorar distribuição. Recomendar pesquisa de referências de páginas 'sobre'."]},
+  {s:"Contato / CTA", c:"#7Fd4ff", t:["Botão de contato fixo, presente 100% do tempo (topo).","CTAs em pontos-chave estratégicos (sem poluir) → Forms / WhatsApp / e-mail.","Compactar a seção de contato (espaçamento grande).","Organizar o WhatsApp — hoje cai no telefone pessoal do João; providenciar número business/virtual.","Animações verdes leves conectando no fundo."]},
+  {s:"Página de Cases (grid + individuais)", c:"#ffd97f", t:["Ter mais cases; imagem no card (logo em destaque + imagem de fundo; testar 2–3 versões).","Ajustar o drop-down do filtro (sai do segmento; padronizar componente custom vs nativo; fonte do filtro > título).","Filtros super-elaborados sem cases suficientes para serem úteis.","Case individual: caixinhas de números/comprovação só onde há dado (o de saneamento tem).","Reescrever 'como atuamos' (genérico/redundante) — texto corrido/storytelling denso orientado a valor (ref.: cases da Accenture).","Mock-ups (PC/Mac) para projetos de site (o BSS tem plataforma e não mostra nada dela).","Tudo orientado a valor entregue, não a etapas."]},
+  {s:"Labs (botão)", c:"#c79fff", t:["Botão do Labs chama atenção demais e está colado — diminuir e dar respiro.","Considerar virar botãozinho (como o de contato) → seção do Labs na home mais elaborada."]},
+  {s:"Técnico / SEO / design system", c:"#9aa4b2", t:["Rodar PageSpeed Insights; garantir rankings técnicos (Google + agentes). Tecnicamente já referencia bem; falta conteúdo.","Design system já pronto/completo (boas práticas de indústria) — é a base da qual o Claude gera.","Padronizar componentes (ex.: o drop-down) para o site inteiro renderizar igual.","Deixar pronta a página do Labs referenciando o Mintzie."]}
+];
+function siteReuniaoSection(){
+  let h=`<section style="margin-bottom:30px">`;
+  h+=`<div class="sint-kicker" style="color:#BFFF80">Da reunião sobre o site · 14/jul/2026 · sessão de trabalho</div>`;
+  h+=`<p style="font-size:12.5px;color:#c4ccd6;line-height:1.6;margin:6px 0 10px">O site foi escolhido como a <b>iniciativa-âncora</b> desta rodada (vitória concreta, limpa o terreno pro Hermes). Definição de pronto: <b>escolhida · dono · data · próximo passo</b>. Meta: sair com o site atualizado, <b>incorporando a nova oferta</b>. Workflow: João e Gui em branches separadas → push → diff → merge → main.</p>`;
+  h+=`<div style="margin-bottom:14px;display:flex;flex-wrap:wrap;gap:8px">
+    <a href="/reuniao-site.html" target="_blank" rel="noopener" style="text-decoration:none;color:#7Fd4ff;border:1px solid #7Fd4ff44;border-radius:8px;padding:7px 13px;font-size:12.5px">📄 Transcrição da reunião</a>
+    <span style="font-size:11px;color:#ff9f7f;border:1px solid #ff9f7f33;background:#ff9f7f0a;border-radius:8px;padding:6px 11px;align-self:center">Regra honesta: em case de site (visual) não inventar número — só onde há dado real.</span>
+  </div>`;
+  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:11px">`;
+  SITE_REUNIAO.forEach(g=>{
+    h+=`<section style="border:1px solid #262b34;border-left:3px solid ${g.c};border-radius:12px;background:linear-gradient(180deg,#12161d,#0e1218);padding:13px 15px">
+      <div style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:${g.c};font-weight:700;margin-bottom:9px">${esc(g.s)}</div>
+      <div style="display:flex;flex-direction:column;gap:7px">`+g.t.map(x=>`<div style="display:flex;gap:8px;font-size:12.3px;line-height:1.45;color:#dce3ea"><span style="flex:none;color:${g.c}">▢</span><span>${esc(x)}</span></div>`).join("")+`</div>
+    </section>`;
+  });
+  h+=`</div>`;
+  h+=`<p style="font-size:11px;color:#6f7987;margin-top:12px">Fora de escopo agora: o portal de parcerias está pronto, mas é da frente comercial de venda de site — 2º passo. Fonte: reuniao-site-transcricao.md · destilado em site-tarefas-reuniao.md.</p>`;
+  h+=`</section>`;
+  return h;
+}
+
 function viewSite(){
   const esfCor={barato:"#BFFF80",medio:"#ffd97f",aposta:"#ff9f7f"};
   const tipoMeta={
@@ -1629,7 +1663,10 @@ function viewSite(){
     erro:{cor:"#ff9f7f",label:"corrigir",mk:"!"},
     medir:{cor:"#7Fd4ff",label:"a medir",mk:"?"}
   };
-  let html=`<p class="tab-intro">Auditoria técnica de netz.now (jul/2026). "ok/corrigir" foram observados no HTML real; "a medir" exige ferramentas de rede (PageSpeed, Search Console) rodadas sobre o site. A ironia produtiva: vocês vendem sites prontos para agentes — o próprio site é o primeiro case.</p>`;
+  let html=`<p class="tab-intro">Duas leituras <b>separadas</b> do site (origens diferentes, não misturar): as <b>tarefas da reunião de 14/jul</b> (sessão de trabalho, logo abaixo) e a <b>auditoria técnica</b> de netz.now (mais abaixo).</p>`;
+  html+=siteReuniaoSection();
+  html+=`<div class="sint-sec-label" style="margin-top:6px">Auditoria técnica de netz.now — análise separada (jul/2026)</div>`;
+  html+=`<p class="tab-intro" style="margin-top:2px">"ok/corrigir" foram observados no HTML real; "a medir" exige ferramentas de rede (PageSpeed, Search Console). A ironia produtiva: vocês vendem sites prontos para agentes — o próprio site é o primeiro case.</p>`;
   html+=`<div class="sintese-box"><span class="sintese-label">a leitura de fundo</span>${esc(SITE_SINTESE)}</div>`;
   // legenda
   html+=`<div class="hermes-legenda">`;
