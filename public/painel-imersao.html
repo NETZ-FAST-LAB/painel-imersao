@@ -747,7 +747,8 @@ function renderTabs(){
   const tabRow=g.tabs.map(id=>{const t=TABS.find(t=>t.id===id);return t?`<button class="${id===currentTab?'active':''}" onclick="setTab('${id}')">${t.label}</button>`:"";}).join("");
   nav.innerHTML=`<div class="tab-groups">${groupRow}</div><div class="tab-subs">${tabRow}</div>`;
 }
-function setTab(id){currentTab=id;currentGroup=groupOf(id);renderTabs();renderMain();}
+function setTab(id){currentTab=id;currentGroup=groupOf(id);renderTabs();renderMain();
+  try{history.replaceState(null,"",location.pathname+"?tab="+encodeURIComponent(id));}catch(e){}}
 function setGroup(gid){currentGroup=gid;const g=GROUPS.find(x=>x.id===gid);if(g&&!g.tabs.includes(currentTab))currentTab=g.tabs[0];renderTabs();renderMain();}
 
 function cronoAll(open){document.querySelectorAll('#main details.crono-item').forEach(d=>d.open=open);}
@@ -2118,6 +2119,8 @@ window.MZ_NAV = {
 
 // ====================== INIT ======================
 drawBg();renderTabs();renderMain();renderProgress();
+// deep-link: ?tab=<id> abre a aba diretamente (ex.: /painel?tab=pisebrae)
+try{var _tp=new URLSearchParams(location.search).get("tab");if(_tp&&TABS.some(function(t){return t.id===_tp;}))setTab(_tp);}catch(e){}
 </script>
 
 <!-- ===================== MINTZIE — guia da imersão ===================== -->
