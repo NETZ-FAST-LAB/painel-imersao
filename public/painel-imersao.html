@@ -678,11 +678,11 @@ const SEBRAE_PASSOS = [
 const STATUS_DEC=[{id:"aberta",label:"Em aberto",cor:"#6b7280"},{id:"andamento",label:"Discutindo",cor:"#ffd97f"},{id:"fechada",label:"Fechada",cor:"#BFFF80"},{id:"parking",label:"Parking lot",cor:"#c79fff"}];
 const TRIAGEM=[{id:"ressuscitar",label:"Ressuscitar",cor:"#BFFF80"},{id:"fundir",label:"Fundir",cor:"#7Fd4ff"},{id:"arquivar",label:"Arquivar",cor:"#6b7280"}];
 const POT_COR={alto:"#BFFF80",medio:"#ffd97f",baixo:"#6b7280"};
-const TABS=[{id:"cronograma",label:"Cronograma"},{id:"decisoes",label:"Decisões"},{id:"sociedade",label:"Sociedade"},{id:"comercial",label:"Comercial"},{id:"parking",label:"Parking lot"},{id:"fable",label:"Fable"},{id:"ideias",label:"Cemitério de ideias"},{id:"hermes",label:"Hermez"},{id:"site",label:"Site"},{id:"sebrae",label:"Sebrae"},{id:"pisebrae",label:"Edital PI"},{id:"pesquisa",label:"Pesquisa profunda"},{id:"consult",label:"Consultorias"},{id:"bench",label:"Benchmarking"},{id:"refs",label:"Referências"}];
+const TABS=[{id:"cronograma",label:"Cronograma"},{id:"decisoes",label:"Decisões"},{id:"sociedade",label:"Sociedade"},{id:"comercial",label:"Comercial"},{id:"parking",label:"Parking lot"},{id:"fable",label:"Fable"},{id:"ideias",label:"Cemitério de ideias"},{id:"hermes",label:"Hermez"},{id:"site",label:"Site"},{id:"sebrae",label:"Sebrae"},{id:"pisebrae",label:"Edital PI"},{id:"parcerias",label:"Parcerias"},{id:"pesquisa",label:"Pesquisa profunda"},{id:"consult",label:"Consultorias"},{id:"bench",label:"Benchmarking"},{id:"refs",label:"Referências"}];
 // menu em 3 grupos (experiência de consumo)
 const GROUPS=[
   {id:"imersao",label:"Imersão",tabs:["cronograma","decisoes","sociedade","comercial","parking"]},
-  {id:"analises",label:"Análises",tabs:["fable","ideias","hermes","site","sebrae","pisebrae"]},
+  {id:"analises",label:"Análises",tabs:["fable","ideias","hermes","site","sebrae","pisebrae","parcerias"]},
   {id:"referencias",label:"Referências",tabs:["refs","pesquisa","consult","bench"]}
 ];
 function groupOf(tabId){const g=GROUPS.find(g=>g.tabs.includes(tabId));return g?g.id:GROUPS[0].id;}
@@ -763,6 +763,7 @@ function renderMain(){
   else if(currentTab==="consult")m.innerHTML=viewConsult();
   else if(currentTab==="sebrae")m.innerHTML=viewSebrae();
   else if(currentTab==="pisebrae")m.innerHTML=viewPiSebrae();
+  else if(currentTab==="parcerias")m.innerHTML=viewParcerias();
   else if(currentTab==="pesquisa")m.innerHTML=viewPesquisa();
   else if(currentTab==="bench")m.innerHTML=viewBench();
   else m.innerHTML=viewRefs();
@@ -857,6 +858,8 @@ function viewComercial(){
   let h=`<p class="tab-intro">Estrutura comercial desenhada no momento Comercial (pt.1 + pt.2) — oficina de decisão, não debate. Papel do Hermez, a matriz por frente, os pacotes, o funil e as regras.</p>`;
   h+=`<div style="margin-bottom:14px;display:flex;flex-wrap:wrap;gap:8px"><a href="/reuniao-comercial.html" target="_blank" rel="noopener" style="text-decoration:none;color:#7Fd4ff;border:1px solid #7Fd4ff44;border-radius:8px;padding:7px 13px;font-size:12.5px">📄 Transcrição comercial (pt.1)</a><a href="/reuniao-comercial-pt2.html" target="_blank" rel="noopener" style="text-decoration:none;color:#7Fd4ff;border:1px solid #7Fd4ff44;border-radius:8px;padding:7px 13px;font-size:12.5px">📄 Transcrição comercial (pt.2)</a></div>`;
   h+=`<div style="margin-bottom:14px;padding:11px 14px;border:1px solid #BFFF8033;background:#BFFF800a;border-radius:10px;font-size:12.5px;line-height:1.55;color:#dce3ea"><b style="color:#BFFF80">Virada da pt.2:</b> o <b>site não é o canal principal</b> — é a vitrine/infra comercial. Os canais são as 3 frentes; o LinkedIn é o gancho. A palavra que amarra a oferta é <b>parceria</b>.</div>`;
+
+  h+=`<div style="margin-bottom:14px"><button onclick="setTab('refs')" style="cursor:pointer;text-align:left;background:#7Fd4ff0d;border:1px solid #7Fd4ff44;border-radius:10px;padding:10px 14px;color:#dce3ea;font-size:12.5px;line-height:1.5;font-family:inherit"><b style="color:#7Fd4ff">📊 Definição de nichos &amp; priorização (consórcio Pulsar · Uttana · VIEX)</b><br>Onde as 3 frentes viram alvos concretos: ranking de 20 subsegmentos, 3 ondas e as fichas de entrada por nicho. <span style="color:#7Fd4ff">Ver em Referências →</span></button></div>`;
 
   h+=comercialMapaVisual();
 
@@ -1471,6 +1474,141 @@ function viewPiSebrae(){
   return h;
 }
 
+// ====================== PARCERIAS & CERTIFICAÇÕES ENTERPRISE ======================
+const PARC_TESE = [
+  {t:"Plataforma-âncora", d:"Salesforce ou Microsoft Biz Apps (melhor relação demanda/entrada). ServiceNow, SAP e TOTVS conforme pipeline.", c:"#7Fd4ff"},
+  {t:"Camada de IA", d:"Anthropic e/ou OpenAI — programas novos (2026), subsidiados e com poucos credenciados no Brasil.", c:"#BFFF80"},
+  {t:"Marca própria", d:"Certificação NETZ na 2ª fase, quando o método de implantação de agentes estiver validado.", c:"#c79fff"}
+];
+const PARC_MATRIZ = [
+  {eco:"Anthropic (Claude)", prio:"Alta — agora", pc:"#BFFF80", just:"Camada de IA transversal a qualquer plataforma; poucos credenciados no BR.", gat:"10 certificados + 2 casos em produção (tier Select)"},
+  {eco:"OpenAI", prio:"Alta — agora", pc:"#BFFF80", just:"Janela aberta; especialização Agents alinhada à demanda enterprise BR.", gat:"Inscrição + trilha de certificação da equipe de IA"},
+  {eco:"Plataforma-âncora (Salesforce ou MS Biz Apps)", prio:"Alta", pc:"#9be65a", just:"Melhor relação demanda/entrada; ambas centradas em agentes (Agentforce / Copilot).", gat:"Escolher pela base de clientes; tier de entrada + credencial de IA"},
+  {eco:"ServiceNow", prio:"Média — seletiva", pc:"#ffd97f", just:"Alto valor, nicho de fluxos de trabalho; curva média-alta.", gat:"Só com pipeline dedicado (ITSM/ITOM)"},
+  {eco:"SAP", prio:"Média — seletiva", pc:"#ffd97f", just:"Domínio das grandes contas no BR, mas barreira e custo altos.", gat:"Só com equipe dedicada e demanda de grande conta"},
+  {eco:"TOTVS", prio:"Média — avaliar (local)", pc:"#ffd97f", just:"Ecossistema dominante em volume no Brasil; contexto fiscal.", gat:"Avaliar programa conforme base de clientes"},
+  {eco:"Databricks / Snowflake", prio:"Baixa — complemento", pc:"#9aa4b2", just:"Nicho de dados/IA aplicada.", gat:"Só sob projeto de dados"},
+  {eco:"Certificação própria (marca NETZ)", prio:"Fase 2", pc:"#c79fff", just:"Captura da metodologia de implantação de agentes como ativo.", gat:"Após ~12 meses acumulando casos e método validado"}
+];
+const PARC_ECO = [
+  {e:"Microsoft (Biz Apps/Modern Work)", p:"~500.000", t:"Capability Score ≥70 + especializações", b:"Média", x:"Copilot / agentes"},
+  {e:"Salesforce", p:"6.000+", t:"2 tiers: Select, Summit", b:"Média (28 badges ↓ de 170)", x:"Agentforce / Data 360"},
+  {e:"ServiceNow", p:"2.200+", t:"5 tiers: Registered→Global Elite", b:"Média-alta", x:"Now Assist"},
+  {e:"SAP", p:"grande / tradicional", t:"4 tiers: Member→Platinum", b:"Alta (Gold: 10+ certs, 20 go-lives)", x:"RISE / Joule"},
+  {e:"OpenAI", p:"em formação (meta 300 mil)", t:"3 tiers + especializações", b:"Média, subsidiada", x:"Agents / Codex"},
+  {e:"Anthropic", p:"em formação (40k candidatas)", t:"3 tiers (Select: 10 certs + 2 casos)", b:"Média-alta", x:"Claude em produção"},
+  {e:"Databricks / Snowflake", p:"médio", t:"Tiers por impacto/consumo", b:"Alta / Média", x:"Dados + IA"}
+];
+const PARC_ROADMAP = [
+  {f:"Fase 1", pz:"meses 0–3", t:"Fundação", d:"Definir a plataforma-âncora pela base real de clientes. Inscrever no Claude Partner Network e no OpenAI Partner Network; iniciar as trilhas de certificação. Selecionar 2–3 projetos atuais para virar casos públicos.", c:"#7Fd4ff"},
+  {f:"Fase 2", pz:"meses 3–9", t:"Credenciamento de entrada", d:"Atingir o tier de entrada da âncora COM a credencial de IA (Agentforce Specialist ou Copilot/AB-100/AB-620) + o Select da Anthropic (10 certs + 2 clientes + 1 caso público). Concluir certificações OpenAI na especialização Agents.", c:"#BFFF80"},
+  {f:"Fase 3", pz:"meses 9–18", t:"Especialização e escala", d:"Buscar especializações que diferenciem (não só o tier base). Avaliar promoção de tier nos ciclos semestrais. Estruturar a certificação própria a partir do método de implantação de agentes já validado.", c:"#c79fff"}
+];
+const PARC_BR = [
+  {n:"~50%", l:"das grandes empresas usam SAP (ERP)"},
+  {n:"~55%", l:"das empresas usam TOTVS (geral)"},
+  {n:"17%", l:"adoção de IA em 2025 · 50% entre grandes"},
+  {n:"#1", l:"Brasil lidera IA agêntica na América Latina"},
+  {n:"~72%", l:"das empresas ainda em estágio inicial de IA"}
+];
+const PARC_MARCA_SIM = ["Metodologia proprietária a proteger (implantação e governança de agentes) → vira ativo e barreira competitiva","Volume para treinar terceiros (clientes, consórcio, freelancers) → receita nova + retenção","Nicho ainda sem selo dominante → virar referência antes de um fabricante ocupar o espaço"];
+function viewParcerias(){
+  let h=`<p class="tab-intro">Estudo estratégico (jul/2026) sobre <b>parcerias e certificações em ecossistemas enterprise</b> — plataformas corporativas (Salesforce, SAP, ServiceNow, Microsoft) + a camada de IA (Anthropic, OpenAI). O achado central: os ecossistemas convergiram em <b>agentes de IA</b> — o terreno em que a NETZ pode se diferenciar sem competir em infraestrutura.</p>`;
+
+  // TESE — 3 pilares → eixo comum
+  h+=`<div style="border:1px solid #262b34;border-radius:12px;background:#0e1218;padding:15px 15px 6px;margin-bottom:22px">
+    <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#7fe0c0;font-weight:700;margin-bottom:12px">A recomendação central</div>
+    <div style="display:flex;flex-wrap:wrap;align-items:stretch;gap:9px">`;
+  PARC_TESE.forEach((p,i)=>{
+    h+=`<div style="flex:1;min-width:200px;border:1px solid ${p.c}44;border-top:3px solid ${p.c};border-radius:10px;background:linear-gradient(180deg,${p.c}0c,#0e1218);padding:11px 13px">
+      <div style="font-size:13.5px;font-weight:800;color:${p.c}">${esc(p.t)}</div>
+      <div style="font-size:12px;color:#c4ccd6;line-height:1.5;margin-top:4px">${esc(p.d)}</div>
+    </div>`;
+    if(i<PARC_TESE.length-1) h+=`<div style="align-self:center;color:#6f7987;font-size:16px">+</div>`;
+  });
+  h+=`</div>
+    <div style="text-align:center;margin:12px 0 6px"><span style="font-size:12.5px;font-weight:700;color:#BFFF80;border:1px solid #BFFF80;border-radius:20px;padding:5px 14px">eixo comum: agentes de IA sobre plataformas enterprise</span></div>
+  </div>`;
+
+  // MATRIZ DE PRIORIDADE
+  h+=`<h3 class="hermes-cases-titulo">Matriz de prioridade — por onde começar</h3>`;
+  h+=`<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px">`;
+  PARC_MATRIZ.forEach(m=>{
+    h+=`<div style="display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start;border:1px solid #262b34;border-left:3px solid ${m.pc};border-radius:10px;background:#10141b;padding:11px 13px">
+      <div style="flex:1;min-width:200px">
+        <div style="font-size:13.5px;font-weight:700;color:#e7edf3">${esc(m.eco)}</div>
+        <div style="font-size:12px;color:#9aa4b2;line-height:1.45;margin-top:3px">${esc(m.just)}</div>
+      </div>
+      <div style="flex:none;display:flex;flex-direction:column;gap:5px;min-width:190px">
+        <span style="align-self:flex-start;font-size:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:700;color:${m.pc};border:1px solid ${m.pc}66;border-radius:20px;padding:2px 9px">${esc(m.prio)}</span>
+        <span style="font-size:11px;color:#c4ccd6;line-height:1.4"><b style="color:#7e8a99">gatilho:</b> ${esc(m.gat)}</span>
+      </div>
+    </div>`;
+  });
+  h+=`</div>`;
+
+  // PANORAMA COMPARATIVO
+  h+=`<h3 class="hermes-cases-titulo">Panorama dos ecossistemas</h3>`;
+  h+=`<div style="overflow-x:auto;margin-bottom:24px"><table style="width:100%;border-collapse:collapse;font-size:12.2px;min-width:660px">
+    <thead><tr>
+      <th style="text-align:left;padding:8px 9px;border-bottom:1px solid #2a2f3a;color:#7e8a99;font-weight:700">Ecossistema</th>
+      <th style="text-align:left;padding:8px 9px;border-bottom:1px solid #2a2f3a;color:#7e8a99;font-weight:700">Parceiros (mundo)</th>
+      <th style="text-align:left;padding:8px 9px;border-bottom:1px solid #2a2f3a;color:#7e8a99;font-weight:700">Tiers</th>
+      <th style="text-align:left;padding:8px 9px;border-bottom:1px solid #2a2f3a;color:#7e8a99;font-weight:700">Barreira</th>
+      <th style="text-align:left;padding:8px 9px;border-bottom:1px solid #2a2f3a;color:#7e8a99;font-weight:700">Eixo 2026</th>
+    </tr></thead><tbody>`;
+  PARC_ECO.forEach(r=>{
+    const bc = r.b.startsWith("Alta")?"#ff9f7f":r.b.startsWith("Média-alta")?"#ffb97f":r.b.startsWith("Média")?"#ffd97f":"#9aa4b2";
+    h+=`<tr>
+      <td style="padding:9px;border-bottom:1px solid #1a1e26;color:#e7edf3;font-weight:600;vertical-align:top">${esc(r.e)}</td>
+      <td style="padding:9px;border-bottom:1px solid #1a1e26;color:#c4ccd6;vertical-align:top">${esc(r.p)}</td>
+      <td style="padding:9px;border-bottom:1px solid #1a1e26;color:#c4ccd6;vertical-align:top">${esc(r.t)}</td>
+      <td style="padding:9px;border-bottom:1px solid #1a1e26;vertical-align:top"><span style="color:${bc};font-size:11.5px">${esc(r.b)}</span></td>
+      <td style="padding:9px;border-bottom:1px solid #1a1e26;color:#cfe8b0;vertical-align:top">${esc(r.x)}</td>
+    </tr>`;
+  });
+  h+=`</tbody></table></div>`;
+
+  // ROADMAP
+  h+=`<h3 class="hermes-cases-titulo">Roadmap faseado (12–18 meses)</h3>`;
+  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:11px;margin-bottom:24px">`;
+  PARC_ROADMAP.forEach(r=>{
+    h+=`<div style="border:1px solid #262b34;border-top:3px solid ${r.c};border-radius:11px;background:linear-gradient(180deg,#12161d,#0e1218);padding:13px 14px">
+      <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:5px"><span style="font-size:12px;font-weight:800;color:${r.c}">${esc(r.f)}</span><span style="font-size:11px;color:#7e8a99">${esc(r.pz)}</span></div>
+      <div style="font-size:14px;font-weight:700;color:#e7edf3;margin-bottom:5px">${esc(r.t)}</div>
+      <div style="font-size:12px;color:#c4ccd6;line-height:1.5">${esc(r.d)}</div>
+    </div>`;
+  });
+  h+=`</div>`;
+
+  // CERTIFICAÇÃO PRÓPRIA
+  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-bottom:24px">`;
+  h+=socCard("Certificação própria (marca NETZ) — quando vale","#c79fff",
+    `<div style="display:flex;flex-direction:column;gap:6px;font-size:12.5px;color:#dce3ea;line-height:1.5">`+PARC_MARCA_SIM.map(x=>`<div>✓ ${esc(x)}</div>`).join("")+`</div>
+     <div style="margin-top:10px;font-size:12px;color:#9aa4b2;line-height:1.5"><b style="color:#ff9f7f">Quando NÃO:</b> para competências que já têm certificação forte de fabricante (não "certificar em Agentforce/SAP" pela marca própria — destrói credibilidade). A marca própria <b>complementa</b> os selos, capturando a camada de método/consultoria que os fabricantes não certificam. É o elo com a <b>metodologia própria da NETZ</b> (aba Edital PI).</div>`);
+  h+=socCard("Princípios de execução","#7fe0c0",
+    `<div style="display:flex;flex-direction:column;gap:6px;font-size:12.5px;color:#dce3ea;line-height:1.5">
+      <div>• Tudo mede <b>pessoas certificadas + casos em produção</b> (com bom CSAT). Instrumente cada projeto pra virar referência.</div>
+      <div>• O eixo é <b>"agentes sobre plataformas enterprise"</b>: âncora + camada de IA.</div>
+      <div>• <b>Profundidade &gt; amplitude</b> — melhor Summit/Advanced em dois do que entrada em seis.</div>
+      <div>• <b>Reavaliar a cada 6 meses</b> — os programas mudaram todos em 2025–2026.</div>
+    </div>`);
+  h+=`</div>`;
+
+  // BRASIL KPIs
+  h+=`<h3 class="hermes-cases-titulo">Adoção enterprise no Brasil</h3>`;
+  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px">`;
+  PARC_BR.forEach(k=>{
+    h+=`<div style="border:1px solid #262b34;border-top:3px solid #7Fd4ff;border-radius:11px;background:linear-gradient(180deg,#12161d,#0e1218);padding:12px 13px">
+      <div style="font-size:22px;font-weight:800;color:#7Fd4ff;line-height:1.1">${esc(k.n)}</div>
+      <div style="font-size:11.3px;color:#c4ccd6;margin-top:3px;line-height:1.4">${esc(k.l)}</div>
+    </div>`;
+  });
+  h+=`</div>`;
+  h+=`<p style="font-size:11.3px;color:#6f7987;margin-top:6px">Muita demanda enterprise por quem saiba implantar agentes em produção — e poucos parceiros credenciados. Estudo interno; programas evoluem rápido, revisar a cada 6 meses.</p>`;
+  return h;
+}
+
 function viewSite(){
   const esfCor={barato:"#BFFF80",medio:"#ffd97f",aposta:"#ff9f7f"};
   const tipoMeta={
@@ -1604,8 +1742,137 @@ function viewBench(){
     </article>`).join("")+`</div>`;
 }
 
+// ====================== NICHOS & PRIORIZAÇÃO COMERCIAL (consórcio) ======================
+const NIC_SEGMENTOS = [
+  {t:"Cooperativas", tag:"quintal de casa · canal", cor:"#BFFF80", d:"Maior aderência, melhor prova social (Sicredi/Unicred), maior ticket e menor esforço de convencimento. É também um CANAL: o Sistema OCB/Sescoop/OCERGS dá acesso a Saúde (Unimed) e Infra (energia) por dentro."},
+  {t:"Saúde", tag:"maior profundidade de oferta", cor:"#7Fd4ff", d:"Cases ONA e Dimed dão autoridade cruzada em dois eixos ('norma vira aprendizagem' e 'crescer com método'). Setor rico em verba (SUS, PROADI-SUS, Sescoop via Unimed)."},
+  {t:"Infra / Saneamento", tag:"maior ticket e janela", cor:"#ffd97f", d:"Marco do saneamento (metas 2033), onda de concessões e reconstrução do RS criam demanda concentrada e datada. Ancorada no case anonimizado e na Planaterra, acessada pela rede VIEX."}
+];
+const NIC_RANKING = [
+  {p:"1",s:"Crédito cooperativo",seg:"Coop",sc:"4,80",f:"A"},
+  {p:"2",s:"Saneamento (água/esgoto)",seg:"Infra",sc:"4,40",f:"A"},
+  {p:"3",s:"Hospitais / acreditação (ONA)",seg:"Saúde",sc:"4,30",f:"A"},
+  {p:"3",s:"Varejo / distribuição farma (Dimed)",seg:"Saúde",sc:"4,30",f:"A"},
+  {p:"5",s:"Cooperativas de saúde — Unimed 🔗",seg:"Coop↔Saúde",sc:"4,15",f:"A"},
+  {p:"6",s:"Agropecuário",seg:"Coop",sc:"4,05",f:"B"},
+  {p:"7",s:"Infra e obras públicas (Planaterra)",seg:"Infra",sc:"3,95",f:"B"},
+  {p:"8",s:"Concessões e PPPs (marco 2033)",seg:"Infra",sc:"3,85",f:"B"},
+  {p:"9",s:"Engenharia e projetos",seg:"Infra",sc:"3,80",f:"B"},
+  {p:"10",s:"Construção civil e incorporação",seg:"Infra",sc:"3,75",f:"B"},
+  {p:"11",s:"Operadoras e planos de saúde",seg:"Saúde",sc:"3,65",f:"B"},
+  {p:"12",s:"Energia e transição energética",seg:"Infra",sc:"3,35",f:"C"},
+  {p:"13",s:"Coops de infra/eletrificação — Fecoergs 🔗",seg:"Coop↔Infra",sc:"3,30",f:"C"},
+  {p:"14",s:"Indústria farma e dispositivos",seg:"Saúde",sc:"3,10",f:"C"},
+  {p:"15",s:"Meio ambiente e resíduos",seg:"Infra",sc:"2,80",f:"C"},
+  {p:"16",s:"Clínicas, labs e diagnóstico",seg:"Saúde",sc:"2,70",f:"C"},
+  {p:"16",s:"Saúde pública / gestão SUS",seg:"Saúde",sc:"2,70",f:"C"},
+  {p:"18",s:"Trabalho / produção / consumo",seg:"Coop",sc:"2,45",f:"D"},
+  {p:"19",s:"Healthtechs",seg:"Saúde",sc:"2,30",f:"D"},
+  {p:"20",s:"Transporte",seg:"Coop",sc:"1,95",f:"D"}
+];
+const NIC_FAIXA = {A:"#BFFF80",B:"#ffd97f",C:"#ff9f7f",D:"#9aa4b2"};
+const NIC_ONDAS = [
+  {o:"Onda 1", pz:"0–6 meses", t:"Ativar os cases âncora (autoridade máxima)", cor:"#BFFF80", d:"Faixa A: Crédito cooperativo; Saneamento (case anonimizado + VIEX); Hospitais/acreditação (ONA); Varejo farma (Dimed/Panvel); Unimed (ponte saúde+coop, via Sescoop)."},
+  {o:"Onda 2", pz:"6–12 meses", t:"Expandir para adjacências de alto valor", cor:"#ffd97f", d:"Faixa B: Agropecuário; Infra/obras públicas e Concessões (Planaterra + marco/reconstrução RS); Engenharia (Sinaenco); Construção civil; Operadoras regionais."},
+  {o:"Onda 3", pz:"12+ meses", t:"Portfólio, volume e inovação", cor:"#c79fff", d:"Faixa C/D: Energia + coops de energia (Fecoergs); indústria farma; resíduos (VIEX); clínicas/labs e gestão SUS (padronizados/editais); healthtechs; trabalho/consumo/transporte via Sescoop."}
+];
+const NIC_FICHAS = [
+  {n:"Crédito cooperativo",sc:"4,80",tag:"",icp:"Central/singular >100 mil cooperados; Sicredi/Unicred → Sicoob/Cresol/Ailos.",porta:"Rede Sicredi/Unicred (warm intro), OCERGS/Sescoop-RS, eventos do ramo financeiro.",pitch:"Ajudamos o Sicredi a desenhar gestão de carreira e aprendizagem com IA — sem perder o jeito cooperativo. Queremos replicar na sua cooperativa."},
+  {n:"Saneamento",sc:"4,40",tag:"case anonimizado",icp:"Companhias estaduais/regionais (>500 pessoas) e SPEs de concessão. CNAE 36/37.",porta:"Rede VIEX (principal), AESBE/ABES, ABCON SINDCON; calendário PPI/BNDES.",pitch:"Trabalhamos com uma das maiores companhias de saneamento do Sul sob pressão de universalização. Com a meta de 2033, o gargalo virou gente preparada."},
+  {n:"Hospitais / acreditação",sc:"4,30",tag:"âncora ONA",icp:"Hospitais gerais/filantrópicos 100–400 leitos, em jornada de acreditação; Santas Casas. CNAE 8610-1.",porta:"Rede ONA (indicação), IAHCS, AHRGS/FEHOSUL, Hospitalar, PROADI-SUS.",pitch:"O selo se conquista com método, mas se sustenta com gente preparada — trilhas, academia de líderes clínicos e cultura que não regride entre auditorias."},
+  {n:"Varejo farmacêutico",sc:"4,30",tag:"âncora Dimed",icp:"Redes regionais 15–150 lojas (RS/SC/PR), familiares, em expansão/sucessão; Febrafar. CNAE 4771/4644.",porta:"Ecossistema Dimed/Panvel, Febrafar/Abrafarma, SINDIFAR-RS, SEBRAE.",pitch:"Ajudamos o Grupo Dimed (Panvel) a estruturar planejamento estratégico. Levamos o mesmo método a redes que querem crescer sem perder identidade."},
+  {n:"Cooperativas de saúde — Unimed",sc:"4,15",tag:"ponte dupla",icp:"Unimeds singulares de médio porte (RS/Sul) e a Federação/RS. CNAE 6550-2 + registro coop.",porta:"Ponte via Unicred, Unimed Federação/RS, Sescoop-RS/OCB-RS (co-financiamento).",pitch:"Unimos dois mundos que dominamos: saúde e cooperativismo — lideranças, conselheiros e estratégia entre singular e federação."}
+];
+const NIC_NARRATIVA = [
+  {t:"'Norma vira aprendizagem'", d:"case ONA — qualidade, acreditação, regulação, conformidade (hospitais, clínicas, SUS, Unimed, saneamento regulado, GMP).", c:"#7Fd4ff"},
+  {t:"'Crescer com método, não no improviso'", d:"case Dimed/Sicredi — estratégia, escala e sucessão (varejo, crédito, agro, construção, engenharia).", c:"#BFFF80"},
+  {t:"'Gente preparada é o novo gargalo'", d:"cases VIEX/Planaterra — onda de investimento e escassez de talento técnico (saneamento, infra, concessões, engenharia, energia).", c:"#ffd97f"}
+];
+function nichosSection(){
+  let h=`<section style="margin-bottom:26px">`;
+  h+=`<div class="sint-kicker" style="color:#BFFF80">Definição de nichos · priorização comercial — consórcio Pulsar · Uttana · VIEX</div>`;
+  h+=`<p style="font-size:12.8px;color:#c4ccd6;line-height:1.6;margin:6px 0 10px"><b>Posicionamento:</b> Consultoria de <b>Aprendizagem, Planejamento Estratégico e Design de Sistemas de Gestão de Pessoas/Carreira</b> — com IA como habilitador. Base Sul → expansão Brasil.</p>`;
+  h+=`<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px">`+["Sicredi","Unicred","ONA","Dimed/Panvel","Saneamento (anonimizado)","Planaterra"].map(c=>`<span style="font-size:11px;color:#dce3ea;border:1px solid #2a2f3a;border-radius:20px;padding:3px 10px">${esc(c)}</span>`).join("")+`</div>`;
+  h+=`<div style="font-size:11px;color:#ff9f7f;border:1px solid #ff9f7f33;background:#ff9f7f0a;border-radius:8px;padding:7px 11px;margin-bottom:16px">🔒 Confidencial: o case de saneamento é citado <b>sempre de forma anonimizada</b> ("uma das maiores companhias de saneamento do Sul do país"). Planaterra é público.</div>`;
+
+  // 3 segmentos
+  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:11px;margin-bottom:18px">`;
+  NIC_SEGMENTOS.forEach(s=>{
+    h+=`<div style="border:1px solid #262b34;border-top:3px solid ${s.cor};border-radius:11px;background:linear-gradient(180deg,#12161d,#0e1218);padding:12px 14px">
+      <div style="display:flex;align-items:baseline;gap:7px;flex-wrap:wrap;margin-bottom:4px"><span style="font-size:14px;font-weight:800;color:${s.cor}">${esc(s.t)}</span><span style="font-size:10px;color:#8b95a3">${esc(s.tag)}</span></div>
+      <div style="font-size:12px;color:#c4ccd6;line-height:1.5">${esc(s.d)}</div>
+    </div>`;
+  });
+  h+=`</div>`;
+  h+=`<p style="font-size:12.3px;color:#dce3ea;line-height:1.55;margin:0 0 18px;padding:9px 13px;border-left:3px solid #BFFF80;background:#BFFF800a;border-radius:8px"><b>Eixo que amarra tudo:</b> o cooperativismo é a espinha dorsal do go-to-market no Sul — é o segmento de maior retorno E a ponte para os outros dois (Unimed → Saúde; Fecoergs/energia → Infra).</p>`;
+
+  // ranking mestre
+  h+=`<details open style="margin-bottom:18px;border:1px solid #262b34;border-radius:11px;background:#0e1218;padding:2px 2px"><summary style="cursor:pointer;list-style:none;padding:11px 14px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#7Fd4ff;font-weight:700">▸ Ranking mestre — 20 subsegmentos por score (rubrica ponderada)</summary><div style="padding:4px 14px 14px;overflow-x:auto">`;
+  h+=`<table style="width:100%;border-collapse:collapse;font-size:12px;min-width:420px"><thead><tr>
+    <th style="text-align:left;padding:6px 8px;border-bottom:1px solid #2a2f3a;color:#7e8a99">#</th>
+    <th style="text-align:left;padding:6px 8px;border-bottom:1px solid #2a2f3a;color:#7e8a99">Subsegmento</th>
+    <th style="text-align:left;padding:6px 8px;border-bottom:1px solid #2a2f3a;color:#7e8a99">Seg.</th>
+    <th style="text-align:right;padding:6px 8px;border-bottom:1px solid #2a2f3a;color:#7e8a99">Score</th>
+    <th style="text-align:center;padding:6px 8px;border-bottom:1px solid #2a2f3a;color:#7e8a99">Faixa</th></tr></thead><tbody>`;
+  NIC_RANKING.forEach(r=>{const c=NIC_FAIXA[r.f];
+    h+=`<tr>
+      <td style="padding:6px 8px;border-bottom:1px solid #1a1e26;color:#7e8a99">${esc(r.p)}</td>
+      <td style="padding:6px 8px;border-bottom:1px solid #1a1e26;color:#e7edf3">${esc(r.s)}</td>
+      <td style="padding:6px 8px;border-bottom:1px solid #1a1e26;color:#9aa4b2">${esc(r.seg)}</td>
+      <td style="padding:6px 8px;border-bottom:1px solid #1a1e26;text-align:right;color:#dce3ea;font-weight:600">${esc(r.sc)}</td>
+      <td style="padding:6px 8px;border-bottom:1px solid #1a1e26;text-align:center"><span style="font-size:11px;font-weight:800;color:${c};border:1px solid ${c}66;border-radius:6px;padding:0 7px">${esc(r.f)}</span></td>
+    </tr>`;});
+  h+=`</tbody></table><div style="font-size:10.5px;color:#6f7987;margin-top:8px">Pesos: Tamanho Sul 20% · Aderência 20% · Case âncora 20% · Escalabilidade 15% · Rede/consórcio 10% · Ciclo/ticket 10% · Concorrência 5%. Faixas: A ≥4,1 · B 3,6–4,0 · C 2,7–3,5 · D &lt;2,7. 🔗 = subsegmento-ponte.</div></div></details>`;
+
+  // 3 ondas
+  h+=`<h3 class="hermes-cases-titulo">Carteira em 3 ondas</h3>`;
+  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:11px;margin-bottom:22px">`;
+  NIC_ONDAS.forEach(o=>{
+    h+=`<div style="border:1px solid #262b34;border-top:3px solid ${o.cor};border-radius:11px;background:linear-gradient(180deg,#12161d,#0e1218);padding:12px 14px">
+      <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:3px"><span style="font-size:12px;font-weight:800;color:${o.cor}">${esc(o.o)}</span><span style="font-size:11px;color:#7e8a99">${esc(o.pz)}</span></div>
+      <div style="font-size:13px;font-weight:700;color:#e7edf3;margin-bottom:5px">${esc(o.t)}</div>
+      <div style="font-size:11.8px;color:#c4ccd6;line-height:1.5">${esc(o.d)}</div>
+    </div>`;
+  });
+  h+=`</div>`;
+
+  // top-5 fichas
+  h+=`<h3 class="hermes-cases-titulo">Top 5 — fichas de entrada</h3>`;
+  h+=`<div style="display:flex;flex-direction:column;gap:9px;margin-bottom:22px">`;
+  NIC_FICHAS.forEach(f=>{
+    h+=`<div style="border:1px solid #262b34;border-left:3px solid #7Fd4ff;border-radius:11px;background:#0e1218;padding:12px 14px">
+      <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:6px"><span style="font-size:13.5px;font-weight:700;color:#e7edf3">${esc(f.n)}</span><span style="font-size:11px;color:#BFFF80;font-weight:700">score ${esc(f.sc)}</span>${f.tag?`<span style="font-size:9.5px;text-transform:uppercase;letter-spacing:.04em;color:#ffd97f;border:1px solid #ffd97f55;border-radius:20px;padding:1px 7px">${esc(f.tag)}</span>`:''}</div>
+      <div style="font-size:11.8px;color:#c4ccd6;line-height:1.5"><b style="color:#7e8a99">ICP:</b> ${esc(f.icp)}</div>
+      <div style="font-size:11.8px;color:#c4ccd6;line-height:1.5"><b style="color:#7e8a99">Porta:</b> ${esc(f.porta)}</div>
+      <div style="font-size:11.8px;color:#dce3ea;line-height:1.5;margin-top:5px;font-style:italic">"${esc(f.pitch)}"</div>
+    </div>`;
+  });
+  h+=`</div>`;
+
+  // cooperativismo como canal
+  h+=socCard("O eixo transversal — cooperativismo como canal","#BFFF80",
+    `<div style="font-size:12.5px;line-height:1.55;color:#dce3ea">O Sistema OCB/Sescoop/OCERGS é uma <b>porta única</b> para todos os ramos, e a Escoop já vende IA/inovação para cooperativas. Operacional: <b>(1)</b> credenciar a Netz no Sescoop/RS + Escoop; <b>(2)</b> usar OCERGS/eventos (Congrega Coop, Expointer, Somos Coop) como funil; <b>(3)</b> converter cooperativa a cooperativa; <b>(4)</b> ativar as pontes Unicred→Unimed e Fecoergs→energia.<br><span style="color:#9aa4b2">Ressalva: o Sescoop é concorrente parcial e a compra é descentralizada — é canal de acesso/co-marketing, não cliente único.</span></div>`);
+
+  // narrativa unificada
+  h+=`<h3 class="hermes-cases-titulo" style="margin-top:20px">Narrativa comercial unificada</h3>`;
+  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-bottom:10px">`;
+  NIC_NARRATIVA.forEach(n=>{
+    h+=`<div style="border:1px solid #262b34;border-left:3px solid ${n.c};border-radius:10px;background:#10141b;padding:11px 13px">
+      <div style="font-size:12.8px;font-weight:700;color:${n.c}">${esc(n.t)}</div>
+      <div style="font-size:11.8px;color:#c4ccd6;line-height:1.5;margin-top:3px">${esc(n.d)}</div>
+    </div>`;
+  });
+  h+=`</div>`;
+  h+=`<p style="font-size:12px;color:#9aa4b2;line-height:1.5;margin:0 0 8px"><b style="color:#dce3ea">IA como habilitador transversal</b> — personalização de aprendizagem, gestão de competências e escala de formação. É o diferencial vs. consultorias tradicionais de qualidade, RH ou engenharia.</p>`;
+  h+=`<p style="font-size:11px;color:#6f7987;margin-top:10px">Fontes (em contexto/netz/): priorizacao-e-roteiro-comercial.md (consolidação + rubrica) · pesquisa-saude.md · pesquisa-infra-saneamento.md · pesquisa-cooperativas.md. Scores são instrumento de decisão, recalculáveis.</p>`;
+  h+=`</section>`;
+  return h;
+}
+
 function viewRefs(){
-  return `<p class="tab-intro">O que circula nos canais, integrado ao acervo. Isto é teto de input — a imersão deveria ser quase toda output.</p>
+  return `<p class="tab-intro">A <b>definição de nichos</b> do consórcio (priorização comercial) e, abaixo, o input que circula nos canais integrado ao acervo.</p>`
+  +nichosSection()
+  +`<div class="sint-sec-label">Input & descobertas (teto de input — a imersão deveria ser quase toda output)</div>
   <div class="refs-wrap">`+REFS.map(g=>`
     <section class="ref-group">
       <div class="ref-group-head"><span class="ref-dot" style="background:${g.cor}"></span><h4 class="ref-tema">${esc(g.tema)}</h4></div>
@@ -1685,8 +1952,97 @@ function drawBg(){
 }
 
 // ====================== SÍNTESE (camada de abertura) ======================
+// ====================== FABLE — reanálise pós-INVERNETZ (2ª leitura) ======================
+const REAN_PLACAR = [
+  {n:"Sociedade & ritmo", st:"fechada com folga", stc:"#BFFF80", d:"promovida a 1º bloco; 13h/semana, R$50/tarefa, definição de pronto, cadência terça-a-terça, fonte da verdade. O maior avanço da imersão."},
+  {n:"Produto único", st:"elevada, não fechada", stc:"#ffd97f", d:"em vez de escolher um protótipo, subiram um nível: a metodologia de assistentes que conduzem. Melhor que amputar — mas o nicho de largada segue em aberto."},
+  {n:"Rota de aquisição", st:"fechada e refinada", stc:"#BFFF80", d:"foco em parceria + institucional; outbound despriorizado; virada 'site = infra, não canal'; Hermez dono do funil (D+2/D+5/D+10)."}
+];
+const REAN_CEGOS = [
+  {t:"Linha de receita", st:"resolvido", c:"#BFFF80", d:"R$12k líq./sócio, meta R$695.952/ano."},
+  {t:"Titularidade / IP", st:"meio-resolvido", c:"#ffd97f", d:"INPI no CNPJ mapeado (Fase 0); cláusula de saída adiada sem data."},
+  {t:"Voz do cliente pagante", st:"aberto", c:"#ff9f7f", d:"o mais importante — segue sem confirmação de que alguém paga."}
+];
+const REAN_TENSOES = [
+  {n:"T1", t:"A conta não fecha por hora", d:"52h/sem × 4 = 224h/mês; mesmo tudo faturável a R$211/h = R$47k < R$58k da meta. A meta só fecha por ALAVANCAGEM (volume de sites + ticket alto via parceiros + reuso da base), não por hora.", r:"Escrever a meta decomposta por frente: C = R$X via N projetos; A = R$Y via M agências × ticket; B ≈ R$0 em receita, mas N cases.", c:"#ff9f7f"},
+  {n:"T2", t:"'Escolher um' virou 'um nível acima' — o nicho segue aberto", d:"metodologia sem vertical de largada = o que o Sebrae rejeita no Edital 02 e o que o mercado chama de wrapper.", r:"Escolher OBRA como beachhead (case do Rafa pronto, dor diária, setor paga). Distinguir o nicho para PROVAR (obra, agora) do nicho para ESCALAR (saúde/varejo, com dados do Observatório).", c:"#ff9f7f"},
+  {n:"T3", t:"3 frentes × 3 pacotes × 3 clientes: foco ou reexpansão?", d:"muita superfície aberta pra 52h/sem — a 'fábrica de quase nada pronto' renasce como três funis simultâneos a 30%.", r:"Sequenciar: C primeiro (relações já existem, ticket alto, vira case); B em paralelo lento (fila, não caixa); A por último (não construir o portal antes de uma agência querer). A frente A é a mais sedutora e a que menos paga no curto prazo.", c:"#ffd97f"},
+  {n:"T4", t:"O Hermez está sendo carregado como no leque antigo", d:"escopado bem no macro, mas já carregado com propor ações, follow-up, precificação, editais, MCP Figma, Hermez financeiro — e ainda não fez UMA coisa até o fim.", r:"Frutificar antes de escalar: a 1ª coisa é o digest de terça 05:00 rodando sozinho por 2 semanas. Ordem: digest → comercial → follow-up, um de cada vez.", c:"#ffd97f"},
+  {n:"T5", t:"A consequência com dentes não é o R$50 — é a visibilidade pública", d:"R$50 não dói em quem não depende da NETZ (que é justamente o diagnóstico). Os dentes são o digest público: todo mundo vê na terça o que cada um não fechou.", r:"Fazer o digest o centro do mecanismo, a multa o acessório. Revisar as 2 semanas com dados, não sensação — se tudo escorrega do mesmo sócio, é T1 (capacidade), não vergonha na cara.", c:"#7Fd4ff"},
+  {n:"T6", t:"O Sicredi é a prova viva — e mora na frente que paga a meta", d:"o projeto grande relacional (frente C) é onde a receita fecha (T1) E o que queimou o João (violou as 13h). A frente que paga é a que consome demais.", r:"O antídoto já está no material: o corte base × personalizável. Tratar o próximo C como 'base NETZ + camada do cliente' (semanas), não 'mais um Sicredi do zero' (meses). É a aposta que amarra tudo — e ninguém a nomeou como tal.", c:"#BFFF80"}
+];
+const REAN_CICLOS = [
+  {c:"Ciclo 1–2", pz:"0–30 dias", t:"Provar o ritmo e expor o primeiro fruto", cor:"#7Fd4ff", items:["Hermez faz UMA coisa até o fim: o digest de terça 05:00, sozinho por 2 semanas (nada de comercial ainda)","Site 'pronto' de verdade: 3 correções da auditoria + Mintzie v0.4 público (deploy + rotacionar a chave + tirar o .env.shared do git)","Nicho de largada escolhido e escrito: obra (saúde/varejo viram 'nicho de escala a decidir', datados)","Revisar o teste das 2 semanas com dados: o 13h cabe? a consequência funcionou?"]},
+  {c:"Ciclo 3–6", pz:"30–60 dias", t:"Encostar em dinheiro real", cor:"#BFFF80", items:["POC pago com o Rafa (Pacote 2): contrato assinado, escopo fechado, métrica de sucesso — a voz do cliente pagante","Método nomeado + INPI protocolado (software + marca, CNPJ da NETZ)","Reativar 2 relações da frente C (VX / Pulsar / Almaria) com o café 'só pra mostrar o que a gente faz'"]},
+  {c:"Ciclo 7–12", pz:"60–90 dias", t:"Transformar em lastro e distribuição", cor:"#c79fff", items:["1º case documentado do POC de obra → publicado no site e levado a um gestor/evento do Sebrae (FBV, Mercopar)","Metodologia cadastrada no Edital 02, nichada em obra (não genérica)","1 agência-piloto manual (comecem com a Blue) OU o portal parceiro.netz.now adiado com data — não os dois","Decompor a meta por frente e conferir contra o realizado do trimestre"]}
+];
+const REAN_SACRIFICIO = ["Fábrica de canais / YouTube: data de revisão (é Labz, não receita) — fora dos 90 dias","Portal parceiro.netz.now como build: planilha + Typeform manual primeiro — é a frente A brilhante que famina a frente C que paga","Hermez financeiro, MCP Figma, escrever editais: parking lot datado, depois do comercial","Design system no Figma: só o mínimo para os 3 ativos que vendem (hero, proposta, case) — não um rebrand","Moratória de input continua: nenhum dossiê / benchmark / ferramenta nova nos 90 dias"];
+function reanaliseFable(){
+  let h=`<div class="sint-kicker" style="color:#BFFF80">Reanálise pós-INVERNETZ · a segunda leitura (13/jul/2026)</div>`;
+  h+=`<p class="sint-tese-p" style="margin-top:6px">A imersão fez o raro: pegou o diagnóstico incômodo e o virou acordo com número, dono e consequência. O risco não sumiu — <b>ele se sofisticou</b>: já não é a paralisia, é a <b>reexpansão disfarçada de foco</b>.</p>`;
+
+  // O PLACAR — 3 decisões
+  h+=`<div class="sint-sec-label">O placar — o que a imersão fez com as 3 decisões de alavancagem</div>`;
+  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:11px;margin-bottom:14px">`;
+  REAN_PLACAR.forEach(p=>{
+    h+=`<div style="border:1px solid #262b34;border-top:3px solid ${p.stc};border-radius:11px;background:linear-gradient(180deg,#12161d,#0e1218);padding:12px 14px">
+      <div style="font-size:13.5px;font-weight:700;color:#e7edf3">${esc(p.n)}</div>
+      <span style="display:inline-block;margin:5px 0 7px;font-size:10px;letter-spacing:.04em;text-transform:uppercase;font-weight:700;color:${p.stc};border:1px solid ${p.stc}66;border-radius:20px;padding:2px 9px">${esc(p.st)}</span>
+      <div style="font-size:12.2px;color:#c4ccd6;line-height:1.5">${esc(p.d)}</div>
+    </div>`;
+  });
+  h+=`</div>`;
+  // pontos cegos status
+  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:9px;margin-bottom:22px">`;
+  REAN_CEGOS.forEach(x=>{
+    h+=`<div style="border:1px solid #262b34;border-left:3px solid ${x.c};border-radius:9px;background:#10141b;padding:9px 12px">
+      <div style="display:flex;align-items:baseline;gap:7px;flex-wrap:wrap"><span style="font-size:12.5px;font-weight:700;color:#e7edf3">${esc(x.t)}</span><span style="font-size:9.5px;text-transform:uppercase;letter-spacing:.04em;font-weight:700;color:${x.c}">${esc(x.st)}</span></div>
+      <div style="font-size:11.6px;color:#9aa4b2;line-height:1.4;margin-top:3px">${esc(x.d)}</div>
+    </div>`;
+  });
+  h+=`</div>`;
+
+  // AS 6 TENSÕES
+  h+=`<div class="sint-sec-label">As tensões que as novas decisões criaram</div>`;
+  h+=`<div style="display:flex;flex-direction:column;gap:9px;margin-bottom:22px">`;
+  REAN_TENSOES.forEach(t=>{
+    h+=`<div style="border:1px solid #262b34;border-left:3px solid ${t.c};border-radius:11px;background:#0e1218;padding:12px 14px">
+      <div style="font-size:13.5px;font-weight:700;color:#e7edf3;margin-bottom:5px"><span style="color:${t.c}">${esc(t.n)}</span> · ${esc(t.t)}</div>
+      <div style="font-size:12.3px;color:#c4ccd6;line-height:1.5;margin-bottom:7px">${esc(t.d)}</div>
+      <div style="font-size:12.2px;color:#dce3ea;line-height:1.5;background:#12161d;border-radius:8px;padding:7px 10px"><span style="font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;font-weight:700;color:${t.c};margin-right:6px">recomendação</span>${esc(t.r)}</div>
+    </div>`;
+  });
+  h+=`</div>`;
+
+  // PONTO CEGO PRINCIPAL
+  h+=`<div style="border:1px solid #ff9f7f44;background:#ff9f7f0d;border-left:3px solid #ff9f7f;border-radius:10px;padding:13px 16px;margin-bottom:22px">
+    <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#ff9f7f;font-weight:700;margin-bottom:6px">O ponto cego que continua onde estava</div>
+    <div style="font-size:13px;line-height:1.6;color:#e7edf3"><b>Nenhum documento contém a voz de um cliente pagante da nova oferta.</b> Metodologia elegante, 5 problemas SPIN, 3 pacotes precificados pela tabela do Sebrae — e zero confirmação de que alguém paga o preço, no nicho, pela dor. <b>Uma conversa com o Rafa sobre um POC pago e uma com um gestor do Sebrae valem mais que outro mês de metodologia.</b></div>
+  </div>`;
+
+  // OS 90 DIAS — 3 ciclos
+  h+=`<div class="sint-sec-label">Para onde ir — os próximos 90 dias (frutos expostos, não frentes abertas)</div>`;
+  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:11px;margin-bottom:16px">`;
+  REAN_CICLOS.forEach(cy=>{
+    h+=`<div style="border:1px solid #262b34;border-top:3px solid ${cy.cor};border-radius:11px;background:linear-gradient(180deg,#12161d,#0e1218);padding:12px 14px">
+      <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:3px"><span style="font-size:12px;font-weight:800;color:${cy.cor}">${esc(cy.c)}</span><span style="font-size:11px;color:#7e8a99">${esc(cy.pz)}</span></div>
+      <div style="font-size:13.5px;font-weight:700;color:#e7edf3;margin-bottom:8px">${esc(cy.t)}</div>
+      <div style="display:flex;flex-direction:column;gap:6px">`+cy.items.map(it=>`<div style="font-size:11.8px;color:#c4ccd6;line-height:1.45">• ${esc(it)}</div>`).join("")+`</div>
+    </div>`;
+  });
+  h+=`</div>`;
+
+  // O QUE SACRIFICAR
+  h+=`<div class="sint-sec-label">O que sacrificar — senão a reexpansão vence</div>`;
+  h+=`<div style="border:1px solid #262b34;border-radius:11px;background:#0e1218;padding:12px 15px;margin-bottom:6px"><div style="display:flex;flex-direction:column;gap:6px">`+REAN_SACRIFICIO.map(x=>`<div style="font-size:12.3px;color:#dce3ea;line-height:1.5">✕ ${esc(x)}</div>`).join("")+`</div></div>`;
+  h+=`<p class="sint-duro">Frutificar não é decidir a metodologia mais elegante; é o Rafa assinar um POC, o Mintzie no ar, o método com nome registrado e um case publicado — nos próximos 60 dias, não nos próximos 600. Provaram que sabem decidir. Falta provar, com um cliente e um contrato, que decidiram a coisa certa.</p>`;
+  return h;
+}
+
 function viewFable(){
-  let h=`<p class="tab-intro">A leitura cruzada dos 9 artefatos feita pelo Fable — a tese única, os padrões, as 3 decisões de maior alavancagem e o que sacrificar.</p>`;
+  let h=`<p class="tab-intro">Duas leituras do Fable: a <b>reanálise pós-INVERNETZ</b> (segunda leitura — o que a imersão decidiu e as tensões novas que as decisões criaram) e, recolhida ao final, a <b>síntese transversal</b> pré-imersão dos 9 artefatos.</p>`;
+  h+=reanaliseFable();
+  h+=`<details style="margin-top:12px;border:1px solid #262b34;border-radius:12px;background:#0e1218;padding:4px 2px"><summary style="cursor:pointer;list-style:none;padding:12px 15px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#9aa4b2;font-weight:700">▸ Primeira leitura (pré-imersão) — síntese transversal dos 9 artefatos</summary><div style="padding:6px 15px 14px">`;
   h+=`<div class="sint-kicker">Síntese transversal · leitura cruzada dos 9 artefatos</div>`;
   h+=`<h2 class="sint-tese-titulo">${esc(SINT_TESE_TITULO)}</h2>`;
   SINT_TESE.forEach(p=>{h+=`<p class="sint-tese-p">${esc(p)}</p>`;});
@@ -1721,7 +2077,7 @@ function viewFable(){
   h+=`</ul></div>`;
   h+=`</div>`;
   h+=`<p class="sint-duro">${esc(SINT_SACRIFICIO.duro)}</p>`;
-
+  h+=`</div></details>`;
   return h;
 }
 function abrirSintese(){setTab("fable");}   // compat: "rever a síntese" agora abre a aba Fable
