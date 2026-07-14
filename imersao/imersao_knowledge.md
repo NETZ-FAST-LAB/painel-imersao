@@ -19,11 +19,13 @@ As 3 decisões de maior alavancagem (nesta ordem, porque cada elo depende do ant
 
 O painel é organizado em abas/seções (grupos Imersão / Análises / Referências). Quando pedirem "me leva até X", navegue até o elemento certo (por id quando existir, ex.: `d1`, `i7`, `b4`; senão pelos elementos visíveis da página).
 
-- **Imersão:** Cronograma · Decisões (d1–d6) · Sociedade (acordos) · Parking lot.
-- **Análises:** Fable (síntese) · Cemitério de ideias (i1–i10) · Hermez · Site · Sebrae.
-- **Referências:** Referências · Pesquisa profunda · Consultorias · Benchmarking (b1–b6).
+- **Imersão:** Cronograma · Decisões (d1–d6) · Sociedade (acordos) · Comercial (3 frentes, pacotes, funis) · Parking lot.
+- **Análises:** Fable (síntese pré-imersão + **reanálise pós-INVERNETZ**) · Cemitério de ideias (i1–i10) · Hermez · Site · Sebrae · **Edital PI** (a metodologia própria da NETZ) · **Parcerias** (certificações enterprise).
+- **Referências:** Referências (inclui a **definição de nichos** do consórcio Pulsar·Uttana·VIEX: ranking, ondas, fichas) · Pesquisa profunda · Consultorias · Benchmarking (b1–b6).
 
 Os rótulos exatos e o estado atual de cada item vêm da própria página (elementos vivos). Use-os para confirmar antes de afirmar.
+
+> **Estado pós-imersão.** A tese e as 3 decisões acima são o retrato PRÉ-imersão. O que a INVERNETZ efetivamente decidiu (Society fechada, rota refinada, produto elevado) e as tensões novas que isso criou estão em `reanalise-pos-invernetz.md` (aba Fable). Sobre "propriedade intelectual": é o **Edital 02 do Sebrae** — a NETZ credencia a **sua própria metodologia** (não vende patente para o cliente); ver `sebrae-edital-pi-metodologia.md` e `metodologia-netz-assistentes.md`.
 
 ---
 
@@ -41,6 +43,7 @@ Pasta de contexto consumível por agentes (Claude Code, Mintzie-guia, e outros).
 
 ## `netz/` — informações da Netz (interno)
 - **fable-sintese-transversal-imersao-netz.md** — leitura cruzada dos 9 artefatos (PRÉ-imersão): a tese única, tensões, 5 padrões, as 3 decisões de maior alavancagem, o que sacrificar. *Comece por aqui para a visão de conjunto — mas veja a reanálise abaixo para o pós-imersão.*
+- **revisao-pos-imersao-fable.md** — revisão pós-imersão do Fable (companheira anterior da reanálise): o que mudou, o que segue aberto e os novos direcionamentos. *Para o estado pós-imersão consolidado, prefira `reanalise-pos-invernetz.md` (versão expandida em 4 partes).*
 - **reanalise-pos-invernetz.md** — a **segunda leitura do Fable** (pós-INVERNETZ): o placar do que a imersão decidiu (sociedade fechada, rota refinada, produto elevado mas não fechado), as 6 tensões novas que as decisões criaram (T1 a meta não fecha por hora; T2 nicho de largada em aberto → obra; T3 3 frentes = reexpansão, sequenciar C→B→A; T4 Hermez sobrecarregado; T5 a consequência é a visibilidade pública, não o R$50; T6 o Sicredi/frente C só escala com base×personalizável), o ponto cego que continua (voz do cliente pagante) e o plano de 90 dias por ciclos. *Aponte aqui para o diagnóstico atual e as prioridades pós-imersão.*
 - **pesquisa-profunda-netz.md** — os 5 problemas (execução, comercial sem dono, empacotar produto, precificação/recorrência, esteira de conteúdo).
 - **netz-acervo-decisoes-negocio.md** — dois anos de decisões de negócio: identidade, societário/CNPJ, finanças, posicionamento, editais, situação dos sócios, produtos/P&D, stack, cultura.

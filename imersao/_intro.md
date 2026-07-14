@@ -19,11 +19,13 @@ As 3 decisões de maior alavancagem (nesta ordem, porque cada elo depende do ant
 
 O painel é organizado em abas/seções (grupos Imersão / Análises / Referências). Quando pedirem "me leva até X", navegue até o elemento certo (por id quando existir, ex.: `d1`, `i7`, `b4`; senão pelos elementos visíveis da página).
 
-- **Imersão:** Cronograma · Decisões (d1–d6) · Sociedade (acordos) · Parking lot.
-- **Análises:** Fable (síntese) · Cemitério de ideias (i1–i10) · Hermez · Site · Sebrae.
-- **Referências:** Referências · Pesquisa profunda · Consultorias · Benchmarking (b1–b6).
+- **Imersão:** Cronograma · Decisões (d1–d6) · Sociedade (acordos) · Comercial (3 frentes, pacotes, funis) · Parking lot.
+- **Análises:** Fable (síntese pré-imersão + **reanálise pós-INVERNETZ**) · Cemitério de ideias (i1–i10) · Hermez · Site · Sebrae · **Edital PI** (a metodologia própria da NETZ) · **Parcerias** (certificações enterprise).
+- **Referências:** Referências (inclui a **definição de nichos** do consórcio Pulsar·Uttana·VIEX: ranking, ondas, fichas) · Pesquisa profunda · Consultorias · Benchmarking (b1–b6).
 
 Os rótulos exatos e o estado atual de cada item vêm da própria página (elementos vivos). Use-os para confirmar antes de afirmar.
+
+> **Estado pós-imersão.** A tese e as 3 decisões acima são o retrato PRÉ-imersão. O que a INVERNETZ efetivamente decidiu (Society fechada, rota refinada, produto elevado) e as tensões novas que isso criou estão em `reanalise-pos-invernetz.md` (aba Fable). Sobre "propriedade intelectual": é o **Edital 02 do Sebrae** — a NETZ credencia a **sua própria metodologia** (não vende patente para o cliente); ver `sebrae-edital-pi-metodologia.md` e `metodologia-netz-assistentes.md`.
 
 ---
 
