@@ -9,11 +9,23 @@
   :root{
     --neon:#BFFF80; --bg:#0a0c0f; --panel:#12151b; --panel2:#161a22;
     --border:#232833; --txt:#e6e9ef; --mut:#8b93a3;
+    /* superfícies dos cards data-driven (alinhadas ao sistema) */
+    --card:#12161d; --card-2:#0e1218; --line:#262b34; --ink:#e7edf3; --dim:#9aa4b2; --dim-2:#7e8a99;
+    /* acentos semânticos */
+    --blue:#7Fd4ff; --amber:#ffd97f; --purple:#c79fff; --coral:#ff9f7f; --teal:#7fe0c0;
+    --focus:#BFFF80; --radius:11px;
     --mono:'DM Mono','SF Mono',ui-monospace,monospace;
     --sans:'Inter',-apple-system,system-ui,sans-serif;
   }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--txt);font-family:var(--sans);overflow-x:hidden}
+  html{overflow-x:clip}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:var(--sans);overflow-x:clip}
+  /* Hallmark: foco-visível instantâneo via outline (a11y), nunca animado */
+  a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:3px}
+  /* Hallmark: respeitar prefers-reduced-motion */
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  }
   #bg{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
   .container{position:relative;z-index:1;max-width:1160px;margin:0 auto;padding:32px 20px 60px}
 
