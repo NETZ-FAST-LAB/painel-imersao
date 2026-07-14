@@ -678,7 +678,7 @@ const SEBRAE_PASSOS = [
 const STATUS_DEC=[{id:"aberta",label:"Em aberto",cor:"#6b7280"},{id:"andamento",label:"Discutindo",cor:"#ffd97f"},{id:"fechada",label:"Fechada",cor:"#BFFF80"},{id:"parking",label:"Parking lot",cor:"#c79fff"}];
 const TRIAGEM=[{id:"ressuscitar",label:"Ressuscitar",cor:"#BFFF80"},{id:"fundir",label:"Fundir",cor:"#7Fd4ff"},{id:"arquivar",label:"Arquivar",cor:"#6b7280"}];
 const POT_COR={alto:"#BFFF80",medio:"#ffd97f",baixo:"#6b7280"};
-const TABS=[{id:"cronograma",label:"Cronograma"},{id:"decisoes",label:"Decisões"},{id:"sociedade",label:"Sociedade"},{id:"comercial",label:"Comercial"},{id:"parking",label:"Parking lot"},{id:"fable",label:"Fable"},{id:"ideias",label:"Cemitério de ideias"},{id:"hermes",label:"Hermez"},{id:"site",label:"Site"},{id:"sebrae",label:"Sebrae"},{id:"pisebrae",label:"PI Sebrae"},{id:"pesquisa",label:"Pesquisa profunda"},{id:"consult",label:"Consultorias"},{id:"bench",label:"Benchmarking"},{id:"refs",label:"Referências"}];
+const TABS=[{id:"cronograma",label:"Cronograma"},{id:"decisoes",label:"Decisões"},{id:"sociedade",label:"Sociedade"},{id:"comercial",label:"Comercial"},{id:"parking",label:"Parking lot"},{id:"fable",label:"Fable"},{id:"ideias",label:"Cemitério de ideias"},{id:"hermes",label:"Hermez"},{id:"site",label:"Site"},{id:"sebrae",label:"Sebrae"},{id:"pisebrae",label:"Edital PI"},{id:"pesquisa",label:"Pesquisa profunda"},{id:"consult",label:"Consultorias"},{id:"bench",label:"Benchmarking"},{id:"refs",label:"Referências"}];
 // menu em 3 grupos (experiência de consumo)
 const GROUPS=[
   {id:"imersao",label:"Imersão",tabs:["cronograma","decisoes","sociedade","comercial","parking"]},
@@ -772,7 +772,7 @@ function renderMain(){
 // mapa visual do comercial: matriz de cruzamento (frente×dimensões) + funis + escada de pacotes
 const COM_FRENTES = [
   {k:"A", nome:"Sites via agências", cor:"#BFFF80", cliente:"a agência (não o cliente final)", oferta:"sites rápidos e replicáveis · portal parceiro.netz.now", ticket:"menor · volume", funil:"automatizável", hermez:"acha agências com fit no Google, manda leads, organiza a pipeline", pacote:"Entrada"},
-  {k:"B", nome:"Projetos médios via Sebrae", cor:"#ffd97f", cliente:"canal institucional (Sistema S)", oferta:"diagnóstico + estruturação + POC (PI)", ticket:"médio", funil:"relacionamento", hermez:"registra contatos, mapeia editais, lembra prazos", pacote:"Intermediário"},
+  {k:"B", nome:"Projetos médios via Sebrae", cor:"#ffd97f", cliente:"canal institucional (Sistema S)", oferta:"metodologia própria credenciável (Edital 02 · PI)", ticket:"médio", funil:"relacionamento", hermez:"registra contatos, mapeia editais, lembra prazos", pacote:"Intermediário"},
   {k:"C", nome:"Consultoria via parceiros", cor:"#c79fff", cliente:"parceiros (VX · Pulsar · Almaria)", oferta:"tailor-made · personalização absoluta", ticket:"alto", funil:"relacionamento", hermez:"organiza cases, mantém o follow-up vivo", pacote:"Avançado"}
 ];
 const COM_FUNIS = [
@@ -939,12 +939,10 @@ const PARKING = [
    d:"A estratégia de 'fábrica de canais' (um ajuda o canal do outro — arte, animação, edição em rede) ainda não foi endereçada: é iniciativa própria ou fica no Labz? Definir o encaixe."},
   {t:"Portal de parceiros — parceiro.netz.now", cat:"Comercial/Produto", de:"comercial pt.2", status:"em teste",
    d:"O 'iFood dos sites' virou concreto: um portal onde a agência loga, escolhe o tamanho do site (preço à vista), escreve o briefing OU sobe o áudio da reunião (→ briefing automático), joga os assets e envia; a Netz confirma prazo; wireframe aprovado por seção. Falta dono, escopo do MVP e a integração do áudio→briefing. Meta citada: ~20 agências cadastradas até o fim do ano; Blue como teste."},
-  {t:"Oferta intermediária — diagnóstico + POC de PI (Sebrae)", cat:"Comercial/Produto", de:"comercial pt.2 + análise Sebrae", status:"em teste",
-   d:"O 'produto do meio' finalmente ganhou hipótese: um projeto de diagnóstico + estruturação + POC em Propriedade Intelectual para o ecossistema Sebrae Startups (ver aba PI Sebrae). Falta fechar escopo, precificação e o formato do piloto remunerado. João segue analisando os dados do Observatório."},
+  {t:"Metodologia própria da NETZ (Edital 02 / PI)", cat:"Comercial/Produto", de:"reunião Sebrae + comercial pt.2", status:"em teste",
+   d:"O 'produto do meio' precisa de definição: qual é a metodologia proprietária da NETZ — diferenciada, nichada num setor, no formato hora/execução — pra credenciar no Edital 02 (PI) e em mais categorias da Únio (ver aba Edital PI). Lembrar da regra: genérico é tiro no pé; tem que ter diferencial. Antes de expor, registrar software/marca no INPI (CNPJ da NETZ)."},
   {t:"Agente que escreve editais", cat:"Hermez/Institucional", de:"comercial pt.2",
-   d:"Frente Sebrae/institucional pede um agente específico pra redigir editais/chamadas a partir do histórico e das oportunidades mapeadas. Ideia citada como 'futuro' — registrar pra puxar quando a frente institucional amadurecer."},
-  {t:"Indicador de PI para o Observatório Sebrae", cat:"Institucional/Produto", de:"análise Sebrae",
-   d:"O portal do Sebrae não mede PI em ponto nenhum. Oportunidade de propor ao Sebrae um eixo de indicador de PI (metodologia própria) e um report temático 'PI nas Startups' replicável ano a ano — vira autoridade + canal. Não endereçado; depende de relacionamento institucional."},
+   d:"Frente Sebrae/institucional pede um agente específico pra redigir editais/chamadas e propostas a partir do histórico e das oportunidades mapeadas. Ideia citada como 'futuro' — registrar pra puxar quando a frente institucional amadurecer."},
   {t:"Transformar projetos em vídeos (cases)", cat:"Comercial/Conteúdo", de:"comercial pt.2",
    d:"Estratégia de relacionamento: virar cada projeto entregue em vídeo/case pra alimentar o site, os cafés com parceiros e o gancho do LinkedIn. Conecta com a fábrica de canais. Falta ritmo e dono do 'case após entrega'."}
 ];
@@ -1268,111 +1266,91 @@ function viewSebrae(){
   return h;
 }
 
-// ====================== PI SEBRAE (análise do Observatório Sebrae Startups) ======================
-const PIS_KPI = [
-  {n:"22,8 mil", l:"startups mapeadas", s:"+26,7% no ano", c:"#BFFF80"},
-  {n:"51,8%", l:"usam IA", s:"APIs 26,7% · Nuvem 22,6%", c:"#7Fd4ff"},
-  {n:"39,1%", l:"são SaaS", s:"B2B 50,5% (70%+ com B2B2C)", c:"#7fe0c0"},
-  {n:"44%", l:"deeptech em SC", s:"maior densidade patenteável", c:"#c79fff"},
-  {n:"+R$9 mi", l:"em negócios no exterior", s:"39 canais em 9 países", c:"#ffd97f"},
-  {n:"0", l:"indicadores de PI no portal", s:"o espaço em branco", c:"#ff9f7f"}
+// ====================== EDITAL PI SEBRAE (metodologia própria da NETZ) ======================
+const PIS_VIAS = [
+  {k:"Edital 01", nome:"Produtos Sebrae", cor:"#9aa4b2", d:"Metodologias mais genéricas, de massa (gestão, finanças, RH, planejamento, marketing). O Sebrae às vezes compra a metodologia e ela passa a ser dele.", foco:false},
+  {k:"Edital 02", nome:"Propriedade Intelectual", cor:"#BFFF80", d:"A metodologia é da NETZ (solução específica de fornecedor). A demanda que casa com ela é nossa — sem rodízio. Valor-hora mais alto. Exige diferencial.", foco:true},
+  {k:"Únio", nome:"Marketplace Sebrae-RS", cor:"#7Fd4ff", d:"O cliente escolhe o prestador (com subsídio/cupom). Menor atrito, porta de entrada. A NETZ já cadastrou 1 produto (o site), aprovado, aguardando demanda.", foco:false},
+  {k:"SGF", nome:"Outros estados", cor:"#c79fff", d:"Sistema de gestão de fornecedores; modelo tipo 'leilão de demanda' — credenciados submetem proposta a uma oportunidade aberta.", foco:false}
 ];
-const PIS_TESE = [
-  {t:"Os ativos existem", d:"Mais da metade das startups usam IA; SaaS e software dominam os modelos de negócio."},
-  {t:"A proteção não existe", d:"Nenhum indicador de patente, marca, registro de software ou segredo industrial em todo o Observatório."},
-  {t:"O próprio Sebrae reconhece o gap", d:"O Report Brasil 2025 fala, textualmente, em \"menor intensidade tecnológica e participação limitada em deeptech e inovação científica aplicada\"."}
+const PIS_CICLO = [
+  {n:"1", t:"Cadastrar a empresa", d:"Certidões, aspecto legal."},
+  {n:"2", t:"Cadastrar metodologias", d:"Ficam no banco de soluções (ainda não na prateleira)."},
+  {n:"3", t:"Surge uma demanda", d:"Um gestor olha o portfólio Sebrae e não acha solução."},
+  {n:"4", t:"Área de soluções confere", d:"A gestora checa portfólio + banco de soluções."},
+  {n:"5", t:"Solução puxada", d:"Se encaixa, é puxada — e a NETZ tem a 1ª execução."},
+  {n:"6", t:"Vira portfólio Sebrae", d:"Depois fica disponível a outros consultores (negociar replicação)."}
 ];
-const PIS_LACUNA = [
-  {l:"Nenhum indicador de PI no portal", e:"Mede segmento, receita, maturidade, sócios — nada de patentes/marcas/software", o:"Propor um eixo de indicador de PI, com metodologia própria"},
-  {l:"PI ausente dos ~30 reports", e:"Nenhum estudo trata proteção de ativos como tema central", o:"Report temático \"PI nas Startups\", replicável ano a ano"},
-  {l:"Deeptech/IA sem rota de patente", e:"IA em 51,8% (BR); 44% deeptech em SC; \"participação limitada em deeptech\"", o:"Trilha de patente para deeptech, começando por SC e SP"},
-  {l:"Patente é benchmark, não é medida no BR", e:"O Startup Genome ranqueia por densidade de patentes; o Sebrae não mede", o:"Métrica de PI que o benchmark internacional já valida"},
-  {l:"Internacionalização sem proteção formal", e:"39 canais no exterior, venda de IA a big techs, zero dado sobre registro lá fora", o:"\"PI para exportar\" acoplado às missões Sebrae/APEX"}
+const PIS_ENCAIXE = [
+  {t:"Maturidade p/ investimento", d:"Inovação corporativa (grandes clientes) aplicada a micro/pequenas: processos, planejamento, governança — 'mostrar que o crescimento foi consistência, não sorte'.", c:"#BFFF80"},
+  {t:"IA sem hype", d:"Levar IA de forma consistente para micro/pequenas; a NETZ 'pega pela mão' e conduz o que faz sentido para o porte.", c:"#7Fd4ff"},
+  {t:"Nicho de setor", d:"Saúde forte em startups; varejo/indústria/agro são prioridade Sebrae. Especialização = 'cartão de visita' que ninguém pensa igual.", c:"#c79fff"},
+  {t:"Formato produtizável", d:"Uma 'jornada de inovação' em N encontros/temas, no molde hora/execução.", c:"#ffd97f"}
 ];
-const PIS_GANCHOS = [
-  {p:"SaaS / software (39,1%)", g:"registro de programa de computador + marca como ativos centrais", c:"#7fe0c0"},
-  {p:"Deeptech / IA (51,8% usam IA)", g:"rota de patente e segredo industrial", c:"#c79fff"},
-  {p:"B2B (50,5%)", g:"marca e contratos protegem diferenciação e licenciamento", c:"#7Fd4ff"},
-  {p:"Em internacionalização", g:"registro de marca/patente no território de destino (pré-requisito de expansão)", c:"#ffd97f"},
-  {p:"Govtechs", g:"titularidade de código e cláusulas de PI em contratos públicos", c:"#BFFF80"},
-  {p:"Pré-investimento / M&A", g:"PI como fator de due diligence e valuation", c:"#ff9f7f"}
-];
-const PIS_ESTRUTURA = [
-  {n:"1", t:"O ativo invisível", d:"Abrir mostrando que 51,8% já usam IA e quase ninguém protege. Ancorar no dado do próprio Sebrae sobre o gap de deeptech."},
-  {n:"2", t:"Diagnóstico ao vivo", d:"Usar o painel de Indicadores (filtro por segmento/maturidade/UF) para o público se enxergar no mapa e dimensionar seus ativos."},
-  {n:"3", t:"Os gatilhos de PI", d:"Quando proteger, o quê e por quê — por perfil de startup (ver ganchos abaixo)."},
-  {n:"4", t:"Casos reais", d:"Internacionalização (39 canais no exterior), venda de IA a big techs, deeptech catarinense."},
-  {n:"5", t:"Da imersão à POC", d:"Encaminhar o grupo para um piloto remunerado com metas mensuráveis (nº de registros/depósitos gerados)."}
+const PIS_DADOS = [
+  {n:"22,8 mil", l:"startups (+26,7%)"},
+  {n:"37,7%", l:"em Validação · 25,1% Ideação (early)"},
+  {n:"51,8%", l:"usam IA (dor: IA sem hype)"},
+  {n:"39,1%", l:"SaaS · 50,5% B2B"},
+  {n:"1.300", l:"startups no RS (+44,4%)"}
 ];
 function viewPiSebrae(){
-  let h=`<p class="tab-intro">Análise dos <b>6 relatórios oficiais do Observatório Sebrae Startups</b> — a base de dados da <b>oferta intermediária</b> (frente B): um projeto de <b>diagnóstico + estruturação + POC</b> em Propriedade Intelectual. A tese: o Sebrae já tem uma base grande e tech, mas <b>não mede nem trabalha PI em nenhum ponto do portal</b>. Esse é o espaço em branco.</p>`;
+  let h=`<p class="tab-intro">O <b>Edital 02 / Propriedade Intelectual</b> do Sebrae — o caminho da <b>oferta intermediária</b> (frente B). A NETZ credencia a <b>sua própria metodologia</b> no banco de soluções do Sebrae; quando surge uma demanda sem match no portfólio, a solução é puxada à prateleira e <b>executada por nós</b>, com valor-hora mais alto.</p>`;
 
-  // KPIs
-  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:11px;margin-bottom:22px">`;
-  PIS_KPI.forEach(k=>{
-    h+=`<div style="border:1px solid #262b34;border-top:3px solid ${k.c};border-radius:12px;background:linear-gradient(180deg,#12161d,#0e1218);padding:13px 14px">
-      <div style="font-size:24px;font-weight:800;color:${k.c};line-height:1.1">${esc(k.n)}</div>
-      <div style="font-size:12.5px;color:#e7edf3;margin-top:3px;font-weight:600">${esc(k.l)}</div>
-      <div style="font-size:11px;color:#8b95a3;margin-top:2px">${esc(k.s)}</div>
+  h+=`<div style="margin:4px 0 22px;padding:13px 16px;border:1px solid #ff9f7f44;background:#ff9f7f0d;border-left:3px solid #ff9f7f;border-radius:10px;font-size:12.8px;line-height:1.6;color:#e7edf3"><b style="color:#ff9f7f">O que "PI" NÃO é aqui:</b> não é vender registro de patente/marca/software para os clientes. <b style="color:#BFFF80">O que é:</b> é o nome do edital — a <b>propriedade intelectual da NETZ</b> (a nossa metodologia), credenciada como solução específica de fornecedor. Vira um projeto especial/personalizado que só a NETZ entrega. <span style="color:#9aa4b2">Proteção do ativo (INPI, CNPJ da NETZ): ver a estratégia Sebrae.</span></div>`;
+
+  h+=`<h3 class="hermes-cases-titulo">As vias de entrada</h3>`;
+  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:11px;margin-bottom:24px">`;
+  PIS_VIAS.forEach(v=>{
+    h+=`<div style="border:1px solid #262b34;border-left:3px solid ${v.cor};border-radius:11px;background:linear-gradient(180deg,#12161d,#0e1218);padding:12px 14px">
+      <div style="display:flex;align-items:baseline;gap:7px;flex-wrap:wrap;margin-bottom:5px"><span style="font-size:13.5px;font-weight:800;color:${v.cor}">${esc(v.k)}</span><span style="font-size:12px;color:#c4ccd6">${esc(v.nome)}</span>${v.foco?`<span style="font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;font-weight:700;color:#BFFF80;border:1px solid #BFFF8055;border-radius:20px;padding:1px 7px">foco</span>`:''}</div>
+      <div style="font-size:12.3px;line-height:1.5;color:#9aa4b2">${esc(v.d)}</div>
     </div>`;
   });
   h+=`</div>`;
 
-  // tese central (3 colunas encadeadas)
-  h+=`<h3 class="hermes-cases-titulo">A tese — o ativo invisível</h3>`;
-  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:24px">`;
-  PIS_TESE.forEach((t,i)=>{
-    h+=`<section style="border:1px solid #262b34;border-radius:12px;background:linear-gradient(180deg,#12161d,#0e1218);padding:15px 16px;position:relative">
-      <div style="font-size:11px;color:#7e8a99;font-weight:700;letter-spacing:.1em">0${i+1}</div>
-      <div style="font-size:14.5px;font-weight:700;color:#e7edf3;margin:5px 0 7px">${esc(t.t)}</div>
-      <div style="font-size:12.8px;line-height:1.55;color:#dce3ea">${esc(t.d)}</div>
-    </section>`;
-  });
-  h+=`</div>`;
-
-  // lacuna de PI (matriz)
-  h+=`<h3 class="hermes-cases-titulo">A lacuna de PI — lacuna → evidência → oportunidade</h3>`;
-  h+=`<div style="overflow-x:auto;margin-bottom:24px"><table style="width:100%;border-collapse:collapse;font-size:12.6px;min-width:640px">
-    <thead><tr>
-      <th style="text-align:left;padding:8px 10px;color:#ff9f7f;border-bottom:1px solid #2a2f3a;font-weight:700;width:26%">Lacuna</th>
-      <th style="text-align:left;padding:8px 10px;color:#9aa4b2;border-bottom:1px solid #2a2f3a;font-weight:700;width:42%">Evidência nos dados</th>
-      <th style="text-align:left;padding:8px 10px;color:#BFFF80;border-bottom:1px solid #2a2f3a;font-weight:700;width:32%">Oportunidade</th>
-    </tr></thead><tbody>`;
-  PIS_LACUNA.forEach(r=>{
-    h+=`<tr>
-      <td style="padding:9px 10px;border-bottom:1px solid #1a1e26;color:#e7edf3;font-weight:600;vertical-align:top">${esc(r.l)}</td>
-      <td style="padding:9px 10px;border-bottom:1px solid #1a1e26;color:#c4ccd6;line-height:1.5;vertical-align:top">${esc(r.e)}</td>
-      <td style="padding:9px 10px;border-bottom:1px solid #1a1e26;color:#cfe8b0;line-height:1.5;vertical-align:top">${esc(r.o)}</td>
-    </tr>`;
-  });
-  h+=`</tbody></table></div>`;
-
-  // ganchos por perfil
-  h+=`<h3 class="hermes-cases-titulo">Ganchos de PI por perfil de startup</h3>`;
-  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin-bottom:24px">`;
-  PIS_GANCHOS.forEach(g=>{
-    h+=`<div style="border:1px solid #262b34;border-left:3px solid ${g.c};border-radius:10px;background:#10141b;padding:11px 13px">
-      <div style="font-size:13px;font-weight:700;color:#e7edf3">${esc(g.p)}</div>
-      <div style="font-size:12.4px;color:#c4ccd6;line-height:1.5;margin-top:3px">→ ${esc(g.g)}</div>
+  h+=`<h3 class="hermes-cases-titulo">O ciclo — da metodologia à prateleira (Edital 02)</h3>`;
+  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:9px;margin-bottom:24px">`;
+  PIS_CICLO.forEach(p=>{
+    h+=`<div style="border:1px solid #262b34;border-radius:10px;background:#10141b;padding:11px 12px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="flex:none;width:22px;height:22px;border-radius:50%;background:#7fe0c022;border:1px solid #7fe0c066;color:#7fe0c0;font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center">${p.n}</span><span style="font-size:12.8px;font-weight:700;color:#e7edf3">${esc(p.t)}</span></div>
+      <div style="font-size:11.8px;color:#9aa4b2;line-height:1.45">${esc(p.d)}</div>
     </div>`;
   });
   h+=`</div>`;
 
-  // estrutura da imersão (funil 5 passos)
-  h+=`<h3 class="hermes-cases-titulo">Estrutura da imersão — da abertura à POC</h3>`;
-  h+=`<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:8px">`;
-  PIS_ESTRUTURA.forEach((p,i)=>{
-    const w=100-i*11;
-    h+=`<div style="display:flex;align-items:center;gap:12px">
-      <div style="flex:none;width:28px;height:28px;border-radius:50%;background:#7fe0c022;border:1px solid #7fe0c066;color:#7fe0c0;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center">${p.n}</div>
-      <div style="flex:1;max-width:${w}%;border:1px solid #262b34;border-left:3px solid #7fe0c0;border-radius:9px;background:linear-gradient(90deg,#12161d,#0e1218);padding:9px 13px">
-        <span style="font-size:13.5px;font-weight:700;color:#e7edf3">${esc(p.t)}</span>
-        <div style="font-size:12.3px;color:#9aa4b2;line-height:1.45;margin-top:2px">${esc(p.d)}</div>
-      </div>
+  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-bottom:24px">`;
+  h+=socCard("A regra de ouro — o diferencial","#ff9f7f",
+    `<div style="font-size:13px;line-height:1.6;color:#dce3ea">"<b>Sempre quando é propriedade intelectual tem que ter o diferencial.</b>" Metodologia genérica é <b>tiro no pé</b> — a gestora rejeita ("o que isso diferencia do que eu já tenho?"). O caminho: algo de <b>grande mercado</b> (gestão, transformação digital, IA) + uma <b>pitada do diferencial NETZ</b> + <b>nicho de setor</b>. Nem genérico demais, nem específico demais.</div>`);
+  h+=socCard("Valores (RS — por hora)","#ffd97f",
+    `<div style="font-size:13px;line-height:1.6;color:#dce3ea"><b>Consultoria</b> (individual): <b>R$ 211/h</b>.<br><b>Instrutoria</b> (coletivo — workshops, palestras): tabela decrescente, <b>R$ 1.300 → ~R$ 200/h</b> conforme o volume.<br><span style="color:#9aa4b2;font-size:12px">Formato = horas + execução. Ex.: 50h = 5 workshops de 3h + consultoria individual. O valor sai do valor-hora do edital.</span></div>`);
+  h+=`</div>`;
+
+  h+=`<h3 class="hermes-cases-titulo">O encaixe da NETZ (o diferencial a explorar)</h3>`;
+  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-bottom:24px">`;
+  PIS_ENCAIXE.forEach(e=>{
+    h+=`<div style="border:1px solid #262b34;border-left:3px solid ${e.c};border-radius:10px;background:#10141b;padding:11px 13px">
+      <div style="font-size:13px;font-weight:700;color:#e7edf3">${esc(e.t)}</div>
+      <div style="font-size:12.3px;color:#c4ccd6;line-height:1.5;margin-top:3px">${esc(e.d)}</div>
     </div>`;
   });
   h+=`</div>`;
-  h+=`<p style="font-size:11.5px;color:#6f7987;margin-top:14px">Fontes: Report Brasil 2025, Impacto da Internacionalização (2024), Startup Genome SP (2026) e Florianópolis (2025), Govtechs no Brasil (2024), Mapeamento SC 2024 · Observatório Sebrae Startups.</p>`;
+
+  h+=`<h3 class="hermes-cases-titulo">Os dados do Observatório — inteligência de mercado (não proteção de PI)</h3>`;
+  h+=`<p style="font-size:12.5px;color:#9aa4b2;margin:0 0 11px;line-height:1.55">Os 6 relatórios servem para <b>escolher o nicho</b> da metodologia, <b>dimensionar o público</b> e <b>fundamentar a proposta</b> ao gestor — não para vender registro de PI aos clientes.</p>`;
+  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:24px">`;
+  PIS_DADOS.forEach(k=>{
+    h+=`<div style="border:1px solid #262b34;border-top:3px solid #7Fd4ff;border-radius:11px;background:linear-gradient(180deg,#12161d,#0e1218);padding:12px 13px">
+      <div style="font-size:22px;font-weight:800;color:#7Fd4ff;line-height:1.1">${esc(k.n)}</div>
+      <div style="font-size:11.5px;color:#c4ccd6;margin-top:3px;line-height:1.4">${esc(k.l)}</div>
+    </div>`;
+  });
+  h+=`</div>`;
+
+  h+=socCard("O que falta ELABORAR (em aberto)","#BFFF80",
+    `<div style="font-size:13px;line-height:1.6;color:#dce3ea"><b>Feito:</b> 1 produto no Únio (o site), aprovado, aguardando demanda.<br><b>A definir:</b> elaborar a <b>metodologia própria da NETZ</b> — método proprietário, diferenciado, nichado, no formato hora/execução — para cadastrar no Edital 02 (PI) e em mais categorias da Únio (planejamento estratégico e transformação digital têm mais demanda).<br><b>Antes de expor:</b> registrar software/marca no INPI, no CNPJ da NETZ.<br><b>Articulação:</b> levar cases a eventos/painéis e conhecer gestores — mas quem decide puxar a solução é a gestora de soluções (portfólio).</div>`);
+
+  h+=`<p style="font-size:11.5px;color:#6f7987;margin-top:16px">Fontes: reunião presencial Sebrae-RS (11/jul/2026, fonte primária) · estratégia Sebrae/Sistema S · Observatório Sebrae Startups (6 relatórios).</p>`;
   return h;
 }
 

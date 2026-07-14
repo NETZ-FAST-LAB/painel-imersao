@@ -56,7 +56,7 @@ Pasta de contexto consumível por agentes (Claude Code, Mintzie-guia, e outros).
 - **comercial-estrutura.md** — a estrutura comercial desenhada no momento Comercial (pt.1 + pt.2): papel do Hermez, as 3 frentes/pacotes iniciais e — na **parte 2** — a matriz consolidada por frente (A: sites via agências parceiras / portal `parceiro.netz.now`; B: projetos médios via Sebrae; C: consultoria grande via parceiros), o funil próprio de cada frente, a virada "site = infra/vitrine, não canal", a estratégia de relacionamento e as promessas por frente. *Aponte aqui para funil, frentes, pacotes, precificação, portal de parceiros e o papel comercial do Hermez.*
 - **reuniao-comercial-pt1-transcricao.md** — transcrição do momento comercial pt.1 (fonte primária).
 - **reuniao-comercial-pt2-transcricao.md** — transcrição do momento comercial pt.2 (fonte primária): a matriz por frente, o portal de agências, o insight do Sebrae e as promessas da consultoria.
-- **sebrae-pi-observatorio.md** — análise dos 6 relatórios do Observatório Sebrae Startups como base da **oferta intermediária** (frente B): a tese "ativo invisível" (IA em 51,8% dos negócios, zero indicador de PI no portal), dados-chave (22,8 mil startups, +26,7%; SaaS 39,1%; deeptech 44% em SC), a lacuna de PI, público, ganchos por perfil e a estrutura diagnóstico→POC. *Aponte aqui para a oferta de PI/diagnóstico via Sebrae e os números que a sustentam.*
+- **sebrae-edital-pi-metodologia.md** — o **Edital 02 / Propriedade Intelectual** do Sebrae: NÃO é vender patente/marca aos clientes; é a **NETZ credenciar a sua própria metodologia** (a PI da NETZ) no banco de soluções → prateleira Sebrae, executada por nós com valor-hora mais alto. Cobre as vias (Edital 01/02, Únio, SGF), o ciclo de credenciamento, a regra do diferencial ("genérico é tiro no pé"), os valores-hora (R$211 consultoria; instrutoria R$1.300→200), o encaixe da NETZ (maturidade p/ investimento, IA sem hype, nicho) e o papel correto dos dados do Observatório (inteligência de mercado, não proteção de PI dos clientes). *Aponte aqui para a metodologia própria credenciável (frente B / oferta intermediária) e o Edital 02.*
 
 ## `referencias-externas/` — repertório externo (input, não decisão)
 - **futures-china-dossie-referencias.md** — dossiê de referências sobre China (tech/IA, geopolítica, energia/agro, cultura, educação), oportunidades e insights.
@@ -1509,147 +1509,64 @@ DOCUMENTO-FONTE: reuniao-sebrae-poa.md
 
 
 ==================================================================
-DOCUMENTO-FONTE: sebrae-pi-observatorio.md
+DOCUMENTO-FONTE: sebrae-edital-pi-metodologia.md
 ==================================================================
 
-# Contexto do Projeto — Painel da Imersão (Propriedade Intelectual + Estratégia Sebrae Startups)
+# Edital 02 / Propriedade Intelectual (Sebrae) — a metodologia própria da NETZ como produto credenciável
 
-> Documento de contexto para alimentar o projeto do painel da imersão. Consolida a análise do Observatório Sebrae Startups e os dados extraídos de 6 relatórios oficiais. Última atualização: 13/07/2026.
-
----
-
-## 1. Para que serve este documento
-
-Reunir, em um só lugar, a base de dados e a narrativa que sustentam a oferta de um projeto de **diagnóstico + estruturação + prova de conceito (POC)** em Propriedade Intelectual (PI) para o ecossistema Sebrae Startups. Serve como memória de contexto para desenhar a imersão/workshop: quem é o público, qual o problema, quais dados provam a oportunidade e por onde a conversa deve caminhar.
-
-Produto de referência (entregas possíveis): mapeamento de problema, diagnóstico rápido, workshop/imersão, protótipo ou POC remunerada, relatório/roadmap e material-base para futuras oportunidades.
+> **Correção conceitual importante.** "Propriedade intelectual" aqui **NÃO** é vender registro de patente/marca/software para os clientes. É o nome do **Edital 02 do Sebrae**, o caminho onde a **NETZ credencia a sua própria metodologia** (a PI *da NETZ*, "solução específica de fornecedor") no banco de soluções do Sebrae — para ser puxada à prateleira e **executada por nós**, com valor-hora mais alto. Vira um projeto especial/personalizado que só a NETZ entrega.
+> Fonte primária: `reuniao-sebrae-poa.md` (reunião presencial, 11/jul/2026). Mecânica de proteção do ativo: `estrategia-sebrae-sistema-s-netz.md`. Última atualização: 13/07/2026.
 
 ---
 
-## 2. Contexto: o que é o Observatório Sebrae Startups
+## 1. Em uma frase
+A NETZ registra uma metodologia **proprietária e diferenciada**, no formato **hora/execução**; o Sebrae a coloca no **banco de soluções**; quando surge uma demanda que o portfólio do Sebrae não cobre, a solução é **puxada para a prateleira** e a NETZ executa. O ativo é da NETZ — não entra no rodízio de consultores.
 
-Plataforma agregadora de dados do Sebrae que integra e democratiza informações sobre startups. É uma estratégia nacional **liderada pelo Sebrae/SC** (Polo de Referência Sebrae em Startups), com atuação em todas as unidades federativas. Seis frentes de dado:
+## 2. As vias de entrada (do que o gestor explicou)
+- **Edital 01 — Produtos Sebrae:** metodologias mais genéricas, de massa (gestão, finanças, RH, planejamento estratégico, marketing). O Sebrae às vezes **compra** a metodologia e ela passa a ser dele (replicável por outros consultores).
+- **Edital 02 — Propriedade Intelectual** *(FOCO):* a metodologia é **da NETZ** (solução específica de fornecedor). A demanda que casa com ela é da NETZ — não há rodízio. **Valor-hora mais alto.** Exige **diferencial** (ver §4).
+- **Únio (Sebrae-RS):** marketplace onde o **cliente escolhe** o prestador (com subsídio/cupom). Menor atrito, boa porta de entrada. A NETZ já cadastrou **1 produto (o site)**, aprovado, aguardando demanda.
+- **SGF (outros estados):** sistema de gestão de fornecedores, modelo tipo "leilão de demanda" — os credenciados submetem proposta a uma oportunidade aberta.
 
-- **Indicadores / Panorama** — painel interativo com filtros por região, estado, município, maturidade, modelo de negócio, produto e segmento; gera recortes próprios do perfil das startups mapeadas.
-- **Estudos** — biblioteca com ~30 reports nacionais, estaduais/regionais, temáticos e infográficos.
-- **Radar de Legislação** — leis para e sobre startups (base do argumento jurídico: Marco Legal das Startups, Lei de Software, LGPD).
-- **Radar de Oportunidades** — editais e chamadas.
-- **Radar de Notícias** e **Vitrine Sebrae Startups** (diretório de startups).
-- **LIS** — assistente de IA que consulta a base.
+## 3. O ciclo do Edital 02 (como a solução chega à prateleira)
+1. Cadastrar a **empresa** (certidões, aspecto legal).
+2. Cadastrar as **metodologias** que fazem sentido → ficam no **banco de soluções** (ainda não na prateleira).
+3. Surge uma **demanda**; um gestor de projeto olha o portfólio Sebrae e **não acha** solução.
+4. Solicita à **área de soluções**; a gestora confere o portfólio e o banco de soluções.
+5. Se a solução da NETZ **encaixa**, é puxada — e a NETZ (como quem originou a demanda) tem a **primeira execução**.
+6. Depois de puxada, passa a integrar o **portfólio Sebrae** e fica disponível para outros consultores (nuance de replicação — negociar valor/condição).
 
----
+## 4. A regra de ouro: DIFERENCIAL (senão é "tiro no pé")
+> *"Sempre quando é propriedade intelectual tem que ter o diferencial."*
 
-## 3. A tese central (problema → oportunidade)
+Se a metodologia é **genérica**, a gestora de soluções rejeita: "o que isso diferencia do que eu já tenho na prateleira? O Sebrae já atende com o portfólio dele." O caminho é pegar **algo de grande mercado** (gestão, transformação digital, IA para micro/pequenas) e trazer uma **"pitadinha" do diferencial NETZ + nichar num setor** → virar o "cartão de visita" que ninguém pensa igual. Nem específico demais (não vende), nem genérico demais (é tiro no pé) — a mescla.
 
-O Sebrae já tem uma base grande, crescente e majoritariamente tech/SaaS/B2B de startups — mas **não mede nem trabalha propriedade intelectual em nenhum ponto do portal**. Os próprios relatórios evidenciam:
+## 5. Valores (RS — pré-definidos por hora)
+- **Consultoria (individual):** R$ 211/h.
+- **Instrutoria (coletivo — workshops, seminários, palestras):** tabela **decrescente**, de ~R$ 1.300/h até ~R$ 200/h conforme o volume de horas.
+- **Formato = horas + execução.** Ex.: "programa de inovação corporativa: 50h = 5 workshops de 3h + X horas de consultoria individual." O valor final sai automaticamente do valor-hora do edital (não é negociável nos editais; na Únio o cliente escolhe).
 
-1. **Os ativos existem**: mais da metade das startups usam IA; SaaS e software dominam os modelos.
-2. **A proteção não existe**: nenhum indicador de patente, marca, registro de software ou segredo industrial em todo o Observatório.
-3. **O próprio Sebrae reconhece o gap**: o Report Brasil 2025 afirma, textualmente, que o ecossistema tem "menor intensidade tecnológica e participação limitada em hardware, deeptech e inovação científica aplicada".
+## 6. O encaixe da NETZ (o diferencial a explorar)
+- **Inovação corporativa (grandes clientes) aplicada a micro/pequenas:** levar a pequena empresa ao "limite do porte" — processos, planejamento, governança — para atingir **maturidade e atrair investimento** ("mostrar que o crescimento foi consistência, não sorte"). É exatamente o gap que o gestor descreveu (ex.: programa Capital Empreendedor → circuito de investimento).
+- **IA de forma consistente para micro/pequenas:** o mercado tem dificuldade de levar IA sem hype; a NETZ como facilitadora que "pega pela mão" e conduz o que faz sentido para o porte.
+- **Nichar num setor:** saúde aparece forte em startups; varejo/indústria/agro são prioridade Sebrae. Especialização = diferencial ("nesse aqui dificilmente alguém me bate").
+- **Formato produtizável:** uma "jornada de inovação" em N encontros/temas, no molde hora/execução — como a própria metodologia que o gestor descreveu.
 
-A imersão nasce para preencher esse espaço em branco: transformar ativos intangíveis desprotegidos em ativos protegidos, mais valiosos e prontos para escala e internacionalização.
+## 7. O papel CERTO da análise do Observatório Sebrae Startups
+Os 6 relatórios do Observatório **não** servem para "vender proteção de PI aos clientes". Servem como **inteligência de mercado** para: (a) **escolher o setor/nicho** da metodologia (onde há volume + prioridade Sebrae + fit NETZ); (b) **dimensionar o público** (estágio, modelo, tecnologia) e calibrar a linguagem; (c) **fundamentar a proposta** ao gestor com dado.
 
----
+Números úteis: ~**22,8 mil** startups (+26,7%); maturidade concentrada em **Validação 37,7%** e **Ideação 25,1%** (público early-stage — precisa de estrutura/maturidade, que é o diferencial NETZ); **SaaS 39,1%**, **B2B 50,5%**; **IA declarada em 51,8%** (dor de "levar IA sem hype"); **RS 1.300** startups (+44,4%). Fontes: Report Brasil 2025, Impacto da Internacionalização (2024), Startup Genome SP (2026) e Florianópolis (2025), Govtechs no Brasil (2024), Mapeamento SC 2024. Portal: observatorio.sebraestartups.com.br
 
-## 4. Dados-chave (evidências para a imersão)
+## 8. Estado atual e o que falta ELABORAR
+- **Feito:** 1 produto cadastrado no Únio (o site), aprovado, aguardando demanda.
+- **A definir (em aberto):** **elaborar a metodologia própria da NETZ** — qual é o método proprietário, diferenciado, nichado, no formato hora/execução — para cadastrar no **Edital 02 (PI)** e em mais categorias da Únio (planejamento estratégico e transformação digital são as de maior volume/demanda).
+- **Proteger antes de expor:** registro do software/marca no **INPI, no CNPJ da NETZ** (ver `estrategia-sebrae-sistema-s-netz.md`, Fase 0). "Registrar metodologia" não existe como ato único — protege-se a **expressão** (software, marca, materiais).
+- **Articulação/relacionamento:** levar **cases** a eventos/painéis (FBV, Mercopar, Expo) e conhecer gestores gera visibilidade — mas a decisão de puxar a solução é da **gestora de soluções** (olhando o portfólio), não do gestor regional.
 
-### 4.1 Panorama nacional — Report Brasil 2025 (fev/2026)
-
-- **~22,8 mil** startups mapeadas pelo Sebrae; crescimento de **+26,7%** no ano.
-- **93.288 atendimentos** do Sebrae a startups em 2025 (**+17,2%**).
-- Concentração: **Sudeste 38,3%**; **Nordeste** com o maior crescimento (**+35,4%**); Norte e Centro-Oeste como próxima fronteira.
-- Estados: SP 5.119 (22,4%), SC 2.239 (9,8%), MG 1.385, RS 1.300 (+44,4%), PE 1.188 (+72,2%).
-- Cidades: São Paulo 2.416, Florianópolis 921, Rio 724, Recife 640, Fortaleza 571.
-- Modelos: **SaaS 39,1%**; **B2B 50,5%** (mais de **70%** somando B2B + B2B2C).
-- Maturidade: **Validação 37,7%** (maior fatia) e **Ideação 25,1%** — ecossistema em estágio inicial.
-- Tecnologias declaradas: **IA 51,8%**, APIs **26,7%**, Nuvem 22,6%, Big Data 15,8%.
-- Estrutura societária: 2–3 sócios 47,1%; sócio único 27,1%.
-- Diversidade: mulheres 16,6%; pessoas negras 12,3%; LGBTQIA+ 4,7%; PCD 2%.
-
-### 4.2 Deeptech — Mapeamento SC 2024 (ago/2024)
-
-- **1.604** startups catarinenses. B2B **64,25%**; SaaS **48,87%**; Software 50,53%.
-- **44,44% se declaram deeptech** (IA e biotecnologia) — a maior densidade de ativos patenteáveis observada nos relatórios.
-- Combinação única: volume de startups + intensidade tecnológica + sede do Polo Sebrae de Startups → **praça-piloto nº 1**.
-
-### 4.3 Internacionalização — Impacto da Internacionalização (nov/2024)
-
-- 84 respondentes (missões Web Summit Lisboa 2022/2023).
-- **39 aberturas de filiais/canais** em 9 países: Portugal 21, EUA 5, Países Baixos 4, Alemanha 3, Espanha 2.
-- **+R$9 milhões** em negócios gerados (R$1,43 mi recorrentes). Investimentos captados majoritariamente em faixas iniciais (até R$100 mil: 48%). NPS 72,6%.
-- Cases relevantes de PI: "venda da nossa IA para o Google" (em negociação) e solução "nunca feita para o mercado imobiliário" — IA proprietária e novidade absoluta são exatamente o que se protege.
-
-### 4.4 Benchmark internacional — Startup Genome SP e Florianópolis (2026 / 2025)
-
-- **São Paulo**: Top #37 global e **#1 da América Latina** (GSER 2025); valor do ecossistema **US$ 9,2 bilhões**; ~23% AI-native.
-- A metodologia oficial do Startup Genome usa **"Universidades & Densidade de Patentes" como medida** de força do ecossistema. Ou seja: patente já é reconhecida internacionalmente como indicador de competitividade.
-- **Florianópolis**: fase "late attraction"; forte em talento técnico (engenheiros +8%, growth talent +30% vs. pares); **sem liderança clara em nenhum setor** → janela para especialização (ex.: deeptech).
-
-### 4.5 Setor público — Govtechs no Brasil (nov/2024)
-
-- **1.606 govtechs**. Ranking: SP, PE, SC, PI, MG, CE, RS, RN, BA, AL. Regiões: NE 39%, SE 27%, Sul 16%.
-- Software é 46% dos produtos → vender ao poder público envolve licitação, licenciamento e titularidade de código: campo denso de cláusulas de PI.
-
----
-
-## 5. A lacuna de PI (o espaço em branco a explorar)
-
-| Lacuna | Evidência nos dados | Oportunidade |
-|---|---|---|
-| Nenhum indicador de PI no portal | Painel mede segmento, receita, maturidade, sócios — nada de patentes/marcas/software | Propor eixo de indicador de PI, com metodologia própria |
-| PI ausente dos ~30 reports | Nenhum estudo trata proteção de ativos como tema central | Report temático "PI nas Startups", replicável ano a ano |
-| Deeptech/IA sem rota de patente | IA em 51,8% (Brasil); 44,44% deeptech em SC; "participação limitada em deeptech" | Trilha de patente para deeptech, começando por SC e SP |
-| Patente é benchmark, mas não é medida no Brasil | Startup Genome ranqueia por densidade de patentes; Sebrae não mede | Métrica de PI que o benchmark internacional já valida |
-| Internacionalização sem proteção formal | 39 canais no exterior, venda de IA a big techs, zero dado sobre registro lá fora | "PI para exportar" acoplado às missões Sebrae/APEX |
-
----
-
-## 6. Público da imersão
-
-- **Fundadores de startups** em estágio de Validação/Tração (a maior fatia), sobretudo SaaS/B2B e deeptech.
-- **Gestores e analistas do Sebrae** (Polo de Startups e unidades estaduais) que desenham programas.
-- **Parceiros do ecossistema** (aceleradoras, universidades e ELIs — fonte de PI acadêmica).
-
-Tom: prático e aplicado. A maioria são microempresas em estágio inicial — a linguagem precisa traduzir PI em decisão de negócio, não em jargão jurídico.
-
----
-
-## 7. Estrutura sugerida para o painel/imersão
-
-1. **Abertura — o ativo invisível**: mostrar que 51,8% já usam IA e quase ninguém protege. Ancorar no dado do próprio Sebrae sobre o gap de deeptech.
-2. **Diagnóstico ao vivo**: usar o painel de Indicadores (filtro por segmento/maturidade/UF) para o público se enxergar no mapa e dimensionar seus próprios ativos.
-3. **Os quatro gatilhos de PI** (ver seção 8): quando proteger, o quê e por quê.
-4. **Casos reais**: internacionalização (39 canais no exterior), venda de IA a big techs, deeptech catarinense.
-5. **Da imersão à POC**: encaminhar o grupo para um piloto remunerado com metas mensuráveis (nº de registros/depósitos gerados).
-
----
-
-## 8. Ganchos de PI por perfil de startup
-
-- **SaaS / software (39,1%)** → registro de programa de computador + marca como ativos centrais.
-- **Deeptech / IA (51,8% usam IA; 44% deeptech em SC)** → rota de patente e segredo industrial.
-- **B2B (50,5%)** → marca e contratos protegem diferenciação e licenciamento.
-- **Startups em internacionalização** → registro de marca/patente no território de destino (pré-requisito de expansão).
-- **Govtechs** → titularidade de código e cláusulas de PI em contratos públicos.
-- **Pré-investimento / M&A** → PI como fator de due diligence e valuation.
-
----
-
-## 9. Fontes
-
-Relatórios oficiais analisados na íntegra (PDFs, 13/07/2026):
-
-- Sebrae Startups Report Brasil 2025 (Observatório Sebrae Startups / TD Business).
-- Sebrae Startups Report — Impacto da Internacionalização em Startups (2024).
-- Avaliação do Ecossistema de Startups de São Paulo — Startup Genome (2026).
-- Avaliação do Ecossistema de Startups de Florianópolis — Startup Genome (2025).
-- Infográfico Govtechs no Brasil (2024).
-- Mapeamento das Startups de Santa Catarina 2024.
-
-Portal: Observatório Sebrae Startups — https://observatorio.sebraestartups.com.br/pt-br
-(Estudos, Indicadores/Panorama, Radar de Legislação, Radar de Oportunidades, Vitrine, LIS.)
-
-Documento complementar: `Mapa_Dados_Oportunidade_Sebrae_PI.xlsx` (inventário completo, números-chave, mapa oferta→dado e lacunas).
+## Fontes
+- **reuniao-sebrae-poa.md** — reunião presencial com o gestor de inovação/startups do Sebrae-RS (11/jul/2026): a mecânica real do Edital 02/PI, Únio, SGF, valores-hora, a regra do diferencial. *Fonte primária.*
+- **estrategia-sebrae-sistema-s-netz.md** — como **proteger** (INPI, CNPJ) e **cadastrar** a metodologia; sequência recomendada; tabela de vias.
+- **Observatório Sebrae Startups** (6 relatórios) — inteligência de mercado para escolher nicho e fundamentar proposta.
 
 
 ==================================================================
