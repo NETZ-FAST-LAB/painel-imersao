@@ -690,10 +690,10 @@ const SEBRAE_PASSOS = [
 const STATUS_DEC=[{id:"aberta",label:"Em aberto",cor:"#6b7280"},{id:"andamento",label:"Discutindo",cor:"#ffd97f"},{id:"fechada",label:"Fechada",cor:"#BFFF80"},{id:"parking",label:"Parking lot",cor:"#c79fff"}];
 const TRIAGEM=[{id:"ressuscitar",label:"Ressuscitar",cor:"#BFFF80"},{id:"fundir",label:"Fundir",cor:"#7Fd4ff"},{id:"arquivar",label:"Arquivar",cor:"#6b7280"}];
 const POT_COR={alto:"#BFFF80",medio:"#ffd97f",baixo:"#6b7280"};
-const TABS=[{id:"cronograma",label:"Cronograma"},{id:"decisoes",label:"Decisões"},{id:"sociedade",label:"Sociedade"},{id:"comercial",label:"Comercial"},{id:"parking",label:"Parking lot"},{id:"fable",label:"Fable"},{id:"ideias",label:"Cemitério de ideias"},{id:"hermes",label:"Hermez"},{id:"site",label:"Site"},{id:"sebrae",label:"Sebrae"},{id:"pisebrae",label:"Edital PI"},{id:"parcerias",label:"Parcerias"},{id:"pesquisa",label:"Pesquisa profunda"},{id:"consult",label:"Consultorias"},{id:"bench",label:"Benchmarking"},{id:"refs",label:"Referências"}];
+const TABS=[{id:"fechamento",label:"Fechamento"},{id:"cronograma",label:"Cronograma"},{id:"decisoes",label:"Decisões"},{id:"sociedade",label:"Sociedade"},{id:"comercial",label:"Comercial"},{id:"parking",label:"Parking lot"},{id:"fable",label:"Fable"},{id:"ideias",label:"Cemitério de ideias"},{id:"hermes",label:"Hermez"},{id:"site",label:"Site"},{id:"sebrae",label:"Sebrae"},{id:"pisebrae",label:"Edital PI"},{id:"parcerias",label:"Parcerias"},{id:"pesquisa",label:"Pesquisa profunda"},{id:"consult",label:"Consultorias"},{id:"bench",label:"Benchmarking"},{id:"refs",label:"Referências"}];
 // menu em 3 grupos (experiência de consumo)
 const GROUPS=[
-  {id:"imersao",label:"Imersão",tabs:["cronograma","decisoes","sociedade","comercial","parking"]},
+  {id:"imersao",label:"Imersão",tabs:["fechamento","cronograma","decisoes","sociedade","comercial","parking"]},
   {id:"analises",label:"Análises",tabs:["fable","ideias","hermes","site","sebrae","pisebrae","parcerias"]},
   {id:"referencias",label:"Referências",tabs:["refs","pesquisa","consult","bench"]}
 ];
@@ -709,7 +709,7 @@ function defaultState(){
   return {dec,ideia,site,expanded:{}};
 }
 let state=load();
-let currentTab="cronograma";
+let currentTab="fechamento";
 let currentGroup="imersao";
 
 function load(){
@@ -764,7 +764,8 @@ function renderProgress(){
 
 function renderMain(){
   const m=document.getElementById("main");
-  if(currentTab==="cronograma")m.innerHTML=viewCronograma();
+  if(currentTab==="fechamento")m.innerHTML=viewFechamento();
+  else if(currentTab==="cronograma")m.innerHTML=viewCronograma();
   else if(currentTab==="sociedade")m.innerHTML=viewSociedade();
   else if(currentTab==="comercial")m.innerHTML=viewComercial();
   else if(currentTab==="parking")m.innerHTML=viewParking();
@@ -786,7 +787,7 @@ function renderMain(){
 // mapa visual do comercial: matriz de cruzamento (frente×dimensões) + funis + escada de pacotes
 const COM_FRENTES = [
   {k:"A", nome:"Sites via agências", cor:"#BFFF80", cliente:"a agência (não o cliente final)", oferta:"sites rápidos e replicáveis · portal parceiro.netz.now", ticket:"menor · volume", funil:"automatizável", hermez:"acha agências com fit no Google, manda leads, organiza a pipeline", pacote:"Entrada"},
-  {k:"B", nome:"Projetos médios via Sebrae", cor:"#ffd97f", cliente:"canal institucional (Sistema S)", oferta:"metodologia própria credenciável (Edital 02 · PI)", ticket:"médio", funil:"relacionamento", hermez:"registra contatos, mapeia editais, lembra prazos", pacote:"Intermediário"},
+  {k:"B", nome:"Projetos médios (multicanal)", cor:"#ffd97f", cliente:"público Sebrae/Sescoop + indicações de agências e consultorias", oferta:"diagnóstico + POC · metodologia credenciável (Edital 02 · PI)", ticket:"médio", funil:"relacionamento", hermez:"registra contatos, mapeia editais, lembra prazos", pacote:"Intermediário"},
   {k:"C", nome:"Consultoria via parceiros", cor:"#c79fff", cliente:"parceiros (VX · Pulsar · Almaria)", oferta:"tailor-made · personalização absoluta", ticket:"alto", funil:"relacionamento", hermez:"organiza cases, mantém o follow-up vivo", pacote:"Avançado"}
 ];
 const COM_FUNIS = [
@@ -796,8 +797,58 @@ const COM_FUNIS = [
 ];
 const COM_PACOTES = [
   {nome:"Entrada", cor:"#BFFF80", d:"sites / interfaces", nota:"ticket baixo, muito case, escala", frente:"A"},
-  {nome:"Intermediário", cor:"#ffd97f", d:"diagnóstico + POC (PI Sebrae)", nota:"em exploração — o \"produto do meio\"", frente:"B"},
+  {nome:"Intermediário", cor:"#ffd97f", d:"diagnóstico + POC: assistente OU plugin/extensão", nota:"POC remunerada em 2 formatos (v2, 15/jul) — porta para IA", frente:"B"},
   {nome:"Avançado", cor:"#c79fff", d:"consultoria personalizada", nota:"alto valor, poucos projetos, bem pagos", frente:"C"}
+];
+// ====================== COMERCIAL v2 (15/jul) — meta decomposta por frente ======================
+const COM_META = [
+  {frente:"C · Consultoria via parceiros", cor:"#c79fff", rs:"R$ 380k", pct:"55%", cot:"R$ 200–250", vol:"4 projetos grandes (méd. R$ 80k) + 2 POCs pagas + retainers", horas:"~800h", vh:"~R$ 475/h", comp:"~2× (do 2º projeto)", dono:"João · Denis"},
+  {frente:"A · Sites via agências", cor:"#BFFF80", rs:"R$ 175k", pct:"25%", cot:"R$ 200", vol:"rampa 2→4 sites/mês (~40/ano, R$ 3,5k) + hospedagem/manutenção", horas:"~480h", vh:"~R$ 365/h", comp:"~1,5× (pipeline)", dono:"Stacke · Denis · Gui"},
+  {frente:"B · Projetos médios (multicanal)", cor:"#ffd97f", rs:"R$ 70k", pct:"10%", cot:"R$ 211 / instrutoria alta", vol:"2 turmas instrutoria + ~100h consultoria credenciada (Sebrae/Sescoop) + médios indicados por agências/consultorias", horas:"~180h", vh:"~R$ 390/h", comp:"instrutoria puxa ↑", dono:"João"},
+  {frente:"Plugins / extensões (POC)", cor:"#7fe0c0", rs:"R$ 36k", pct:"5%", cot:"R$ 200", vol:"8 plugins pagos (méd. R$ 4,5k, 1–2 sem.)", horas:"~160h", vh:"~R$ 225/h", comp:"~1× (pouco reuso)", dono:"Denis/Gui · João"},
+  {frente:"Recorrência de assistentes", cor:"#7Fd4ff", rs:"R$ 35k", pct:"5%", cot:"—", vol:"3–4 clientes × R$ 1,2–2k/mês (rampa tri 2)", horas:"~60h", vh:"alto", comp:"quase passivo", dono:"Denis"}
+];
+const COM_RAMPA = [["T1 · ago–out","R$ 90k"],["T2 · nov–jan","R$ 130k"],["T3 · fev–abr","R$ 170k"],["T4 · mai–jul","R$ 200k"]];
+// v2.2 — economia unitária (waterfall de 1h cotada a R$200) e escada de preço
+const COM_WATERFALL = [
+  ["Cotado ao cliente","100%","R$ 200","preço da hora de escopo (já com imposto e custo)","#e7edf3"],
+  ["− Imposto (Simples)","~7%","−R$ 14","DAS sobre o faturamento","#ff9f7f"],
+  ["− Caixa interno","3–5% (4%)","−R$ 8","reserva da empresa (investimento/colchão)","#ffd97f"],
+  ["− Custos fixos rateados","~6%","−R$ 12","contab. + INSS×4 + VPS/domínio ≈ R$ 1,5k/mês","#ff9f7f"],
+  ["= Sobra p/ distribuir","~83%","~R$ 166","pró-labore/distribuição (hoje banca as 13h)","#BFFF80"]
+];
+const COM_ESCADA = [
+  {fase:"Hoje", cot:"R$ 150–250", gat:"—", paga:"só o pró-labore; 13h absorvidas; caixa 3–5%", cor:"#8b95a3"},
+  {fase:"Amadurecida", cot:"R$ 250–350", gat:"cases com resultado + certificações (Claude/OpenAI) → preço por valor", paga:"pró-labore interno p/ as 13h (construir a empresa passa a ser pago)", cor:"#BFFF80"},
+  {fase:"Premium", cot:"R$ 350–500+", gat:"metodologia registrada (INPI) + nicho dominado + selo próprio", paga:"reinvestimento em produto + reserva de sócio", cor:"#c79fff"}
+];
+// ====================== v2.1 — Programa de Parcerias (Rede de Parceiros NETZ) ======================
+const PARC_TIPOS = [
+  {nome:"1 · Agências", cor:"#BFFF80", dono:"Stacke (captação) · Denis (relacionamento) · Gui (operação)",
+   dor:"Vende site/tech e não tem braço; freelancer some e não padroniza; hospedagem/manutenção viram abacaxi; margem e prazo escapam.",
+   oferta:"Sites white-label rápidos e replicáveis + infra/hospedagem/tracking + a esteira (plugin → assistente) para os clientes dela.",
+   captacao:"Stacke faz o 1º contato (rede de design, cafezinho, DM); Hermez mapeia agências com fit e monta a lista. 2 reuniões/semana.",
+   relacionamento:"Portal parceiro.netz.now (Blue = MVP; nada de feature nova até 1 job real) · sucesso do lead · conteúdo por parceiro · fidelidade (10 sites → 1 cortesia) · over-delivery + follow-up.",
+   objetivo:"Volume recorrente (frente A) + porta de POCs nos clientes das agências.",
+   modelo:"Tabela white-label fixa (agência remarca) ou fee de indicação — padronizar na 1ª rodada.",
+   kpi:"2 reuniões/sem · 20 agências até dez · 1º job Blue em ago"},
+  {nome:"2 · Consultorias", cor:"#c79fff", dono:"João",
+   dor:"Ganha projetos com camada tech/IA que não entrega; precisa de prototipação rápida e confiável; quer oferecer IA sem montar equipe.",
+   oferta:"O braço de tecnologia/IA \"com método\": prototipação, assistentes, integrações, governança; consórcio formal quando o projeto pede (Pulsar·Uttana·VIEX já roda).",
+   captacao:"Relacionamento existente (VX, Pulsar, Almaria, Rafa) + novas consultorias; cafés \"olha o que fizemos\" sem vender; cases como prova de autoridade.",
+   relacionamento:"Case novo → mensagem pessoal ao parceiro · material co-brandado · Hermez registra o contexto e mantém o follow-up vivo.",
+   objetivo:"Tickets altos (frente C) + projetos médios por indicação.",
+   modelo:"Subcontratação com margem · consórcio com split · fee de indicação — definir tabela padrão (hoje é caso a caso).",
+   kpi:"2 cafés/mês · 1 proposta consultiva/mês · pipeline ≥ 3× meta do tri"},
+  {nome:"3 · Alianças de Ecossistema", cor:"#7Fd4ff", dono:"João · cap 4h/sem",
+   dor:"A plataforma (Anthropic, OpenAI; depois MS × Salesforce × TOTVS) precisa de quem implante agentes EM PRODUÇÃO com CSAT — 40 mil candidatos, pouquíssimos qualificados no BR.",
+   oferta:"Casos reais em produção (Corsan, Sicredi, Mintzie) + 4 profissionais certificados + método documentado.",
+   captacao:"Inscrição nos programas (jul–set: Claude + OpenAI/Agents); certificação dos 4 até out; âncora enterprise decidida em out pela base real de clientes.",
+   relacionamento:"Cumprir métricas de tier (certificados + casos + CSAT); ciclos semestrais (Anthropic: 1º/jan).",
+   objetivo:"Selo que encarece a frente C e os consórcios + leads dos diretórios + co-sell + capacitação subsidiada.",
+   modelo:"Não é funil direto — é credencial + distribuição. Não carrega a meta do tri.",
+   kpi:"2 cadastros até set · 4 certificados até out · 2 casos documentados até dez",
+   nota:"Nome a bater: Alianças de Ecossistema (recomendado) · Parceiros de Plataforma · Certificações & Alianças. Na narrativa: a micorriza da rede (imagem interna)."}
 ];
 function comercialMapaVisual(){
   let h=`<details open style="margin-bottom:16px;border:1px solid #262b34;border-radius:12px;background:#0e1218;padding:4px 2px">
@@ -868,7 +919,7 @@ function comercialMapaVisual(){
   return h;
 }
 function viewComercial(){
-  let h=`<p class="tab-intro">Estrutura comercial desenhada no momento Comercial (pt.1 + pt.2) — oficina de decisão, não debate. Papel do Hermez, a matriz por frente, os pacotes, o funil e as regras.</p>`;
+  let h=`<p class="tab-intro">Estrutura comercial (Comercial pt.1 + pt.2) evoluída na <b>v2.2 (15/jul)</b>: capacidade real (13h dentro das 6h/dia), <b>valor-hora real R$ 150–250 + economia unitária</b>, meta decomposta por frente, escada de preço p/ remunerar as 13h, Programa de Parcerias (3 tipos), plugins como POC e a rota de certificações. Doc: <code>comercial-definicoes-v2.md</code>.</p>`;
   h+=`<div style="margin-bottom:14px;display:flex;flex-wrap:wrap;gap:8px"><a href="/reuniao-comercial.html" target="_blank" rel="noopener" style="text-decoration:none;color:#7Fd4ff;border:1px solid #7Fd4ff44;border-radius:8px;padding:7px 13px;font-size:12.5px">📄 Transcrição comercial (pt.1)</a><a href="/reuniao-comercial-pt2.html" target="_blank" rel="noopener" style="text-decoration:none;color:#7Fd4ff;border:1px solid #7Fd4ff44;border-radius:8px;padding:7px 13px;font-size:12.5px">📄 Transcrição comercial (pt.2)</a></div>`;
   h+=`<div style="margin-bottom:14px;padding:11px 14px;border:1px solid #BFFF8033;background:#BFFF800a;border-radius:10px;font-size:12.5px;line-height:1.55;color:#dce3ea"><b style="color:#BFFF80">Virada da pt.2:</b> o <b>site não é o canal principal</b> — é a vitrine/infra comercial. Os canais são as 3 frentes; o LinkedIn é o gancho. A palavra que amarra a oferta é <b>parceria</b>.</div>`;
 
@@ -876,15 +927,106 @@ function viewComercial(){
 
   h+=comercialMapaVisual();
 
+  // ---- v2: meta decomposta por frente (proposta p/ calibrar na terça) ----
+  h+=`<div id="meta-frentes" style="margin:16px 0;border:1px solid #c79fff44;border-radius:12px;background:#c79fff08;padding:14px 16px">
+    <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:8px">
+      <span style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#c79fff;font-weight:700">💰 Meta decomposta por frente — proposta v1</span>
+      <span style="font-size:11px;color:#8b95a3">R$ 695.952/ano · para calibrar na terça (o strawman do compromisso do Gui)</span>
+    </div>
+    <div style="font-size:12.3px;color:#dce3ea;line-height:1.5;margin-bottom:10px"><b>Capacidade (v2.1):</b> 6h/dia × 5d = 30h/sem por sócio, <b>13h internas dentro dessas</b> → ~17h de projeto/sócio → <b>~294h faturáveis/mês (~3.530h/ano)</b> nos 4. <b>Valor-hora real (v2.2): R$ 150–250 cotado</b>, já com imposto e custo. Alerta: por hora pura a meta pediria ~99% de utilização (impossível) — ela só fecha porque o <b>efetivo (~R$ 414) é ~2× o cotado, e esse 2× é 100% reuso da base</b>. Logo <b>a meta é refém do reuso funcionar</b>: no ano 1, sem base madura, R$ 696k é <b>run-rate de saída (T4), não total do ano</b> (ano-1 realista ~R$ 480–560k).</div>
+    <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:11.6px;min-width:840px">
+      <thead><tr>${["Frente","R$/ano","%","Cotado","Horas reais","R$/h efetivo","Compressão","Dono"].map(c=>`<th style="text-align:left;padding:6px 7px;border-bottom:1px solid #2a2f3a;color:#7e8a99;font-weight:700">${c}</th>`).join("")}</tr></thead><tbody>
+      ${COM_META.map(m=>`<tr>
+        <td style="padding:7px 7px;border-bottom:1px solid #1a1e26;color:${m.cor};font-weight:700">${esc(m.frente)}</td>
+        <td style="padding:7px 7px;border-bottom:1px solid #1a1e26;color:#e7edf3;font-weight:700;white-space:nowrap">${esc(m.rs)}</td>
+        <td style="padding:7px 7px;border-bottom:1px solid #1a1e26;color:#9aa4b2">${esc(m.pct)}</td>
+        <td style="padding:7px 7px;border-bottom:1px solid #1a1e26;color:#c4ccd6;white-space:nowrap">${esc(m.cot)}</td>
+        <td style="padding:7px 7px;border-bottom:1px solid #1a1e26;color:#9aa4b2;white-space:nowrap">${esc(m.horas)}</td>
+        <td style="padding:7px 7px;border-bottom:1px solid #1a1e26;color:#e7edf3;font-weight:600;white-space:nowrap">${esc(m.vh)}</td>
+        <td style="padding:7px 7px;border-bottom:1px solid #1a1e26;color:#9aa4b2;white-space:nowrap">${esc(m.comp)}</td>
+        <td style="padding:7px 7px;border-bottom:1px solid #1a1e26;color:#c4ccd6;white-space:nowrap">${esc(m.dono)}</td>
+      </tr>`).join("")}
+      <tr><td style="padding:7px 7px;color:#e7edf3;font-weight:800">Total / média</td><td style="padding:7px 7px;color:#BFFF80;font-weight:800">≈ R$ 696k</td><td style="padding:7px 7px;color:#9aa4b2">100%</td><td style="padding:7px 7px;color:#c4ccd6;font-weight:600">R$ 150–250</td><td style="padding:7px 7px;color:#e7edf3;font-weight:700">~1.680h</td><td style="padding:7px 7px;color:#e7edf3;font-weight:700">~R$ 414/h</td><td style="padding:7px 7px;color:#e7edf3;font-weight:700">~2× blend</td><td style="padding:7px 7px"></td></tr>
+      </tbody></table></div>
+    <div style="font-size:10.8px;color:#8b95a3;margin-top:5px">O <b>efetivo ≈ 2× o cotado</b> vem inteiro do reuso da base — não de cobrar mais por hora. É a aposta que sustenta a meta.</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">${COM_RAMPA.map(r=>`<span style="font-size:11.5px;color:#dce3ea;border:1px solid #2a2f3a;border-radius:8px;padding:4px 10px;background:#12161d"><b style="color:#ffd97f">${r[0]}</b> · ${r[1]}</span>`).join("")}<span style="font-size:11px;color:#8b95a3;align-self:center">soma ~R$ 590k = ano-1 realista; run-rate de saída ~R$ 800k</span></div>
+    <div style="font-size:11.8px;color:#9aa4b2;line-height:1.55;margin-top:10px"><b style="color:#ff9f7f">Checagem honesta (v2.2):</b> a R$ 150–250 cotado, por hora pura a meta pediria ~99% de utilização — <b>impossível</b>. Ela só fecha porque o efetivo é ~2× o cotado, e esse 2× é <b>100% reuso da base</b> (o teste da T6). Sem base madura no ano 1, a compressão é menor → R$ 696k é <b>run-rate de saída, não total do ano</b>. Gatilho de revisão p/ cima: utilização paga ≥ 70% por 2 meses.</div>
+  </div>`;
+
+  // ---- v2.2: economia unitária (waterfall) + escada de preço ----
+  h+=`<div id="economia-unitaria" style="margin:16px 0;border:1px solid #ff9f7f33;border-radius:12px;background:#ff9f7f08;padding:14px 16px">
+    <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:10px">
+      <span style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#ff9f7f;font-weight:700">🧾 Economia unitária (v2.2) — para onde vai 1h cotada a R$ 200</span>
+    </div>
+    <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:12px;min-width:560px">
+      <tbody>${COM_WATERFALL.map(w=>`<tr>
+        <td style="padding:6px 8px;border-bottom:1px solid #1a1e26;color:${w[4]};font-weight:600">${esc(w[0])}</td>
+        <td style="padding:6px 8px;border-bottom:1px solid #1a1e26;color:#9aa4b2;white-space:nowrap">${esc(w[1])}</td>
+        <td style="padding:6px 8px;border-bottom:1px solid #1a1e26;color:${w[4]};font-weight:700;white-space:nowrap">${esc(w[2])}</td>
+        <td style="padding:6px 8px;border-bottom:1px solid #1a1e26;color:#9aa4b2;line-height:1.4">${esc(w[3])}</td>
+      </tr>`).join("")}</tbody></table></div>
+    <div style="font-size:11.8px;color:#9aa4b2;line-height:1.55;margin-top:9px"><b style="color:#e7edf3">Cotado ≠ efetivo:</b> R$ 200 é o preço da hora de escopo; o efetivo (receita ÷ horas gastas) sobe com o reuso. <b style="color:#ff9f7f">Hoje as 13h internas não são pagas</b> — saem da camada "sobra p/ distribuir": o sócio financia o trabalho de construir a empresa com o próprio pró-labore.</div>
+
+    <div style="font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:#BFFF80;font-weight:700;margin:16px 0 9px">📈 Escada de preço — como remunerar as 13h</div>
+    <div style="font-size:11.8px;color:#9aa4b2;line-height:1.5;margin-bottom:10px">Remunerar as 13h (~225h internas/mês = ~2.700h/ano) a R$ 120/h = ~<b>R$ 324k/ano</b> a mais — não sai da folga de horas, sai de <b>preço maior por hora paga</b>. Sobe-se de degrau <b>por prova (case + selo), nunca por vontade</b>.</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px">
+    ${COM_ESCADA.map(e=>`<div style="border:1px solid ${e.cor}44;border-radius:10px;background:linear-gradient(180deg,${e.cor}0a,#0e1218);padding:11px 13px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:6px;margin-bottom:6px"><b style="color:${e.cor};font-size:13px">${esc(e.fase)}</b><span style="color:#e7edf3;font-weight:700;font-size:12.5px;white-space:nowrap">${esc(e.cot)}</span></div>
+      <div style="font-size:11.4px;color:#c4ccd6;line-height:1.45"><b style="color:#7Fd4ff">gatilho:</b> ${esc(e.gat)}</div>
+      <div style="font-size:11.4px;color:#c4ccd6;line-height:1.45;margin-top:4px"><b style="color:#ffd97f">paga:</b> ${esc(e.paga)}</div>
+    </div>`).join("")}
+    </div>
+    <div style="font-size:11.5px;color:#8b95a3;line-height:1.5;margin-top:10px">O incremento de ~R$ 100/h (de ~200 p/ ~300) × ~1.680h ≈ <b>R$ 168k/ano</b> cobre metade das 13h remuneradas já no 1º degrau; a compressão crescente cobre o resto. <b>Cases + certificações não são vaidade — são a licença para cobrar mais</b> e o que vira as 13h de custo em investimento pago. Caixa: todo projeto lança <b>7% imposto + 4% caixa</b> no fechamento (Hermez financeiro consolida).</div>
+  </div>`;
+
+  // ---- v2.1: Programa de Parcerias (Rede de Parceiros NETZ) ----
+  h+=`<div id="parcerias-programa" style="margin:16px 0;border:1px solid #BFFF8033;border-radius:12px;background:#BFFF8006;padding:14px 16px">
+    <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:4px">
+      <span style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#BFFF80;font-weight:700">🤝 Programa de Parcerias — Rede de Parceiros NETZ (v2.1)</span>
+      <span style="font-size:11px;color:#8b95a3">3 tipos, cada um com dor, captação, relacionamento, modelo e dono próprios</span>
+    </div>
+    <div style="font-size:12px;color:#9aa4b2;line-height:1.5;margin-bottom:12px">Com a capacidade real (v2.1), o gargalo é <b>demanda</b> — e demanda chega quase toda por parceiro. O institucional (Sebrae + Sescoop/OCB) fica fora do programa: é credenciamento + relacionamento com gestores (aba Sebrae / Edital PI), com a mesma lógica de relacionamento do tipo 2.</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px">
+    ${PARC_TIPOS.map(p=>`<div style="border:1px solid ${p.cor}44;border-radius:11px;background:linear-gradient(180deg,${p.cor}0a,#0e1218);padding:13px 14px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+        <span style="font-size:14px;font-weight:800;color:${p.cor}">${esc(p.nome)}</span>
+        <span style="font-size:10px;color:#8b95a3;border:1px solid #2a2f3a;border-radius:20px;padding:1px 8px">${esc(p.dono)}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:7px;font-size:11.8px;line-height:1.5;color:#c4ccd6">
+        <div><b style="color:#ff9f7f">Dor do parceiro:</b> ${esc(p.dor)}</div>
+        <div><b style="color:${p.cor}">Oferta NETZ:</b> ${esc(p.oferta)}</div>
+        <div><b style="color:#7fe0c0">Captação:</b> ${esc(p.captacao)}</div>
+        <div><b style="color:#7Fd4ff">Relacionamento:</b> ${esc(p.relacionamento)}</div>
+        <div><b style="color:#ffd97f">Objetivo:</b> ${esc(p.objetivo)}</div>
+        <div><b style="color:#c79fff">Modelo:</b> ${esc(p.modelo)}</div>
+        <div style="border-top:1px solid #1a1e26;padding-top:6px"><b style="color:#e7edf3">KPI:</b> ${esc(p.kpi)}</div>
+        ${p.nota?`<div style="font-size:11px;color:#8b95a3;font-style:italic">${esc(p.nota)}</div>`:""}
+      </div>
+    </div>`).join("")}
+    </div>
+  </div>`;
+
   h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px">`;
+
+  h+=socCard("Plugins / extensões como POC (v2)","#7fe0c0",
+    `<div style="font-size:12.8px;line-height:1.55;color:#dce3ea">Extensão/plugin que resolve <b>1 função que o sistema do cliente não faz</b> (ex.: filtro Bling→Mercado Livre — conversa do Tomás). É a <b>segunda forma do pacote Intermediário</b>: POC de assistente OU POC de software. Mesmo corte base×personalizável (template MV3 + função do cliente). Esteira: <b>plugin → integração → assistente</b>.</div>
+     <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:9px">${["nunca especulativo — nasce de dor de cliente pagante","R$ 3–8k · 1 função · 50/50","cada plugin documenta o processo (alimenta a metodologia)","KPI: 2 pagos/tri · zero em 60 dias → arquiva datado"].map(x=>`<span style="font-size:11.5px;color:#dce3ea;border:1px solid #7fe0c044;border-radius:20px;padding:3px 9px">${x}</span>`).join("")}</div>`);
+
+  h+=socCard("Certificações & ecossistemas (v2) — a rota","#7Fd4ff",
+    `<div style="display:flex;flex-direction:column;gap:8px;font-size:12.6px;line-height:1.5;color:#dce3ea">
+      <div><b style="color:#BFFF80">Agora (jul–set · João · cap 4h/sem):</b> inscrever a NETZ no <b>Claude Partner Network</b> (Anthropic) e no <b>OpenAI Partner Network</b> (especialização Agents); trilha de certificação dos 4 sócios até out; mapear quais projetos (Corsan, Sicredi, Mintzie) contam como "caso em produção" — Select Anthropic pede 10 certificados + 2 clientes em produção + 1 caso público; ciclo de promoção: 1º/jan.</div>
+      <div><b style="color:#ffd97f">Com gatilho (decidir out/2026):</b> a plataforma-âncora — Microsoft Biz Apps × Salesforce (Agentforce, 28 badges) × <b>TOTVS</b> (volume Brasil/PME — encaixe cooperativas). Gatilho = o que a base real de clientes do T1 usa. Nenhuma antes de out.</div>
+      <div><b style="color:#9aa4b2">Fora do radar:</b> SAP, ServiceNow, Databricks/Snowflake (só com pipeline dedicado). <b style="color:#c79fff">Fase 2 (12m+):</b> certificação própria = a metodologia/Edital 02 virando selo (gatilho: nome + INPI + 3 implantações).</div>
+      <div style="font-size:11.5px;color:#8b95a3">Tese adotada do estudo: <i>uma âncora + camada de IA + marca própria</i>; eixo 2026 = "agentes sobre plataformas enterprise". Regra de contenção: certificação soma credibilidade à frente C mas não carrega a meta do tri — o que passar de 4h/sem ganha data (out), não atenção. Detalhe na aba <b>Parcerias</b>.</div>
+    </div>`);
 
   h+=socCard("Papel do Hermez no Comercial (1º fluxo)","#7fe0c0",
     `<div style="font-size:13px;line-height:1.55;color:#dce3ea">Propor ações · organizar tarefas · cobrar follow-up · gerar demanda · manter a disciplina. Mais: <b>mapear o processo de proposta</b> (e replicá-lo), ajudar na <b>precificação</b> e na <b>classificação de produtos</b>, pesquisar/mapear parceiros e IPs do Sebrae. Papel sobretudo <b>estruturante</b> agora.</div>`);
 
   h+=socCard("As 3 frentes (fontes de demanda)","#7Fd4ff",
     `<div style="display:flex;flex-direction:column;gap:9px;font-size:13px;color:#dce3ea">
-      <div><b>Parceria</b> <span style="font-size:10px;color:#BFFF80;border:1px solid #BFFF8055;border-radius:20px;padding:1px 7px">FOCO</span> — agências (site white-label/revenda/indicação) + consultorias (VX, Pulsar, Almaria, especialistas). Precisa de um programa de parceria.</div>
-      <div><b>Institucional</b> <span style="font-size:10px;color:#BFFF80;border:1px solid #BFFF8055;border-radius:20px;padding:1px 7px">FOCO</span> — Sebrae/Sistema S, editais, matchmaking. Caminho fechado (portal de fornecedores + contato com gestores).</div>
+      <div><b>Parceria</b> <span style="font-size:10px;color:#BFFF80;border:1px solid #BFFF8055;border-radius:20px;padding:1px 7px">FOCO</span> — agências (Stacke abre as portas) + consultorias (VX, Pulsar, Almaria) + alianças de ecossistema. Programa estruturado em 3 tipos (v2.1) — ver cards abaixo.</div>
+      <div><b>Institucional</b> <span style="font-size:10px;color:#BFFF80;border:1px solid #BFFF8055;border-radius:20px;padding:1px 7px">FOCO</span> — Sebrae/Sistema S <b>+ Sistema Cooperativo</b> (Sescoop/OCB/OCERGS, Escoop — a espinha do go-to-market Sul). Credenciamento + relacionamento com gestores.</div>
       <div><b>Direto</b> <span style="font-size:10px;color:#9aa4b2;border:1px solid #2a2f3a;border-radius:20px;padding:1px 7px">não é foco agora</span> — cliente final. Sem outbound pesado agora; ter só uma estratégia mínima pra quem chegar direto.</div>
     </div>`);
 
@@ -908,7 +1050,7 @@ function viewComercial(){
   h+=socCard("Os 3 pacotes (o menu)","#ffd97f",
     `<div style="display:flex;flex-direction:column;gap:9px;font-size:13px;color:#dce3ea">
       <div><b>Entrada — sites/interfaces.</b> Ticket baixo, muito case, margem menor mas escala. Automatizar ao máximo; leva junto uma amostra de assistente (esteira).</div>
-      <div><b>Intermediário — a definir</b> <span style="font-size:10px;color:#ffd97f;border:1px solid #ffd97f55;border-radius:20px;padding:1px 7px">aberto</span>. Candidatos: POC remunerada, assistente pré-formatado (produto próprio), diagnóstico/mapeamento.</div>
+      <div><b>Intermediário — POC remunerada em 2 formatos</b> <span style="font-size:10px;color:#7fe0c0;border:1px solid #7fe0c055;border-radius:20px;padding:1px 7px">v2 · 15/jul</span>: <b>assistente</b> (mapear 1 processo + implantar) ou <b>plugin/extensão</b> (1 função que o sistema não faz, R$ 3–8k). Ambos base×personalizável; ambos porta para a esteira.</div>
       <div><b>Avançado — consultoria.</b> Alto valor, personalizado (ex.: GPS de carreira ≈ R$ 100 mil). Poucos projetos, bem pagos.</div>
     </div>`);
 
@@ -960,7 +1102,15 @@ const PARKING = [
   {t:"Agente que escreve editais", cat:"Hermez/Institucional", de:"comercial pt.2",
    d:"Frente Sebrae/institucional pede um agente específico pra redigir editais/chamadas e propostas a partir do histórico e das oportunidades mapeadas. Ideia citada como 'futuro' — registrar pra puxar quando a frente institucional amadurecer."},
   {t:"Transformar projetos em vídeos (cases)", cat:"Comercial/Conteúdo", de:"comercial pt.2",
-   d:"Estratégia de relacionamento: virar cada projeto entregue em vídeo/case pra alimentar o site, os cafés com parceiros e o gancho do LinkedIn. Conecta com a fábrica de canais. Falta ritmo e dono do 'case após entrega'."}
+   d:"Estratégia de relacionamento: virar cada projeto entregue em vídeo/case pra alimentar o site, os cafés com parceiros e o gancho do LinkedIn. Conecta com a fábrica de canais. Falta ritmo e dono do 'case após entrega'."},
+  {t:"Plugins / extensões de Chrome como produto", cat:"Produto", de:"check-out", status:"com data",
+   d:"Ideia do Gui (via Tomás): um plugin/extensão que faz UMA função específica que o ERP/site do cliente não faz (ex.: filtro no Bling pra despacho no Mercado Livre). É um 'meio do caminho' comercial de baixa fricção que pode virar sistema integrado (porta pra IA). Excelente — mas é uma frente NOVA: estacionar com data pra não competir com o site/agências agora. Volta quando o fruto desta rodada estiver no ar."},
+  {t:"Hermez computa os números dos cases", cat:"Hermez/Produto", de:"reunião site + check-out",
+   d:"Automatizar a comprovação: o Hermez computa os números do projeto enquanto ele roda (uma pasta 'números/resultados' que ele consulta), pra alimentar os cases sem depender de memória. Ligado à ideia do Strapi (formulário pra jogar os dados do case). Citado como 'futuro' — puxar quando houver volume de cases."},
+  {t:"Número business / WhatsApp da NETZ", cat:"Operação", de:"reunião site",
+   d:"O WhatsApp do site hoje cai no telefone pessoal do João. Providenciar um número business/virtual da NETZ (hoje dá pra comprar número virtual). 'Depois a gente vê' — mas é risco real de relacionamento/imagem. Barato de resolver."},
+  {t:"Integração site↔ERP / dados interconectados ('Neonzão')", cat:"Produto/Infra", de:"check-out",
+   d:"Visão do Gui: o site conectar com o ERP do cliente; e, internamente, vários bancos interconectados num banco maior que alimenta o comercial. Infra de dados de médio/longo prazo — registrar como visão, não abrir agora."}
 ];
 function viewParking(){
   let h=`<p class="tab-intro">Ideias que foram <b>citadas mas não endereçadas</b> — pra não morrerem na conversa. Não são decisões; são coisas a puxar quando fizer sentido (com dono e data).</p>`;
@@ -1081,7 +1231,7 @@ const CRONOGRAMA = [
     objetivo:"Aterrissar juntos, soltar a cabeça e criar sem cobrança. Hoje não é dia de cabeção.",
     pauta:["Som livre e experimento aberto — sintetizar, trocar, brincar.","Mostrar os vídeos de bobeira que ficaram guardados.","Trocar referências acumuladas (pra soltar, não pra virar estudo).","Deixar o clima pronto pra segunda."],
     saida:"Cabeça leve. Nada obrigatório." },
-  { dia:"Segunda", turno:"Manhã", bloco:"Compromissos externos", tag:"externo", status:"",
+  { dia:"Segunda", turno:"Manhã", bloco:"Compromissos externos", tag:"externo", status:"✅ concluído",
     objetivo:"Cada um resolve o externo antes do bloco coletivo.",
     pauta:["Gui finaliza o site.","Espaço individual pra projetos externos / foco.","Combinar o horário de início do Society (sugestão: 11h) e montar a 'sala de reunião' (quiosque/quarto) pra quem tiver call."],
     saida:"Externos encaminhados; horário do Society combinado.", nota:"O Society começa no fim da manhã, quando o Gui liberar." },
@@ -1099,22 +1249,131 @@ const CRONOGRAMA = [
   { dia:"Segunda", turno:"Noite", bloco:"Labz", tag:"labs", status:"",
     objetivo:"Criação solta — recarrega a cabeça depois do dia denso.",
     pauta:["Experimentos, som, referência boa.","Seguir o que animar."], saida:"" },
-  { dia:"Terça", turno:"Manhã", bloco:"Foco (projetos)", tag:"foco", status:"",
+  { dia:"Terça", turno:"Manhã", bloco:"Foco (projetos)", tag:"foco", status:"✅ concluído",
     objetivo:"Trabalho profundo, sem barulho.",
     pauta:["Stacke: compromisso da manhã.","Projetos externos / foco individual; quem quiser segue no Labz."],
     saida:"", nota:"Usar a 'sala de reunião' pra quem tiver call." },
-  { dia:"Terça", turno:"Tarde", bloco:"Iniciativas", tag:"iniciativas", status:"",
+  { dia:"Terça", turno:"Tarde", bloco:"Iniciativas", tag:"iniciativas", status:"✅ concluído",
     objetivo:"Escolher UMA iniciativa e frutificar — terminar algo de verdade.",
     pauta:["Produtizar / 'qual o produto?': fechar o nó do comercial. Escolher UM produto e dar foco, matando as outras opções por escrito (senão a semana fica órfã disso).","Site: dar como PRONTO — trabalhar junto (abre branch → finaliza função → merge) e jogar pra dentro do Hermez. Olhar as mudanças que o Mintzie sugeriu no site.","Hermez: o que falta pra considerar pronto (definir a linha de chegada); a 'revistinha'; o papel dele como cérebro e motor de ritmo.","Canais de YouTube: decidir se é iniciativa própria ou Labz; a 'fábrica de canais' (um ajuda o do outro — arte, animação, edição em rede)."],
-    saida:"1 ferramenta dada como pronta OU o produto escolhido com o próximo passo (dono + data)." },
+    saida:"Escolhido: o SITE como iniciativa-âncora (o fruto desta rodada) — lista de tarefas por seção na reunião de 14/jul. Produto elevado à metodologia de assistentes (aba Edital PI); nichos priorizados (aba Referências).",
+    links:[{label:"📄 Transcrição da reunião do site", href:"/reuniao-site.html"},{label:"→ ver tarefas (Site)", tab:"site"},{label:"→ Fechamento", tab:"fechamento"}] },
   { dia:"Terça", turno:"Noite", bloco:"Labz", tag:"labs", status:"",
     objetivo:"O último Labz — fechar os experimentos abertos.", pauta:[], saida:"" },
-  { dia:"Quarta", turno:"—", bloco:"Fechamento", tag:"fechamento", status:"",
-    objetivo:"Consolidar e sair com o concreto (saídas entre terça-noite e quarta).",
+  { dia:"Quarta", turno:"—", bloco:"Fechamento", tag:"fechamento", status:"🟢 agora",
+    objetivo:"Consolidar e sair com o concreto (saídas entre terça-noite e quarta). É agora.",
     pauta:["Virar as decisões em linhas com dono + data: sociedade/consequência, metas financeiras, produto escolhido, editais inscritos, parcerias.","Debriefing do projeto Sicredi/Cred: o que aprendemos e o que NÃO repetir (dedicar tempo demais, entregar além do combinado).","Registrar tudo (Hermez/painel) — pra não virar 'mais micélio sem fruto'.","Volta ao mundo."],
-    saida:"A lista de compromissos com dono + data, registrada." }
+    saida:"A lista de compromissos com dono + data, registrada.",
+    links:[{label:"→ abrir Fechamento (conquistas · o que falta · roteiro)", tab:"fechamento"}] }
 ];
 const CRONO_FIOS = ["Qual o produto único — e as outras opções mortas por escrito.","A regra de consequência (o 'vergonha na cara') — escrita e valendo.","Metas financeiras em R$ — por sócio e da empresa.","Dono + data pra cada frente.","Um primeiro fruto exposto ainda dentro da imersão (um edital inscrito, uma ferramenta pronta, um passo comercial dado)."];
+
+// ====================== FECHAMENTO DA IMERSÃO ======================
+const FECH_CONQUISTAS = [
+  {t:"Sociedade & ritmo", st:"fechado", c:"#BFFF80", d:"13h/semana por sócio, R$50/tarefa, definição de pronto, cadência terça-a-terça, fonte da verdade e meta R$695.952/ano."},
+  {t:"Produto elevado", st:"definido", c:"#7Fd4ff", d:"A metodologia de assistentes que conduzem por processos: base×personalizável, 5 problemas SPIN, 3 pacotes (aba Edital PI)."},
+  {t:"Nichos priorizados", st:"mapeado", c:"#ffd97f", d:"Consórcio Pulsar·Uttana·VIEX: ranking de 20 subsegmentos, 3 ondas, top-5 fichas, cases-âncora (aba Referências)."},
+  {t:"Rota de aquisição", st:"refinada", c:"#c79fff", d:"Foco em parceria + institucional; site = infra/vitrine; Hermez dono do funil (D+2/D+5/D+10)."},
+  {t:"Site = iniciativa-âncora", st:"em execução", c:"#7fe0c0", d:"Escolhido como o fruto desta rodada; lista de tarefas por seção da reunião de 14/jul (aba Site)."},
+  {t:"Narrativa que disciplina", st:"adotada", c:"#ff9f7f", d:"Micélio/fruto virou verbo operacional: 'frutificar' = terminar e expor."},
+  {t:"Infra do acervo", st:"vivo", c:"#9aa4b2", d:"Painel = cérebro do Mintzie (24 docs), PI corrigido, estudo de parcerias, processo de higiene + check, deep-links por aba."}
+];
+const FECH_FALTA = [
+  {t:"Voz do cliente pagante", c:"#ff9f7f", d:"O ponto cego nº 1: ninguém confirmou que paga o preço, no nicho, pela dor.", crit:"POC pago com o Rafa (Pacote 2) — contrato assinado"},
+  {t:"Nicho de largada", c:"#ff9f7f", d:"A metodologia unificou o 'o quê', mas o setor de largada segue aberto.", crit:"escolhido e escrito (reanálise sugere obra p/ provar; saúde/varejo p/ escalar)"},
+  {t:"Nome do método + INPI", c:"#ffd97f", d:"O método precisa de nome (registrável) e proteção antes de expor.", crit:"nome escolhido + INPI protocolado (CNPJ da NETZ)"},
+  {t:"Meta decomposta por frente", c:"#ffd97f", d:"A meta não fecha vendendo hora (T1) — só por alavancagem.", crit:"C/A/B em reais, com as horas alinhadas"},
+  {t:"Conciliar as 2 definições de produto", c:"#7Fd4ff", d:"Assistentes+POC (Edital PI) × aprendizagem/nichos (consórcio).", crit:"fundidas numa esteira única, 1 doc só"},
+  {t:"Hermez faz UMA coisa até o fim", c:"#7Fd4ff", d:"Antes de qualquer inteligência comercial.", crit:"digest de terça 05:00 rodando sozinho por 2 semanas"},
+  {t:"Site pronto de verdade", c:"#7fe0c0", d:"Tarefas da reunião + raiz vazia + agent-readiness; e a bandeira de confidencialidade do saneamento.", crit:"no ar, com dono e data"}
+];
+const FECH_ROTEIRO = [
+  {n:"1", t:"Rever as frentes", d:"Produto · Comercial · Site · Hermez · Canais. Para cada: o que é pronto, quem é dono, quando entrega."},
+  {n:"2", t:"Confirmar a frente-âncora", d:"Menor dependência externa + maior clareza de pronto = o Site (já escolhido). É por onde a rodada frutifica."},
+  {n:"3", t:"Estacionar o resto por escrito", d:"Para cada iniciativa não escolhida: por que não agora, o que a faz voltar, onde fica guardada (parking lot)."},
+  {n:"4", t:"Escrever a saída", d:"Iniciativa escolhida · definição de pronto · dono · data · próximo passo. É a saída obrigatória do momento."}
+];
+const FECH_COMPROMISSOS = [
+  {n:"Denis", c:"#BFFF80", d:"Hermez como gestor de tarefas (cobrança diária); puxar as frentes agências + site; ≥2 reuniões com agências na semana. Propôs os pares de revisão."},
+  {n:"João", c:"#7Fd4ff", d:"Dono do comercial: funis/frentes/produtos; +1 revisão de copy no ar; foco em consultorias + Sebrae. Já bloqueou os blocos de 13h na agenda."},
+  {n:"Stacke", c:"#c79fff", d:"Pipeline de conteúdo: arte pra LinkedIn a partir de blog/cases, sempre levando ao site. Comercial das agências; testar o portal com a Blue."},
+  {n:"Gui", c:"#ffd97f", d:"Execução do site + operacional das agências (Denis no relacionamento) + estrutura de dados/agentes. Levantou: decompor a meta / precificação."},
+  {n:"Todos", c:"#7fe0c0", d:"Bloquear as 13h em blocos síncronos (dupla no Discord); não abrir exceções nas regras; exigência consigo primeiro."}
+];
+const FECH_IDEIAS = [
+  "Case × Blog: falar dos problemas comuns que enfrentamos → SEO + autoridade → vira case (agentes, sistemas multiagênticos, gestão de tarefas).",
+  "Plugins / extensões de Chrome como produto: função específica que o ERP/site do cliente não faz (ex.: Bling → Mercado Livre) — porta de baixa fricção.",
+  "Pipeline de conteúdo LinkedIn↔site (arte a partir de blog/cases, sempre puxando pro site).",
+  "Pares de revisão: a dupla que toca × a dupla que revisa de fora.",
+  "Blocos de agenda síncronos — trabalhar em dupla no Discord, recuperar a intensidade do presencial.",
+  "Manter parceiros atualizados com conteúdo (diferente por parceiro); over-delivery + follow-up pós-entrega."
+];
+function viewFechamento(){
+  let h=`<div class="sint-kicker" style="color:#BFFF80">Fechamento da INVERNETZ 2026 · dia de frutificar</div>`;
+  h+=`<h2 class="sint-tese-titulo" style="margin-top:6px">A imersão ligou o motor. Falta um fruto no ar.</h2>`;
+  h+=`<p class="sint-tese-p">A NETZ de hoje não é a de dez dias atrás: virou o diagnóstico incômodo em acordo com número, dono e consequência — isso é raro. O risco não sumiu, ele se sofisticou (da paralisia para a reexpansão). O critério de sucesso deste fechamento é um só: <b>frutos expostos, não frentes abertas</b>.</p>`;
+
+  // regra do momento
+  h+=`<div style="margin:4px 0 24px;padding:13px 16px;border:1px solid #BFFF8044;background:#BFFF800d;border-left:3px solid #BFFF80;border-radius:10px;font-size:13px;line-height:1.6;color:#e7edf3"><b style="color:#BFFF80">A saída obrigatória.</b> Sair da imersão com pelo menos <b>uma coisa dada como pronta</b>, OU <b>um produto escolhido com dono, data e próxima entrega</b>. O mínimo — mas por escrito.</div>`;
+
+  // CONQUISTAS
+  h+=`<div class="sint-sec-label">O que conquistamos</div>`;
+  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:11px;margin-bottom:26px">`;
+  FECH_CONQUISTAS.forEach(k=>{
+    h+=`<div style="border:1px solid #262b34;border-top:3px solid ${k.c};border-radius:11px;background:linear-gradient(180deg,#12161d,#0e1218);padding:12px 14px">
+      <div style="display:flex;align-items:baseline;gap:7px;flex-wrap:wrap;margin-bottom:5px"><span style="font-size:13.5px;font-weight:700;color:#e7edf3">${esc(k.t)}</span><span style="font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;font-weight:700;color:${k.c};border:1px solid ${k.c}55;border-radius:20px;padding:1px 7px">${esc(k.st)}</span></div>
+      <div style="font-size:12.3px;color:#c4ccd6;line-height:1.5">${esc(k.d)}</div>
+    </div>`;
+  });
+  h+=`</div>`;
+
+  // O QUE FALTA
+  h+=`<div class="sint-sec-label">O que está faltando — cada um com critério de pronto</div>`;
+  h+=`<div style="display:flex;flex-direction:column;gap:9px;margin-bottom:26px">`;
+  FECH_FALTA.forEach(x=>{
+    h+=`<div style="border:1px solid #262b34;border-left:3px solid ${x.c};border-radius:11px;background:#0e1218;padding:12px 14px">
+      <div style="font-size:13.5px;font-weight:700;color:#e7edf3;margin-bottom:4px">${esc(x.t)}</div>
+      <div style="font-size:12.3px;color:#c4ccd6;line-height:1.5;margin-bottom:6px">${esc(x.d)}</div>
+      <div style="font-size:12px;color:#dce3ea;background:#12161d;border-radius:8px;padding:6px 10px"><span style="font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;font-weight:700;color:${x.c};margin-right:6px">pronto quando</span>${esc(x.crit)}</div>
+    </div>`;
+  });
+  h+=`</div>`;
+
+  // ROTEIRO DE FECHAMENTO
+  h+=`<div class="sint-sec-label">Roteiro do fechamento</div>`;
+  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-bottom:20px">`;
+  FECH_ROTEIRO.forEach(p=>{
+    h+=`<div style="border:1px solid #262b34;border-radius:11px;background:#10141b;padding:12px 14px">
+      <div style="display:flex;align-items:center;gap:9px;margin-bottom:5px"><span style="flex:none;width:24px;height:24px;border-radius:50%;background:#BFFF8022;border:1px solid #BFFF8066;color:#BFFF80;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center">${p.n}</span><span style="font-size:13.5px;font-weight:700;color:#e7edf3">${esc(p.t)}</span></div>
+      <div style="font-size:12.2px;color:#c4ccd6;line-height:1.5">${esc(p.d)}</div>
+    </div>`;
+  });
+  h+=`</div>`;
+
+  // COMPROMISSOS DO CHECK-OUT
+  h+=`<div class="sint-sec-label">Compromissos do check-out (15/jul) — a saída, por escrito</div>`;
+  h+=`<div style="margin-bottom:12px"><a href="/checkout-invernetz.html" target="_blank" rel="noopener" style="text-decoration:none;color:#7Fd4ff;border:1px solid #7Fd4ff44;border-radius:8px;padding:7px 13px;font-size:12.5px">📄 Transcrição do check-out</a></div>`;
+  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px;margin-bottom:24px">`;
+  FECH_COMPROMISSOS.forEach(x=>{
+    h+=`<div style="border:1px solid #262b34;border-left:3px solid ${x.c};border-radius:11px;background:#10141b;padding:12px 14px">
+      <div style="font-size:13.5px;font-weight:800;color:${x.c};margin-bottom:4px">${esc(x.n)}</div>
+      <div style="font-size:12.2px;color:#c4ccd6;line-height:1.5">${esc(x.d)}</div>
+    </div>`;
+  });
+  h+=`</div>`;
+
+  // NOVAS IDEIAS DO CHECK-OUT
+  h+=`<div class="sint-sec-label">Novas ideias do check-out</div>`;
+  h+=`<div style="display:flex;flex-direction:column;gap:7px;margin-bottom:26px">`+FECH_IDEIAS.map(x=>`<div style="border:1px solid #262b34;border-radius:10px;background:#0e1218;padding:10px 13px;font-size:12.3px;line-height:1.5;color:#dce3ea"><span style="color:#BFFF80;margin-right:6px">✦</span>${esc(x)}</div>`).join("")+`</div>`;
+
+  // O PRÓXIMO FRUTO
+  h+=`<div style="border:1px solid #262b34;border-radius:12px;background:linear-gradient(180deg,#12161d,#0e1218);padding:15px 17px">
+    <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7fe0c0;font-weight:700;margin-bottom:9px">O próximo fruto (60 dias, não 600)</div>
+    <div style="font-size:13.5px;line-height:1.65;color:#e7edf3">Frutificar não é decidir a metodologia mais elegante. É <b>o Rafa assinar um POC</b>, <b>o Mintzie no ar</b>, <b>o método com nome registrado</b> e <b>um case publicado</b>. Vocês provaram que sabem decidir — falta provar, com um cliente e um contrato, que decidiram a coisa certa.</div>
+    <div style="margin-top:11px;font-size:11.5px;color:#9aa4b2">O plano de 90 dias por ciclos está na aba <b>Fable</b> (reanálise pós-INVERNETZ). As tarefas do fruto desta rodada, na aba <b>Site</b>.</div>
+  </div>`;
+  return h;
+}
 
 function viewCronograma(){
   let h=`<p class="tab-intro">${esc(CRONO_INTRO)}</p>`;

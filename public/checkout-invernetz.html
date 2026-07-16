@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>NETZ · Check-out da imersão</title>
+<link rel="icon" type="image/svg+xml" href="/brand/netz-symbol.svg">
+<style>
+  :root{ --bg:#0e1218; --card:#12161d; --line:#262b34; --ink:#e7edf3; --dim:#9aa4b2; --green:#BFFF80; }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding:32px 20px 80px}
+  .wrap{max-width:820px;margin:0 auto}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:6px}
+  a.back{color:var(--green);text-decoration:none;font-size:13px;border:1px solid #BFFF8055;border-radius:8px;padding:6px 12px}
+  a.back:hover{background:rgba(155,230,90,.09)}
+  h1{font-size:24px;margin:10px 0 2px}
+  .meta{color:var(--dim);font-size:13px;margin-bottom:8px}
+  .badge{font-size:9.5px;letter-spacing:.14em;color:#ff9f7f;border:1px solid #ff9f7f66;border-radius:20px;padding:2px 8px;text-transform:uppercase}
+  .turn{padding:9px 0;border-bottom:1px solid #191e26;display:flex;gap:12px;align-items:baseline}
+  .who{flex:0 0 96px;font-weight:700;font-size:12px;color:var(--green)}
+  .ts{color:#6f7a89;font-size:11px;font-family:ui-monospace,Menlo,monospace}
+  .txt{color:#dce3ea}
+  #loading{color:var(--dim)}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <a class="back" href="/painel">← voltar ao painel</a>
+      <span class="badge">🔒 Interno · Confidencial</span>
+    </div>
+    <h1>Check-out da INVERNETZ 2026 — transcrição</h1>
+    <div class="meta">Rodada de fechamento (15/jul/2026). Compromissos e ideias destilados em Painel → Fechamento.</div>
+    <div id="out"><p id="loading">Carregando transcrição…</p></div>
+  </div>
+<script>
+(async function(){
+  const out=document.getElementById("out");
+  try{
+    const r=await fetch("/checkout-invernetz.md",{cache:"no-store"});
+    const md=await r.text();
+    const esc=s=>s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+    let html="";
+    md.split(/\r?\n/).forEach(line=>{
+      line=line.trim(); if(!line) return;
+      if(line.startsWith("# ")){ return; }                 // título já está no H1
+      if(line.startsWith("**Meeting Date")){ document.querySelector(".meta").textContent = esc(line.replace(/\*\*/g,"").trim()) + " · transcrição automática, para revisão."; return; }
+      if(line==="---") return;
+      const m=line.match(/^\*\*(.+?)\*\*\s*\*\[(.+?)\]\*:\s*([\s\S]*)$/);
+      if(m){ html+=`<div class="turn"><span class="who">${esc(m[1])}</span><span class="txt"><span class="ts">[${esc(m[2])}]</span> ${esc(m[3])}</span></div>`; }
+      else { html+=`<div class="turn"><span class="who"></span><span class="txt">${esc(line)}</span></div>`; }
+    });
+    out.innerHTML=html||"<p>Transcrição vazia.</p>";
+  }catch(e){ out.innerHTML="<p style='color:#ff9f7f'>Não consegui carregar a transcrição ("+esc(String(e.message))+").</p>"; }
+})();
+</script>
+</body>
+</html>

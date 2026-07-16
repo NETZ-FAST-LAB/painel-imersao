@@ -12,3 +12,6 @@ node_modules/
 # artefatos de desenvolvimento, fontes brutas e backups (ficam só na máquina)
 _dev/
 uploads/
+
+# o repositório do site (clonado aqui só para análise) tem git próprio — não versionar aqui
+site-netz-2026-astro/
